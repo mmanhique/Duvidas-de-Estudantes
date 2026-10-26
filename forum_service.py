@@ -1,10 +1,12 @@
+import os
 import sqlite3
 import json
 import datetime
 from pathlib import Path
 import db_mongo
 
-DB_PATH = Path(__file__).resolve().parent / "forum.db"
+_DEFAULT_DB_DIR = Path("/tmp") if os.environ.get("VERCEL") or not os.access(Path(__file__).resolve().parent, os.W_OK) else Path(__file__).resolve().parent
+DB_PATH = _DEFAULT_DB_DIR / "forum.db"
 
 def get_connection():
     conn = sqlite3.connect(str(DB_PATH))

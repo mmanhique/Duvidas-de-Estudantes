@@ -57,6 +57,8 @@ Sempre que uma pergunta estiver fora do seu âmbito de especialização (por exe
 """
 
 def query_ollama(model_name, messages):
+    if os.environ.get("VERCEL") and ("localhost" in OLLAMA_HOST or "127.0.0.1" in OLLAMA_HOST):
+        raise ConnectionError("Ollama local indisponível em ambiente Serverless (Vercel).")
     url = f"{OLLAMA_HOST}/api/chat"
     payload = {
         "model": model_name,
@@ -100,6 +102,8 @@ def log_model_failure(model_name, user_query, reason, exc=None):
     print(f"  -> Acção de Recurso  : Encaminhado para o Motor Académico FE-UEM\n", flush=True)
 
 def get_installed_ollama_models():
+    if os.environ.get("VERCEL") and ("localhost" in OLLAMA_HOST or "127.0.0.1" in OLLAMA_HOST):
+        return []
     try:
         url = f"{OLLAMA_HOST}/api/tags"
         req = urllib.request.Request(url, method="GET")
@@ -575,6 +579,17 @@ def generate_academic_fallback_response(user_query, model_tried=""):
     return format_response_with_question_header(notice + content, user_query)
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
+_server_initialized = False
+
+def ensure_initialized():
+    global _server_initialized
+    if not _server_initialized:
+        try:
+            forum_service.init_db()
+            auth_service.init_users_and_roles()
+        except Exception as e:
+            print(f"[INIT WARNING] {e}")
+        _server_initialized = True
 
 class IOAssistantHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -604,6 +619,7 @@ class IOAssistantHandler(SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
 
     def do_GET(self):
+        ensure_initialized()
         # 1. Autenticação e Perfil
         if self.path == "/api/auth/me":
             user = self.get_current_user()
@@ -743,6 +759,7 @@ class IOAssistantHandler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        ensure_initialized()
         # 1. Registo de Novo Utilizador
         if self.path == "/api/auth/register":
             content_length = int(self.headers.get("Content-Length", 0))
@@ -1129,9 +1146,11 @@ class IOAssistantHandler(SimpleHTTPRequestHandler):
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
+# Ponto de entrada para Vercel Serverless (@vercel/python)
+handler = IOAssistantHandler
+
 def run_server():
-    forum_service.init_db()
-    auth_service.init_users_and_roles()
+    ensure_initialized()
     db_stat = db_mongo.get_db_status()
     server_address = ("", PORT)
     httpd = ThreadedHTTPServer(server_address, IOAssistantHandler)

@@ -32,14 +32,132 @@ def sanitize_user(user_doc: Dict[str, Any]) -> Dict[str, Any]:
     return clean
 
 # ==============================================================================
+# FALLBACK EM MEMÓRIA PARA AMBIENTES SERVERLESS (VERCEL) OU OFFLINE SEM MONGODB
+# ==============================================================================
+
+class _FallbackCollection:
+    def __init__(self):
+        self._docs: List[Dict[str, Any]] = []
+
+    def create_index(self, *args, **kwargs):
+        return None
+
+    def _matches(self, doc: Dict[str, Any], query: Dict[str, Any]) -> bool:
+        for k, v in query.items():
+            val = doc.get(k)
+            if isinstance(v, dict) and "$in" in v:
+                if val not in v["$in"]:
+                    return False
+            elif val != v:
+                return False
+        return True
+
+    def count_documents(self, query: Dict[str, Any]) -> int:
+        return sum(1 for d in self._docs if self._matches(d, query))
+
+    def insert_one(self, doc: Dict[str, Any]):
+        self._docs.append(dict(doc))
+
+    def insert_many(self, docs: List[Dict[str, Any]]):
+        for d in docs:
+            self._docs.append(dict(d))
+
+    def find_one(self, query: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        for d in self._docs:
+            if self._matches(d, query):
+                return dict(d)
+        return None
+
+    def find(self, query: Dict[str, Any], projection: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        results = []
+        for d in self._docs:
+            if self._matches(d, query):
+                copy_d = dict(d)
+                if projection:
+                    for pk, pv in projection.items():
+                        if pv == 0:
+                            copy_d.pop(pk, None)
+                results.append(copy_d)
+        return results
+
+    def _apply_set(self, target: Dict[str, Any], fields: Dict[str, Any]):
+        for fk, fv in fields.items():
+            if "." in fk:
+                parts = fk.split(".")
+                curr = target
+                for p in parts[:-1]:
+                    if p not in curr or not isinstance(curr[p], dict):
+                        curr[p] = {}
+                    curr = curr[p]
+                curr[parts[-1]] = fv
+            else:
+                target[fk] = fv
+
+    def update_one(self, query: Dict[str, Any], update: Dict[str, Any], upsert: bool = False):
+        for d in self._docs:
+            if self._matches(d, query):
+                if "$set" in update:
+                    self._apply_set(d, update["$set"])
+                return
+        if upsert:
+            new_doc = dict(query)
+            if "$setOnInsert" in update:
+                self._apply_set(new_doc, update["$setOnInsert"])
+            if "$set" in update:
+                self._apply_set(new_doc, update["$set"])
+            self._docs.append(new_doc)
+
+    def update_many(self, query: Dict[str, Any], update: Dict[str, Any]):
+        for d in self._docs:
+            if self._matches(d, query) and "$set" in update:
+                self._apply_set(d, update["$set"])
+
+    def delete_one(self, query: Dict[str, Any]):
+        for i, d in enumerate(self._docs):
+            if self._matches(d, query):
+                self._docs.pop(i)
+                return
+
+    def delete_many(self, query: Dict[str, Any]):
+        self._docs = [d for d in self._docs if not self._matches(d, query)]
+
+    def aggregate(self, pipeline: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        if not self._docs:
+            return []
+        scores = [d.get("quiz_score", 0) for d in self._docs if isinstance(d.get("quiz_score"), (int, float))]
+        avg = (sum(scores) / len(scores)) if scores else 0
+        return [{"_id": None, "avg_score": avg}]
+
+
+class _FallbackDB:
+    def __init__(self):
+        self.Users = _FallbackCollection()
+        self.sessions = _FallbackCollection()
+        self.student_progress = _FallbackCollection()
+        self.threads = _FallbackCollection()
+        self.replies = _FallbackCollection()
+
+
+_fallback_db = _FallbackDB()
+
+
+def _get_auth_db():
+    if db_mongo.is_connected():
+        db = _get_auth_db()
+        if db is not None:
+            return db
+    return _fallback_db
+
+
+# ==============================================================================
 # INICIALIZAÇÃO E CONTAS INSTITUCIONAIS PRÉ-CONFIGURADAS (FE-UEM)
 # ==============================================================================
 
 def init_users_and_roles():
     """Garante a existência de índices e das contas institucionais padrão."""
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
-        print("[AUTH SERVICE] Erro: MongoDB Atlas indisponível para inicializar utilizadores.")
+        print("[AUTH SERVICE] Erro: Base de dados indisponível para inicializar utilizadores.")
         return False
 
     # 1. Criar índices únicos
@@ -155,7 +273,7 @@ def register_user(
     student_number: Optional[str] = None,
     course_department: Optional[str] = None
 ) -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         raise RuntimeError("Base de dados MongoDB Atlas inacessível.")
 
@@ -222,7 +340,7 @@ def register_user(
     }
 
 def login_user(email: str, password: str) -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         raise RuntimeError("Base de dados MongoDB Atlas inacessível.")
 
@@ -266,7 +384,7 @@ def login_user(email: str, password: str) -> Dict[str, Any]:
 def get_user_from_token(token: Optional[str]) -> Optional[Dict[str, Any]]:
     if not token:
         return None
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return None
 
@@ -287,7 +405,7 @@ def get_user_from_token(token: Optional[str]) -> Optional[Dict[str, Any]]:
     return sanitize_user(user)
 
 def logout_user(token: str) -> bool:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return False
     db.sessions.delete_one({"session_token": token})
@@ -298,7 +416,7 @@ def logout_user(token: str) -> bool:
 # ==============================================================================
 
 def request_password_reset(email: str) -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         raise RuntimeError("Base de dados inacessível.")
 
@@ -325,7 +443,7 @@ def request_password_reset(email: str) -> Dict[str, Any]:
     }
 
 def complete_password_reset(email: str, reset_code: str, new_password: str) -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         raise RuntimeError("Base de dados inacessível.")
 
@@ -379,7 +497,7 @@ def list_academic_users(requester_role: str) -> List[Dict[str, Any]]:
     if requester_role not in ["teacher_regent", "teacher_assistant"]:
         raise PermissionError("Acesso reservado aos docentes da disciplina.")
 
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return []
 
@@ -397,7 +515,7 @@ def update_user_status_and_role(
     if requester_user.get("role") != "teacher_regent":
         raise PermissionError("Apenas o Docente Regente possui competência para gerir permissões e autorizar docentes.")
 
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         raise RuntimeError("Base de dados inacessível.")
 
@@ -444,14 +562,14 @@ def update_user_status_and_role(
 # ==============================================================================
 
 def get_student_progress(email: str) -> List[Dict[str, Any]]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return []
     records = list(db.student_progress.find({"email": email}, {"_id": 0}))
     return records
 
 def record_student_activity(email: str, module_id: str, section_completed: Optional[str] = None, quiz_score: Optional[int] = None) -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return {}
 
@@ -496,7 +614,7 @@ def record_student_activity(email: str, module_id: str, section_completed: Optio
     return update_payload
 
 def get_academic_analytics_summary() -> Dict[str, Any]:
-    db = db_mongo.get_db()
+    db = _get_auth_db()
     if db is None:
         return {}
 
