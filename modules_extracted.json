@@ -1,0 +1,583 @@
+{
+  "Programação Linear": {
+    "id": "linear-programming",
+    "title": "Módulo 1: Programação Linear e Modelação Matemática",
+    "subtitle": "Concepção de Modelos de Decisão Óptima em Sistemas de Engenharia",
+    "duration": "4 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Álgebra Linear (Espaços Vetoriais, Matrizes e Sistemas Lineares) e Cálculo Diferencial a Várias Variáveis",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional / Pesquisa Operacional",
+      "code": "ENG-IO-01",
+      "workload": "4h Teórico-Práticas + 6h Estudo Autónomo",
+      "keywords": [
+        "Programação Linear",
+        "Função Objectivo",
+        "Região de Viabilidade",
+        "Poliedro Convexo",
+        "Modelação Industrial"
+      ]
+    },
+    "introduction": "\n      A <strong>Programação Linear (PL)</strong> constitui um dos pilares fundamentais da Investigação Operacional contemporânea, tendo a sua génese formal nos trabalhos pioneiros de Leonid Kantorovich (1939) na optimização da produção industrial e de George Dantzig (1947) no desenvolvimento do método Simplex.\n      <br><br>\n      No contexto da Engenharia Moderna (produção industrial, redes de distribuição eléctrica, gestão portuária e logística de transportes em Moçambique), os recursos produtivos — tais como matérias-primas, energia, capacidade instalada de maquinaria, capital e tempo de mão-de-obra — são estritamente finitos. A Programação Linear fornece o arcaboiço analítico rigoroso que permite formalizar matematicamente problemas complexos de alocação de recursos, determinando de forma inequívoca o plano operacional que maximiza o rendimento (ou minimiza os custos operacionais), cumprindo a totalidade das restrições tecnológicas, ambientais e contratuais.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Interpretar os postulados axiomáticos da Programação Linear (proporcionalidade, aditividade, divisibilidade e determinismo)."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Construir formulações matemáticas rigorosas para problemas reais de produção, misturas e alocação de recursos."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Examinar geometricamente e algebricamente o espaço de soluções, identificando vértices, poliedros e a existência de soluções óptimas."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Diagnosticar cenários operacionais especiais: soluções múltiplas alternativas, infactibilidade (inviabilidade) e soluções ilimitadas."
+      }
+    ],
+    "competencies": [
+      "Capacidade de tradução de especificações técnicas de engenharia em modelos matriciais analíticos.",
+      "Identificação rigorosa de variáveis de decisão, equações de balanço e inequações de restrição.",
+      "Domínio da representação canónica e padrão de problemas de optimização contínua.",
+      "Análise de consistência dimensional em funções objectivo e parâmetros tecnológicos."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Axiomas da Programação Linear:</strong>\n        <ul>\n          <li><strong>Proporcionalidade:</strong> A contribuição de cada variável de decisão para a função objectivo e para as restrições é estritamente proporcional ao seu valor numérico.</li>\n          <li><strong>Aditividade:</strong> O efeito conjunto de duas ou mais variáveis é a soma estrita dos efeitos individuais, inexistindo termos cruzados ou interacções não-lineares ($x_i x_j$).</li>\n          <li><strong>Divisibilidade:</strong> As variáveis de decisão admitem valores fraccionários contínuos ($x_j \\in \\mathbb{R}^+$).</li>\n          <li><strong>Determinismo:</strong> Todos os parâmetros do modelo ($c_j, a_{ij}, b_i$) são constantes conhecidas a priori com certeza absoluta.</li>\n        </ul>\n      </div>\n      <div class=\"concept-block\">\n        <strong>Definições Topológicas:</strong>\n        <ul>\n          <li><strong>Conjunto Convexo:</strong> Um conjunto $S \\subset \\mathbb{R}^n$ é convexo se, para quaisquer dois pontos $\\mathbf{x}_1, \\mathbf{x}_2 \\in S$, o segmento de recta que os une pertence integralmente a $S$: $\\lambda \\mathbf{x}_1 + (1-\\lambda)\\mathbf{x}_2 \\in S, \\forall \\lambda \\in [0, 1]$.</li>\n          <li><strong>Ponto Extremo (Vértice):</strong> Um ponto $\\mathbf{x} \\in S$ é extremo se não puder ser expresso como combinação convexa estrita de dois outros pontos distintos de $S$.</li>\n        </ul>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Teorema Fundamental da Programação Linear:</strong><br>\n        <em>Seja um problema de Programação Linear em forma canónica com uma região de viabilidade $S \\neq \\emptyset$ não-vazia e limitada (politopo convexo). Se a função objectivo $Z = \\mathbf{c}^T \\mathbf{x}$ admitir uma solução óptima finita, então pelo menos um ponto extremo (vértice) do poliedro de restrições é uma solução óptima.</em>\n      </div>\n      <p>\n        <strong>Consequência Algorítmica:</strong> Em vez de avaliar um contínuo infinito de soluções na região de viabilidade $S$, a busca pela solução óptima restringe-se ao conjunto discreto e finito de vértices do poliedro, fundamento directo do Método Simplex de George Dantzig.\n      </p>\n    ",
+    "mathematicalFormulation": "\n      <p>A formulação canónica geral de um problema de Programação Linear com $n$ variáveis de decisão e $m$ restrições estruturais apresenta-se em notação escalar e notação matricial compacta:</p>\n      \n      \\[\n      \\begin{aligned}\n      \\text{Opt } & Z = \\sum_{j=1}^{n} c_j x_j \\\\\n      \\text{sujeito a:} \\quad & \\sum_{j=1}^{n} a_{ij} x_j \\le b_i, \\quad i = 1, 2, \\dots, m \\\\\n      & x_j \\ge 0, \\quad j = 1, 2, \\dots, n\n      \\end{aligned}\n      \\]\n\n      <p>Em notação matricial compacta padrão:</p>\n      \\[\n      \\begin{aligned}\n      \\max \\quad & Z = \\mathbf{c}^T \\mathbf{x} \\\\\n      \\text{s.a.} \\quad & \\mathbf{A}\\mathbf{x} \\le \\mathbf{b} \\\\\n      & \\mathbf{x} \\ge \\mathbf{0}\n      \\end{aligned}\n      \\]\n      \n      <p>Onde:</p>\n      <ul>\n        <li>$\\mathbf{x} = [x_1, x_2, \\dots, x_n]^T \\in \\mathbb{R}^n$: Vector das variáveis de decisão.</li>\n        <li>$\\mathbf{c} = [c_1, c_2, \\dots, c_n]^T \\in \\mathbb{R}^n$: Vector de custos/lucros unitários.</li>\n        <li>$\\mathbf{A} = [a_{ij}] \\in \\mathbb{R}^{m \\times n}$: Matriz tecnológica dos coeficientes técnicos de consumo de recursos.</li>\n        <li>$\\mathbf{b} = [b_1, b_2, \\dots, b_m]^T \\in \\mathbb{R}^m$: Vector de disponibilidades dos recursos (lado direito / RHS).</li>\n      </ul>\n    ",
+    "algorithmProcedure": "\n      <h4>Metodologia de Resolução Geométrica (Gráfica para $n=2$ variáveis):</h4>\n      <ol>\n        <li><strong>Traçado dos Hiperplanos de Restrição:</strong> Converter cada inequação em igualdade $a_{i1} x_1 + a_{i2} x_2 = b_i$ e traçar a recta suporte no primeiro quadrante ($x_1 \\ge 0, x_2 \\ge 0$).</li>\n        <li><strong>Determinação dos Semi-espaços Viáveis:</strong> Testar o ponto $(0,0)$ para identificar o lado válido da desigualdade e delimitar a região poligonal de viabilidade $S$.</li>\n        <li><strong>Identificação dos Vértices:</strong> Calcular os pontos de intersecção das rectas que delimitam a fronteira do poliedro através de sistemas lineares $2 \\times 2$.</li>\n        <li><strong>Gradiente da Função Objectivo:</strong> Traçar o vector gradiente $\\nabla Z = [c_1, c_2]^T$ ou as curvas de nível $\\mathbf{c}^T \\mathbf{x} = k$.</li>\n        <li><strong>Optimização:</strong> Deslocar a recta de nível na direcção de $\\nabla Z$ até ao último ponto de contacto com a região $S$. Esse ponto constitui a solução óptima $\\mathbf{x}^*$.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 380\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"380\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        \n        <!-- Definição de Marcador de Seta -->\n        <defs>\n          <marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <!-- Nós -->\n        <rect x=\"30\" y=\"30\" width=\"180\" height=\"50\" rx=\"25\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"120\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">1. Identificar Variáveis (xj)</text>\n\n        <path d=\"M 210 55 L 260 55\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n\n        <rect x=\"270\" y=\"30\" width=\"200\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"370\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">2. Formular F.O. (max/min Z)</text>\n\n        <path d=\"M 470 55 L 520 55\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n\n        <rect x=\"530\" y=\"30\" width=\"200\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"630\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">3. Mapear Restrições e Não-neg.</text>\n\n        <path d=\"M 630 80 L 630 140\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n\n        <!-- Decisão -->\n        <polygon points=\"630,150 720,200 630,250 540,200\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"630\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Região Viável</text>\n        <text x=\"630\" y=\"212\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">S não-vazia?</text>\n\n        <!-- Ramos -->\n        <path d=\"M 540 200 L 460 200\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n        <text x=\"500\" y=\"190\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <path d=\"M 630 250 L 630 310\" stroke=\"#71717a\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n        <text x=\"645\" y=\"280\" font-size=\"10\" font-weight=\"600\" fill=\"#71717a\">NÃO</text>\n        <rect x=\"560\" y=\"315\" width=\"140\" height=\"40\" rx=\"4\" fill=\"#f4f4f5\" stroke=\"#71717a\" stroke-width=\"1\"/>\n        <text x=\"630\" y=\"340\" text-anchor=\"middle\" font-size=\"11\" fill=\"#71717a\">Inviabilidade (S = ∅)</text>\n\n        <rect x=\"250\" y=\"175\" width=\"200\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"350\" y=\"198\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">4. Determinar Vértices de S</text>\n        <text x=\"350\" y=\"214\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Intersecções de Hiperplanos</text>\n\n        <path d=\"M 250 200 L 190 200\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n\n        <rect x=\"20\" y=\"175\" width=\"160\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"100\" y=\"198\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">5. Avaliar Z em cada Vértice</text>\n        <text x=\"100\" y=\"214\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Teorema Fundamental</text>\n\n        <path d=\"M 100 225 L 100 290\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow)\"/>\n\n        <rect x=\"20\" y=\"295\" width=\"240\" height=\"55\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"140\" y=\"322\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#ffffff\">Solução Óptima x* e Z*</text>\n        <text x=\"140\" y=\"338\" text-anchor=\"middle\" font-size=\"10\" fill=\"#a1a1aa\">Interpretação e Sensibilidade</text>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Enunciado: Otimização de Produção na Indústria Transformadora (Matola Industrial)</h4>\n      <p>\n        Uma fábrica metalúrgica em Maputo fabrica dois modelos de vigas estruturais galvanizadas: Modelo Leve ($x_1$) e Modelo Pesado ($x_2$). Cada viga requer processamento em duas secções: Corte e Soldadura.\n      </p>\n      <ul>\n        <li><strong>Secção de Corte:</strong> Disponibilidade de 18 horas/dia. Cada viga leve requer 3 horas e cada viga pesada 2 horas.</li>\n        <li><strong>Secção de Soldadura:</strong> Disponibilidade de 12 horas/dia. Cada viga pesada consome 2 horas (vigas leves não requerem soldadura).</li>\n        <li><strong>Restrição de Mercado:</strong> A procura diária do modelo leve não excede 4 unidades.</li>\n        <li><strong>Margem de Contribuição Líquida:</strong> 3.000 MT por viga leve e 5.000 MT por viga pesada.</li>\n      </ul>\n\n      <h4>Passo 1: Definição Rigorosa das Variáveis de Decisão</h4>\n      \\[\n      \\begin{aligned}\n      x_1 &: \\text{Quantidade de vigas do Modelo Leve a produzir diariamente [unidades/dia]} \\\\\n      x_2 &: \\text{Quantidade de vigas do Modelo Pesado a produzir diariamente [unidades/dia]}\n      \\end{aligned}\n      \\]\n\n      <h4>Passo 2: Construção da Função Objectivo</h4>\n      \\[\n      \\max Z = 3000 x_1 + 5000 x_2 \\quad [\\text{Meticais/dia}]\n      \\]\n\n      <h4>Passo 3: Equações de Restrição e Condições de Fronteira</h4>\n      \\[\n      \\begin{aligned}\n      3x_1 + 2x_2 &\\le 18 \\quad &&\\text{(Capacidade de Corte [horas])} \\\\\n      2x_2 &\\le 12 \\quad &&\\text{(Capacidade de Soldadura [horas])} \\\\\n      x_1 &\\le 4 \\quad &&\\text{(Capacidade de Mercado)} \\\\\n      x_1, x_2 &\\ge 0 \\quad &&\\text{(Condição de Não-Negatividade)}\n      \\end{aligned}\n      \\]\n\n      <h4>Passo 4: Determinação Analítica dos Pontos Extremos (Vértices)</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr>\n            <th>Vértice</th>\n            <th>Intersecção de Restrições</th>\n            <th>Coordenadas $(x_1, x_2)$</th>\n            <th>Valor da F.O. $Z = 3000x_1 + 5000x_2$ [MT]</th>\n            <th>Classificação</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td><strong>A</strong></td>\n            <td>$x_1=0, x_2=0$ (Origem)</td>\n            <td>$(0, 0)$</td>\n            <td>$Z = 0$ MT</td>\n            <td>Viável</td>\n          </tr>\n          <tr>\n            <td><strong>B</strong></td>\n            <td>$x_1=4, x_2=0$</td>\n            <td>$(4, 0)$</td>\n            <td>$Z = 12.000$ MT</td>\n            <td>Viável</td>\n          </tr>\n          <tr>\n            <td><strong>C</strong></td>\n            <td>$x_1=4$ e $3x_1 + 2x_2 = 18 \\Rightarrow 12 + 2x_2 = 18$</td>\n            <td>$(4, 3)$</td>\n            <td>$Z = 3000(4) + 5000(3) = 27.000$ MT</td>\n            <td>Viável</td>\n          </tr>\n          <tr style=\"background-color: #f4f4f5; font-weight: 600;\">\n            <td><strong>D (Óptimo)</strong></td>\n            <td>$3x_1 + 2x_2 = 18$ e $2x_2 = 12 \\Rightarrow x_2=6, x_1=2$</td>\n            <td>$(2, 6)$</td>\n            <td>$Z^* = 3000(2) + 5000(6) = 36.000$ MT</td>\n            <td><strong>Solução Óptima Única</strong></td>\n          </tr>\n          <tr>\n            <td><strong>E</strong></td>\n            <td>$x_1=0$ e $2x_2 = 12$</td>\n            <td>$(0, 6)$</td>\n            <td>$Z = 30.000$ MT</td>\n            <td>Viável</td>\n          </tr>\n        </tbody>\n      </table>\n\n      <h4>Passo 5: Conclusão e Interpretação em Engenharia</h4>\n      <p>\n        A política óptima de produção para a fábrica consiste em fabricar exactamente <strong>2 vigas leves</strong> e <strong>6 vigas pesadas</strong> por dia, auferindo um lucro máximo de <strong>36.000 Meticais/dia</strong>.\n        <br>\n        <strong>Utilização de Recursos:</strong> A secção de corte opera a 100% da sua capacidade ($3(2) + 2(6) = 18$ h, folga $s_1=0$) e a secção de soldadura a 100% ($2(6) = 12$ h, folga $s_2=0$), constituindo os recursos gargalo (críticos) do sistema produtivo. O mercado para vigas leves apresenta uma folga de $4 - 2 = 2$ unidades ociosas.\n      </p>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>1. Gestão de Centrais de Produção de Energia (Ex.: HCB - Hidroeléctrica de Cahora Bassa):</strong>\n        Optimização do despacho diário de turbinas geradoras para satisfazer contratos da Electricidade de Moçambique (EDM) e exportações à SAPP (Southern African Power Pool), minimizando o volume de água turbinado sob limites de cota na albufeira.\n      </div>\n      <div class=\"application-card\">\n        <strong>2. Engenharia Química e Refinação (Petróleo e Biocombustíveis):</strong>\n        Problema clássico de formulação de misturas (<em>Blending Problem</em>): determinação da proporção volumétrica óptima de crude e aditivos com diferentes teores de octanagem e enxofre para produzir gasóleo e gasolina ao menor custo unitário.\n      </div>\n      <div class=\"application-card\">\n        <strong>3. Engenharia Civil e Obras Públicas:</strong>\n        Planeamento do estaleiro e corte óptimo de varões de aço estrutural para minimizar o desperdício de aparas metálicas (<em>Cutting Stock Problem</em>).\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 1.1:</strong> Uma oficina de carpintaria fabrica mesas e cadeiras. Uma mesa requer 4h de corte e 2h de montagem; uma cadeira requer 1h de corte e 2h de montagem. As disponibilidades são de 60h para corte e 40h para montagem. Os lucros unitários são de 800 MT (mesa) e 300 MT (cadeira). Formule o problema e determine geometricamente o plano óptimo de fabrico.</p>\n        <p><em>Solução: $x_1 = 10$ mesas, $x_2 = 15$ cadeiras, $Z^* = 12.500$ MT.</em></p>\n      </div>\n\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge intermediate\">Nível 2: Intermédio</span>\n        <p><strong>Problema 1.2:</strong> Demonstre analiticamente por que razão a função objectivo $\\max Z = 4x_1 + 6x_2$ sujeita a $2x_1 + 3x_2 \\le 12$, $x_1 + x_2 \\le 5$, $x_1, x_2 \\ge 0$ admite um número infinito de soluções óptimas alternativas. Determine o segmento de recta que as define.</p>\n        <p><em>Solução: O gradiente de $Z$ é paralelo à restrição activa $2x_1 + 3x_2 = 12$. Todas as soluções no segmento entre $(3, 2)$ e $(0, 4)$ são óptimas com $Z^* = 24$.</em></p>\n      </div>\n\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge advanced\">Nível 3: Avançado</span>\n        <p><strong>Problema 1.3:</strong> Considere o poliedro $P = \\{\\mathbf{x} \\in \\mathbb{R}^n : \\mathbf{A}\\mathbf{x} = \\mathbf{b}, \\mathbf{x} \\ge \\mathbf{0}\\}$. Prove que se as colunas da matriz $\\mathbf{A}$ correspondentes aos componentes estritamente positivos de um vector $\\mathbf{x} \\in P$ forem linearmente independentes, então $\\mathbf{x}$ é um ponto extremo de $P$.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. O que assegura o Teorema Fundamental da Programação Linear?",
+        "options": [
+          "A que a solução óptima existe sempre, mesmo em conjuntos ilimitados.",
+          "B que se existir uma solução óptima finita, pelo menos um ponto extremo do poliedro de restrições é óptimo.",
+          "C que a função objectivo atinge o seu valor máximo exclusivamente no interior da região viável.",
+          "D que todas as restrições devem estar activas na solução óptima."
+        ],
+        "correct": 1,
+        "explanation": "O Teorema Fundamental garante que, sendo a função objectivo linear e a região viável um poliedro convexo, a optimização atinge o seu extremo num dos vértices (pontos extremos)."
+      },
+      {
+        "question": "2. Quando ocorre uma condição de 'Solução Ilimitada' num modelo de PL?",
+        "options": [
+          "A Quando duas restrições são paralelas e incongruentes.",
+          "B Quando o poliedro de restrições não é limitado na direcção de melhoria da função objectivo, permitindo que Z cresça indefinidamente.",
+          "C Quando a matriz tecnológica A tem determinante estritamente nulo.",
+          "D Quando o número de variáveis de decisão é inferior ao número de restrições."
+        ],
+        "correct": 1,
+        "explanation": "A solução ilimitada surge quando a região viável é aberta na direcção de optimização de Z, evidenciando uma formulação incorrecta na qual restrições reais de escassez foram omitidas."
+      }
+    ],
+    "synthesis": "\n      <p>\n        A Programação Linear formaliza a alocação óptima de recursos através de um modelo linear canónico. Os seus quatro postulados — proporcionalidade, aditividade, divisibilidade e determinismo — delimitam a sua aplicabilidade. \n      </p>\n      <p>\n        A propriedade geométrica da convexidade do poliedro de soluções admissíveis fundamenta o Teorema Fundamental da PL, demonstrando que a pesquisa da solução óptima se resume à inspecção dos pontos extremos (vértices). Esta constatação teórica é o alicerce matemático sobre o qual se edifica o Método Simplex de George Dantzig.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Hillier, F. S., & Lieberman, G. J. (2021). Introduction to Operations Research (11th ed.). McGraw-Hill Education. ISBN: 978-1259872990."
+      },
+      {
+        "num": 2,
+        "citation": "Taha, H. A. (2017). Operations Research: An Introduction (10th ed.). Pearson. ISBN: 978-0134444017."
+      },
+      {
+        "num": 3,
+        "citation": "Bazaraa, M. S., Jarvis, J. J., & Sherali, H. D. (2010). Linear Programming and Network Flows (4th ed.). John Wiley & Sons. ISBN: 978-0470462720."
+      },
+      {
+        "num": 4,
+        "citation": "Bertsimas, D., & Tsitsiklis, J. N. (1997). Introduction to Linear Optimization. Athena Scientific. ISBN: 978-1886529199."
+      }
+    ]
+  },
+  "Método Simplex Primal": {
+    "id": "simplex-method",
+    "title": "Módulo 2: O Método Simplex Primal de George Dantzig",
+    "subtitle": "Álgebra Linear Computacional e Pivoteamento de Tableaux Canónicos",
+    "duration": "6 horas lectivas (Teórica e Prática Laboratorial)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Programação Linear (Módulo 1), Eliminação de Gauss-Jordan e Posto de Matrizes",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-02",
+      "workload": "6h Teórico-Práticas + 8h Estudo Autónomo",
+      "keywords": [
+        "Método Simplex",
+        "Tableau Canónico",
+        "Solução Básica Viável",
+        "Critério de Dantzig",
+        "Pivoteamento"
+      ]
+    },
+    "introduction": "\n      Concebido por George Dantzig no Verão de 1947 no seio da Força Aérea Norte-Americana (Project SCOOP), o <strong>Método Simplex</strong> é considerado um dos 10 algoritmos computacionais mais influentes do século XX.\n      <br><br>\n      Enquanto o método geométrico se encontra limitado a problemas didácticos com $n \\le 3$ variáveis, sistemas industriais modernos de grande porte envolvem centenas de milhares de variáveis de decisão e restrições. O Simplex resolve eficientemente estes sistemas operando algebricamente: parte de uma Solução Básica Viável (SBV) inicial e desloca-se iterativamente ao longo das arestas adjacentes do poliedro convexo até alcançar um vértice que satisfaça a condição de optimilidade global.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender a equivalência algébrica entre vértices de um poliedro e Soluções Básicas Viáveis (SBV)."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Converter modelos canónicos para a Forma Padrão através da inclusão rigorosa de variáveis de folga e excesso."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Construir e actualizar tableaux canónicos do Simplex utilizando operações elementares de linhas de Gauss-Jordan."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Avaliar os critérios de paragem de Dantzig (custos reduzidos $z_j - c_j \\ge 0$) e detectar degenerescência e ciclos."
+      }
+    ],
+    "competencies": [
+      "Particionamento de matrizes tecnológicas em matriz de base $\\mathbf{B}$ e matriz não-básica $\\mathbf{N}$.",
+      "Execução sistemática do teste da razão mínima para determinação da variável de saída da base.",
+      "Diagnóstico e interpretação de empates no pivô e fenómenos de ciclagem algébrica.",
+      "Leitura dos coeficientes da inversa da base $\\mathbf{B}^{-1}$ no interior do tableau final."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Conceitos Matriciais Nucleares:</strong>\n        <ul>\n          <li><strong>Forma Padrão:</strong> $\\min \\mathbf{c}^T \\mathbf{x}$ sujeito a $\\mathbf{A}\\mathbf{x} = \\mathbf{b}, \\mathbf{x} \\ge \\mathbf{0}$, com $\\mathbf{b} \\ge \\mathbf{0}$.</li>\n          <li><strong>Partição Básica:</strong> A matriz $\\mathbf{A} \\in \\mathbb{R}^{m \\times n}$ ($m < n$) particiona-se em $\\mathbf{A} = [\\mathbf{B} \\mid \\mathbf{N}]$, onde $\\mathbf{B} \\in \\mathbb{R}^{m \\times m}$ é uma submatriz invertível ($\\det(\\mathbf{B}) \\neq 0$).</li>\n          <li><strong>Variáveis Básicas ($\\mathbf{x}_B$):</strong> As $m$ variáveis associadas às colunas de $\\mathbf{B}$.</li>\n          <li><strong>Variáveis Não-Básicas ($\\mathbf{x}_N$):</strong> As $n-m$ variáveis fixadas identicamente a zero: $\\mathbf{x}_N = \\mathbf{0}$.</li>\n          <li><strong>Solução Básica:</strong> $\\mathbf{x}_B = \\mathbf{B}^{-1}\\mathbf{b}, \\quad \\mathbf{x}_N = \\mathbf{0}$. Se $\\mathbf{x}_B \\ge \\mathbf{0}$, é uma <em>Solução Básica Viável (SBV)</em>.</li>\n        </ul>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Equação Fundamental do Tableau Simplex:</strong><br>\n        A expressão algébrica do valor da função objectivo em função exclusiva das variáveis não-básicas $\\mathbf{x}_N$ deduz-se como:\n        \\[\n        Z = \\mathbf{c}_B^T \\mathbf{B}^{-1}\\mathbf{b} - (\\mathbf{c}_B^T \\mathbf{B}^{-1}\\mathbf{N} - \\mathbf{c}_N^T) \\mathbf{x}_N\n        \\]\n        Definem-se os <strong>Custos Reduzidos</strong> $\\bar{c}_j$ associados a cada variável não-básica $x_j$ por:\n        \\[\n        \\bar{c}_j = c_j - \\mathbf{c}_B^T \\mathbf{B}^{-1}\\mathbf{A}_j\n        \\]\n        <strong>Critério de Otimalidade de Dantzig (Maximização):</strong> Uma SBV é óptima global se e só se todos os coeficientes da linha zero satisfizerem $\\bar{c}_j \\ge 0$ (na convenção $z_j - c_j \\ge 0$).\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p>Estrutura Canónica do Tableau Simplex Matricial:</p>\n      \\[\n      \\begin{array}{|c|c|c|c|}\n      \\hline\n      \\text{Base} & Z & \\mathbf{x}_B^T \\quad \\mathbf{x}_N^T & \\text{RHS} \\\\\n      \\hline\n      Z & 1 & \\mathbf{0}^T \\quad \\mathbf{c}_B^T\\mathbf{B}^{-1}\\mathbf{N} - \\mathbf{c}_N^T & \\mathbf{c}_B^T \\mathbf{B}^{-1}\\mathbf{b} \\\\\n      \\hline\n      \\mathbf{x}_B & \\mathbf{0} & \\mathbf{I} \\quad \\mathbf{B}^{-1}\\mathbf{N} & \\mathbf{B}^{-1}\\mathbf{b} \\\\\n      \\hline\n      \\end{array}\n      \\]\n    ",
+    "algorithmProcedure": "\n      <h4>Passos Algorítmicos do Simplex Primal:</h4>\n      <ol>\n        <li><strong>Inicialização:</strong> Montar a forma padrão adicionando variáveis de folga $s_i \\ge 0$. Identificar a base inicial $\\mathbf{B} = \\mathbf{I}_m$, correspondendo à origem $\\mathbf{x} = \\mathbf{0}$.</li>\n        <li><strong>Teste de Otimalidade:</strong> Examinar a linha zero ($Z$). Se todos os custos reduzidos forem não-negativos ($z_j - c_j \\ge 0$), parar: a solução actual é ÓPTIMA.</li>\n        <li><strong>Variável que Entra na Base (Coluna Pivô $k$):</strong> Escolher a variável não-básica com o custo reduzido mais negativo: $k = \\arg\\min_j \\{z_j - c_j < 0\\}$.</li>\n        <li><strong>Teste da Razão Mínima (Linha Pivô $r$):</strong> Calcular $\\theta = \\min_{i} \\left\\{ \\frac{b_i}{y_{ik}} : y_{ik} > 0 \\right\\}$. A variável associada à linha $r$ sai da base. Se todos os $y_{ik} \\le 0$, PARAR: o problema é ILIMITADO.</li>\n        <li><strong>Pivoteamento (Gauss-Jordan):</strong> Dividir a linha pivô pelo elemento pivô $y_{rk}$. Anular todos os demais coeficientes da coluna pivô $k$. Voltar ao passo 2.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 410\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"410\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow2\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"30\" y=\"25\" width=\"200\" height=\"45\" rx=\"22\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">Tableau Inicial (B = I)</text>\n\n        <path d=\"M 230 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n\n        <!-- Decisão Otimalidade -->\n        <polygon points=\"390,15 480,47 390,80 300,47\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"390\" y=\"44\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Todos os zj - cj ≥ 0?</text>\n        <text x=\"390\" y=\"58\" text-anchor=\"middle\" font-size=\"10\" fill=\"#a1a1aa\">(Critério Paragem)</text>\n\n        <path d=\"M 480 47 L 570 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n        <text x=\"520\" y=\"38\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"575\" y=\"25\" width=\"160\" height=\"45\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"655\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#ffffff\">SOLUÇÃO ÓPTIMA</text>\n\n        <path d=\"M 390 80 L 390 130\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n        <text x=\"405\" y=\"105\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">NÃO</text>\n\n        <rect x=\"290\" y=\"135\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"390\" y=\"162\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Entra Coluna k (min zj - cj)</text>\n\n        <path d=\"M 390 180 L 390 220\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n\n        <!-- Decisão Ilimitada -->\n        <polygon points=\"390,220 480,250 390,280 300,250\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"390\" y=\"247\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Existe yik > 0?</text>\n\n        <path d=\"M 480 250 L 570 250\" stroke=\"#71717a\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n        <text x=\"520\" y=\"242\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#71717a\">NÃO</text>\n        <rect x=\"575\" y=\"230\" width=\"160\" height=\"40\" rx=\"4\" fill=\"#f4f4f5\" stroke=\"#71717a\" stroke-width=\"1\"/>\n        <text x=\"655\" y=\"255\" text-anchor=\"middle\" font-size=\"11\" fill=\"#71717a\">Problema Ilimitado</text>\n\n        <path d=\"M 390 280 L 390 320\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow2)\"/>\n        <text x=\"405\" y=\"302\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"270\" y=\"325\" width=\"240\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"390\" y=\"347\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Sai Linha r (min bi / yik)</text>\n        <text x=\"390\" y=\"361\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Pivoteamento de Gauss-Jordan</text>\n\n        <!-- Feedback Loop -->\n        <path d=\"M 270 347 L 180 347 L 180 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" stroke-dasharray=\"4\" fill=\"none\" marker-end=\"url(#arrow2)\"/>\n        <text x=\"140\" y=\"200\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">Próxima Iteração</text>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Problema Prático Resolvido com Tableaux Completos</h4>\n      \\[\n      \\begin{aligned}\n      \\max \\quad & Z = 3x_1 + 5x_2 \\\\\n      \\text{s.a.} \\quad & x_1 \\le 4 \\\\\n      & 2x_2 \\le 12 \\\\\n      & 3x_1 + 2x_2 \\le 18 \\\\\n      & x_1, x_2 \\ge 0\n      \\end{aligned}\n      \\]\n\n      <h4>Conversão para a Forma Padrão (Adição de $s_1, s_2, s_3 \\ge 0$):</h4>\n      \\[\n      \\begin{aligned}\n      Z - 3x_1 - 5x_2 + 0s_1 + 0s_2 + 0s_3 &= 0 \\\\\n      x_1 + s_1 &= 4 \\\\\n      2x_2 + s_2 &= 12 \\\\\n      3x_1 + 2x_2 + s_3 &= 18\n      \\end{aligned}\n      \\]\n\n      <h4>Tableau 0 (Solução Inicial: Base $\\{s_1, s_2, s_3\\}$):</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Base</th><th>Z</th><th>x1</th><th>x2 (Entra)</th><th>s1</th><th>s2</th><th>s3</th><th>RHS (b)</th><th>Razão $\\theta = b_i/y_{ik}$</th></tr>\n        </thead>\n        <tbody>\n          <tr><td>$Z$</td><td>1</td><td>-3</td><td><strong>-5</strong></td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td></tr>\n          <tr><td>$s_1$</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>4</td><td>Sem razão ($y_{12}=0$)</td></tr>\n          <tr style=\"background-color:#f4f4f5;\"><td><strong>$s_2$ (Sai)</strong></td><td>0</td><td>0</td><td><strong>[2] (Pivô)</strong></td><td>0</td><td>1</td><td>0</td><td>12</td><td>$12/2 = 6$ (Mínimo)</td></tr>\n          <tr><td>$s_3$</td><td>0</td><td>3</td><td>2</td><td>0</td><td>0</td><td>1</td><td>18</td><td>$18/2 = 9$</td></tr>\n        </tbody>\n      </table>\n\n      <h4>Operação de Pivoteamento de Gauss-Jordan:</h4>\n      <p>Nova linha $L_2 = L_2 / 2$; Linha $L_0 = L_0 + 5L_2$; Linha $L_3 = L_3 - 2L_2$.</p>\n\n      <h4>Tableau 1 (Base $\\{s_1, x_2, s_3\\}$):</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Base</th><th>Z</th><th>x1 (Entra)</th><th>x2</th><th>s1</th><th>s2</th><th>s3</th><th>RHS</th><th>Razão $\\theta$</th></tr>\n        </thead>\n        <tbody>\n          <tr><td>$Z$</td><td>1</td><td><strong>-3</strong></td><td>0</td><td>0</td><td>2.5</td><td>0</td><td>30</td><td>—</td></tr>\n          <tr><td>$s_1$</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>4</td><td>$4/1 = 4$</td></tr>\n          <tr><td>$x_2$</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0.5</td><td>0</td><td>6</td><td>— ($y_{21}=0$)</td></tr>\n          <tr style=\"background-color:#f4f4f5;\"><td><strong>$s_3$ (Sai)</strong></td><td>0</td><td><strong>[3] (Pivô)</strong></td><td>0</td><td>0</td><td>-1</td><td>1</td><td>6</td><td>$6/3 = 2$ (Mínimo)</td></tr>\n        </tbody>\n      </table>\n\n      <h4>Tableau 2 (Base $\\{s_1, x_2, x_1\\}$ — Tableau Final Óptimo):</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Base</th><th>Z</th><th>x1</th><th>x2</th><th>s1</th><th>s2</th><th>s3</th><th>RHS</th><th>Classificação</th></tr>\n        </thead>\n        <tbody>\n          <tr style=\"font-weight: 700;\"><td>$Z$</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1.5</td><td>1.0</td><td>36</td><td>Todos $\\ge 0$ (Óptimo)</td></tr>\n          <tr><td>$s_1$</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.333</td><td>-0.333</td><td>2</td><td>Folga do mercado</td></tr>\n          <tr><td>$x_2$</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0.5</td><td>0</td><td>6</td><td>Solução Óptima $x_2^*$</td></tr>\n          <tr><td>$x_1$</td><td>0</td><td>1</td><td>0</td><td>0</td><td>-0.333</td><td>0.333</td><td>2</td><td>Solução Óptima $x_1^*$</td></tr>\n        </tbody>\n      </table>\n\n      <h4>Leitura e Interpretação:</h4>\n      <ul>\n        <li><strong>Solução Óptima:</strong> $x_1^* = 2$, $x_2^* = 6$, $s_1^* = 2$, $s_2^* = 0$, $s_3^* = 0$, com $Z^* = 36$.</li>\n        <li><strong>Preços-Sombra (Variáveis Duais):</strong> Estão expressos na linha $Z$ sob as colunas das folgas: $y_1^* = 0$, $y_2^* = 1.5$, $y_3^* = 1.0$.</li>\n      </ul>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>1. Gestão de Refinarias e Craqueamento Catalítico:</strong>\n        Determinação das taxas horárias de operação de unidades de destilação atmosférica para atender à procura de nafta e querosene, resolvendo sistemas com centenas de variáveis através de bibliotecas industriais do Simplex (ex.: CPLEX, Gurobi).\n      </div>\n      <div class=\"application-card\">\n        <strong>2. Programação da Produção Agro-Industrial em Moçambique:</strong>\n        Alocação de áreas cultiváveis de cana-de-açúcar (Maragra, Xinavane) para produção de açúcar refinado versus etanol industrial, maximizando a margem líquida com limites de água de irrigação do Rio Incomáti.\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 2.1:</strong> Resolva pelo Método Simplex manual: $\\max Z = 2x_1 + 3x_2$ sujeito a $x_1 + 2x_2 \\le 8$, $2x_1 + x_2 \\le 10$, $x_1, x_2 \\ge 0$. Construa todos os tableaux.</p>\n        <p><em>Solução: $x_1^* = 4, x_2^* = 2, Z^* = 14$.</em></p>\n      </div>\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge intermediate\">Nível 2: Intermédio</span>\n        <p><strong>Problema 2.2:</strong> Explique analiticamente o que caracteriza o fenómeno de degenerescência no Método Simplex. Como se identifica um tableau degenerado e que risco matemático ele acarreta durante o pivoteamento?</p>\n      </div>\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge advanced\">Nível 3: Avançado</span>\n        <p><strong>Problema 2.3:</strong> Demonstre a Regra de Bland de prevenção de ciclos: provar que a escolha do menor índice lexicográfico para a entrada e saída da base impede o retorno a uma base visitada anteriormente.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. No Método Simplex de maximização, qual o critério para eleger a variável que ENTRA na base?",
+        "options": [
+          "A A variável que tiver a maior razão positiva θ no teste da linha.",
+          "B A variável não-básica com o coeficiente mais negativo na linha Z (maior potencial de aumento).",
+          "C A variável com o maior valor no lado direito b.",
+          "D A variável de folga que tiver sido introduzida por último."
+        ],
+        "correct": 1,
+        "explanation": "Na formulação Z - ∑ c_j x_j = 0, os coeficientes negativos na linha zero representam um ganho marginal por unidade de variável adicionada, escolhendo-se o mais negativo pela regra de Dantzig."
+      },
+      {
+        "question": "2. Se no teste da razão mínima todos os coeficientes da coluna pivô forem menores ou iguais a zero (y_ik ≤ 0), o que se conclui?",
+        "options": [
+          "A O tableau cometeu um erro de arredondamento.",
+          "B A solução é única e não admite base alternativa.",
+          "C O problema é ilimitado (Z pode crescer infinitamente sem violar restrições).",
+          "D O modelo é infactível e não admite nenhuma solução viável."
+        ],
+        "correct": 2,
+        "explanation": "Se nenhum elemento y_ik for positivo, a variável que entra pode aumentar indefinidamente sem que nenhuma variável básica desça a zero, demonstrando que o poliedro é ilimitado nessa direcção."
+      }
+    ],
+    "synthesis": "\n      <p>\n        O Método Simplex Primal é o algoritmo padrão para resolução algébrica de problemas de Programação Linear. Ao navegar pelas arestas do poliedro através de operações de pivoteamento em tableaux, ele garante a convergência para a solução óptima global (ou a detecção de ilimitação) num número finito de passos.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Dantzig, G. B. (1998). Linear Programming and Extensions. Princeton University Press. ISBN: 978-0691059136."
+      },
+      {
+        "num": 2,
+        "citation": "Bazaraa, M. S., Jarvis, J. J., & Sherali, H. D. (2010). Linear Programming and Network Flows (4th ed.). John Wiley & Sons. ISBN: 978-0470462720."
+      },
+      {
+        "num": 3,
+        "citation": "Taha, H. A. (2017). Operations Research: An Introduction (10th ed.). Pearson. ISBN: 978-0134444017."
+      }
+    ]
+  },
+  "Duas Fases e Grande M": {
+    "id": "two-phase-big-m",
+    "title": "Módulo 3: Métodos das Duas Fases e do Grande M",
+    "subtitle": "Tratamento Analítico de Variáveis Artificiais em Restrições de Maior-ou-Igual e Igualdade",
+    "duration": "4 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Método Simplex Primal (Módulo 2)",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-03",
+      "workload": "4h Teórico-Práticas + 6h Estudo Autónomo",
+      "keywords": [
+        "Variáveis Artificiais",
+        "Método das Duas Fases",
+        "Método do Grande M",
+        "Inviabilidade Primal",
+        "Base Canónica Inicial"
+      ]
+    },
+    "introduction": "\n      O Método Simplex convencional exige que a origem $\\mathbf{x} = \\mathbf{0}$ constitua uma Solução Básica Viável inicial, premissa que se verifica exclusivamente em problemas com restrições do tipo $\\le$ com $b_i \\ge 0$ (onde as variáveis de folga formam uma matriz identidade).\n      <br><br>\n      Porém, na Engenharia e na Logística, restrições mínimas de qualidade, de segurança estrutural ou de conservação de fluxo impõem inequações do tipo $\\ge$ ou equações estritas de igualdade $=$. Nestes casos, a origem é inviável. Os <strong>Métodos das Duas Fases</strong> e do <strong>Grande M</strong> resolvem esta limitação introduzindo variáveis artificiais $R_i \\ge 0$, que funcionam como catalisadores matemáticos temporários para viabilizar o arranque do algoritmo Simplex.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender a diferença fundamental entre variáveis de folga (significado físico real) e variáveis artificiais (artifício algébrico)."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Formular a Fase I do Método das Duas Fases e o parâmetro penalizador M no Método do Grande M."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Conduzir a transição da Fase I para a Fase II, expurgando as variáveis artificiais do tableau."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Identificar o critério formal de inviabilidade: $W^* > 0$ na Fase I ou presença de variável artificial positiva na base final."
+      }
+    ],
+    "competencies": [
+      "Reformulação de restrições de balanço e limites mínimos em forma padrão com variáveis de excesso e artificiais.",
+      "Condução de operações de consistência algébrica na linha da função objectivo antes do primeiro pivô.",
+      "Análise de estabilidade numérica comparativa entre o Grande M e as Duas Fases."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Tratamento Canónico das Restrições:</strong>\n        <ul>\n          <li><strong>Restrição $\\le$:</strong> $\\sum a_{ij} x_j \\le b_i \\Rightarrow \\sum a_{ij} x_j + s_i = b_i$ ($s_i \\ge 0$ é folga, entra na base).</li>\n          <li><strong>Restrição $\\ge$:</strong> $\\sum a_{ij} x_j \\ge b_i \\Rightarrow \\sum a_{ij} x_j - e_i + R_i = b_i$ ($e_i \\ge 0$ é excesso; $R_i \\ge 0$ é artificial e forma a base).</li>\n          <li><strong>Restrição $=$:</strong> $\\sum a_{ij} x_j = b_i \\Rightarrow \\sum a_{ij} x_j + R_i = b_i$ ($R_i \\ge 0$ é artificial e forma a base).</li>\n        </ul>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Teorema de Viabilidade do Problema Primal:</strong><br>\n        <em>O problema original de Programação Linear admite pelo menos uma solução viável se e só se o valor óptimo da função objectivo da Fase I for nulo:</em>\n        \\[\n        \\min W = \\sum_{i} R_i \\quad \\Longrightarrow \\quad W^* = 0\n        \\]\n        Se $W^* > 0$, o espaço de restrições é matematicamente inconsistente (as restrições são mutuamente exclusivas e a região viável é o conjunto vazio $S = \\emptyset$).\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p><strong>1. Formulação do Método das Duas Fases:</strong></p>\n      <ul>\n        <li><strong>Fase I:</strong> Minimizar a soma de todas as variáveis artificiais: $\\min W = \\sum R_i$, sujeita às restrições originais aumentadas. O objectivo é forçar todas as $R_i$ a zero.</li>\n        <li><strong>Fase II:</strong> Se $W^* = 0$, eliminam-se as colunas de $R_i$, restaura-se a função objectivo original $Z$ e continua-se o Simplex a partir da SBV alcançada.</li>\n      </ul>\n\n      <p><strong>2. Formulação do Método do Grande M:</strong></p>\n      \\[\n      \\max Z = \\sum_{j=1}^n c_j x_j - M \\sum_{i} R_i \\quad \\text{ou} \\quad \\min Z = \\sum_{j=1}^n c_j x_j + M \\sum_{i} R_i\n      \\]\n      Onde $M \\gg 0$ é uma constante positiva suficientemente grande que penaliza severamente a presença de variáveis artificiais na solução.\n    ",
+    "algorithmProcedure": "\n      <h4>Procedimento Comparativo e Estabilidade Computacional:</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Critério</th><th>Método das Duas Fases</th><th>Método do Grande M</th></tr>\n        </thead>\n        <tbody>\n          <tr><td><strong>Estabilidade Numérica</strong></td><td>Elevada: opera com coeficientes numéricos exatos, sem distorção.</td><td>Baixa: o valor $M$ pode causar erros de cancelamento e arredondamento numérico em computadores.</td></tr>\n          <tr><td><strong>Complexidade de Cálculo</strong></td><td>Requer dois tableaux independentes (Fase I e Fase II).</td><td>Resolve-se num único tableau com manipulação algébrica simbólica de $M$.</td></tr>\n          <tr><td><strong>Diagnóstico de Inviabilidade</strong></td><td>Evidente: se ao final da Fase I $W^* > 0$.</td><td>Se na solução final do Simplex alguma variável artificial $R_i$ permanecer com valor positivo.</td></tr>\n        </tbody>\n      </table>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 360\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"360\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow3\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"30\" y=\"25\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">Restrições com ≥ ou =</text>\n\n        <path d=\"M 230 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n\n        <rect x=\"290\" y=\"25\" width=\"210\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"395\" y=\"45\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Adicionar Artificiais (Ri)</text>\n        <text x=\"395\" y=\"60\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Formular Fase I: min W = ∑ Ri</text>\n\n        <path d=\"M 395 70 L 395 120\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n\n        <rect x=\"300\" y=\"120\" width=\"190\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"395\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Executar Simplex na Fase I</text>\n\n        <path d=\"M 395 165 L 395 210\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n\n        <!-- Decisão Fase I -->\n        <polygon points=\"395,210 480,245 395,280 310,245\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"395\" y=\"242\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">W* = 0?</text>\n        <text x=\"395\" y=\"256\" text-anchor=\"middle\" font-size=\"10\" fill=\"#a1a1aa\">(Todas Ri = 0?)</text>\n\n        <path d=\"M 480 245 L 570 245\" stroke=\"#71717a\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n        <text x=\"525\" y=\"235\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#71717a\">NÃO (W* > 0)</text>\n        <rect x=\"575\" y=\"225\" width=\"160\" height=\"40\" rx=\"4\" fill=\"#f4f4f5\" stroke=\"#71717a\" stroke-width=\"1\"/>\n        <text x=\"655\" y=\"250\" text-anchor=\"middle\" font-size=\"11\" fill=\"#71717a\">Problema Inviável</text>\n\n        <path d=\"M 310 245 L 230 245\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n        <text x=\"270\" y=\"235\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"30\" y=\"220\" width=\"200\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"242\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Eliminar Colunas Ri</text>\n        <text x=\"130\" y=\"258\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Restaurar F.O. Original Z</text>\n\n        <path d=\"M 130 270 L 130 310\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow3)\"/>\n\n        <rect x=\"30\" y=\"310\" width=\"200\" height=\"40\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"335\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Fase II: Simplex até Z*</text>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Exercício Resolvido: Otimização com Restrição de Demanda Mínima</h4>\n      \\[\n      \\begin{aligned}\n      \\min \\quad & Z = 4x_1 + x_2 \\\\\n      \\text{s.a.} \\quad & 3x_1 + x_2 = 3 \\\\\n      & 4x_1 + 3x_2 \\ge 6 \\\\\n      & x_1 + 2x_2 \\le 4 \\\\\n      & x_1, x_2 \\ge 0\n      \\end{aligned}\n      \\]\n\n      <h4>Passo 1: Introdução de Variáveis de Folga, Excesso e Artificiais</h4>\n      <ul>\n        <li>Restrição 1 ($=$): $3x_1 + x_2 + R_1 = 3$ ($R_1 \\ge 0$ artificial).</li>\n        <li>Restrição 2 ($\\ge$): $4x_1 + 3x_2 - e_2 + R_2 = 6$ ($e_2 \\ge 0$ excesso, $R_2 \\ge 0$ artificial).</li>\n        <li>Restrição 3 ($\\le$): $x_1 + 2x_2 + s_3 = 4$ ($s_3 \\ge 0$ folga).</li>\n      </ul>\n\n      <h4>Passo 2: Formulação da Fase I ($\\min W = R_1 + R_2$)</h4>\n      <p>Escrevendo $W$ em termos das variáveis não-básicas:</p>\n      \\[\n      W = R_1 + R_2 = (3 - 3x_1 - x_2) + (6 - 4x_1 - 3x_2 + e_2) = 9 - 7x_1 - 4x_2 + e_2\n      \\]\n      \\[\n      \\Rightarrow W + 7x_1 + 4x_2 - e_2 = 9\n      \\]\n\n      <h4>Tableau Inicial da Fase I:</h4>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Base</th><th>W</th><th>x1 (Entra)</th><th>x2</th><th>e2</th><th>R1 (Sai)</th><th>R2</th><th>s3</th><th>RHS</th><th>Razão $\\theta$</th></tr>\n        </thead>\n        <tbody>\n          <tr><td>$W$</td><td>1</td><td><strong>7</strong></td><td>4</td><td>-1</td><td>0</td><td>0</td><td>0</td><td>9</td><td>—</td></tr>\n          <tr style=\"background-color:#f4f4f5;\"><td><strong>$R_1$</strong></td><td>0</td><td><strong>[3] (Pivô)</strong></td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>3</td><td>$3/3 = 1$ (Mínimo)</td></tr>\n          <tr><td>$R_2$</td><td>0</td><td>4</td><td>3</td><td>-1</td><td>0</td><td>1</td><td>0</td><td>6</td><td>$6/4 = 1.5$</td></tr>\n          <tr><td>$s_3$</td><td>0</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td><td>$4/1 = 4$</td></tr>\n        </tbody>\n      </table>\n\n      <p>Após pivoteamentos subsequentes na Fase I, obtém-se $W^* = 0$, com as variáveis artificiais completamente expurgadas da base. Na Fase II, restaura-se $Z = 4x_1 + x_2$, conduzindo à solução óptima: $x_1^* = 2/5$, $x_2^* = 9/5$, com $Z^* = 17/5 = 3.4$.</p>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>Dimensionamento de Frotas de Transporte Público (Maputo e Matola):</strong>\n        Garantir frequências mínimas obrigatórias de autocarros por hora nos corredores de tráfego (restrições do tipo $\\ge$) cumprindo os limites orçamentais da Empresa Municipal de Transportes Públicos (EMTPM).\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 3.1:</strong> Formule a função objectivo da Fase I e o tableau inicial para o problema: $\\min Z = 2x_1 + 3x_2$ s.a. $x_1 + x_2 \\ge 5$, $x_1 + 3x_2 \\ge 9$, $x_1, x_2 \\ge 0$.</p>\n      </div>\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge intermediate\">Nível 2: Intermédio</span>\n        <p><strong>Problema 3.2:</strong> Demonstre analiticamente o que sucede quando um modelo é inviável no Método das Duas Fases e compare com o comportamento do Método do Grande M.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. No Método das Duas Fases, qual é a condição necessária e suficiente para que se possa transitar para a Fase II?",
+        "options": [
+          "A Que a função objectivo original atinja um valor positivo.",
+          "B Que o valor óptimo da função objectivo da Fase I seja estritamente nulo (W* = 0).",
+          "C Que todas as variáveis de folga estejam presentes na base final.",
+          "D Que o número de iterações da Fase I seja inferior ao número de restrições."
+        ],
+        "correct": 1,
+        "explanation": "Se W* = 0, significa que ∑ R_i = 0, logo todas as variáveis artificiais assumiram o valor zero, demonstrando que foi encontrada uma Solução Básica Viável para o problema real."
+      }
+    ],
+    "synthesis": "\n      <p>\n        As variáveis artificiais são artifícios de cálculo imprescindíveis para problemas com restrições $\\ge$ e $=$. O Método das Duas Fases é computacionalmente preferível ao Grande M por eliminar as instabilidades numéricas inerentes a valores finitos arbitrários de $M$.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Taha, H. A. (2017). Operations Research: An Introduction (10th ed.). Pearson. ISBN: 978-0134444017."
+      },
+      {
+        "num": 2,
+        "citation": "Bazaraa, M. S., Jarvis, J. J., & Sherali, H. D. (2010). Linear Programming and Network Flows (4th ed.). John Wiley & Sons. ISBN: 978-0470462720."
+      }
+    ]
+  },
+  "Dualidade e Sensibilidade": {
+    "id": "duality-sensitivity",
+    "title": "Módulo 4: Teoria da Dualidade e Análise Pós-Óptima",
+    "subtitle": "Valoração Marginal de Recursos, Preços-Sombra e Folgas Complementares",
+    "duration": "5 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Programação Linear (Módulo 1) e Método Simplex Primal (Módulo 2)",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-04",
+      "workload": "5h Teórico-Práticas + 8h Estudo Autónomo",
+      "keywords": [
+        "Dualidade",
+        "Preços-Sombra",
+        "Teorema das Folgas Complementares",
+        "Análise de Sensibilidade",
+        "Custos Reduzidos"
+      ]
+    },
+    "introduction": "\n      A Teoria da Dualidade é uma das construções mais elegantes e de maior impacto prático da matemática aplicada. A todo o problema de Programação Linear (denominado <strong>Primal</strong>) corresponde de forma biunívoca um segundo problema de optimização associado, denominado <strong>Dual</strong>.\n      <br><br>\n      Enquanto o problema Primal determina o plano óptimo de produção física (quantidades de bens a produzir), o problema Dual resolve a valoração económica interna desses recursos finitos (*preços-sombra* ou *shadow prices*). A compreensão da dualidade permite ao engenheiro realizar análises de sensibilidade pós-óptima sem necessidade de recalcular o problema a partir do zero perante flutuações de custos ou falhas operacionais de maquinaria.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender as relações canónicas estruturais entre o problema Primal e o seu Dual associado."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Formular analiticamente o problema dual a partir de qualquer modelo primal arbitrário."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Aplicar o Teorema das Folgas Complementares para determinar a solução óptima dual directamente do primal."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Calcular intervalos de estabilidade de coeficientes da F.O. ($c_j$) e disponibilidades ($b_i$) sem reexecutar o Simplex."
+      }
+    ],
+    "competencies": [
+      "Interpretação económica dos preços-sombra no planeamento orçamental de engenharia.",
+      "Identificação dos Teoremas de Dualidade Fraca, Forte e das Folgas Complementares.",
+      "Determinação do Simplex Dual quando ocorrem variações no lado direito que violam a viabilidade primal."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Quadro Canónico de Relações Primal-Dual:</strong>\n        <table class=\"academic-table\">\n          <thead>\n            <tr><th>Problema Primal (Maximização)</th><th>Problema Dual (Minimização)</th></tr>\n          </thead>\n          <tbody>\n            <tr><td>$m$ Restrições estruturais</td><td>$m$ Variáveis de decisão duais ($y_i$)</td></tr>\n            <tr><td>$n$ Variáveis de decisão ($x_j$)</td><td>$n$ Restrições estruturais duais</td></tr>\n            <tr><td>Vector de disponibilidades $\\mathbf{b}$ (RHS)</td><td>Vector de custos da F.O. dual ($\\mathbf{b}^T$)</td></tr>\n            <tr><td>Vector de custos da F.O. $\\mathbf{c}$</td><td>Vector de termos independentes do dual (RHS)</td></tr>\n            <tr><td>Matriz tecnológica $\\mathbf{A}$</td><td>Matriz transposta $\\mathbf{A}^T$</td></tr>\n            <tr><td>Restrição $i$ do tipo $\\le$</td><td>Variável dual $y_i \\ge 0$</td></tr>\n            <tr><td>Variável primal $x_j \\ge 0$</td><td>Restrição dual $j$ do tipo $\\ge$</td></tr>\n          </tbody>\n        </table>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>1. Teorema da Dualidade Fraca:</strong><br>\n        Se $\\mathbf{x}$ for uma solução viável primal e $\\mathbf{y}$ for uma solução viável dual, então:\n        \\[\n        \\mathbf{c}^T \\mathbf{x} \\le \\mathbf{b}^T \\mathbf{y}\n        \\]\n        <strong>2. Teorema da Dualidade Forte:</strong><br>\n        Se o problema primal admitir uma solução óptima $\\mathbf{x}^*$, o dual admite igualmente uma solução óptima $\\mathbf{y}^*$, e os valores óptimos das respectivas funções objectivo coincidem estritamente:\n        \\[\n        Z^* = \\mathbf{c}^T \\mathbf{x}^* = \\mathbf{b}^T \\mathbf{y}^* = W^*\n        \\]\n        <strong>3. Teorema das Folgas Complementares:</strong><br>\n        $\\mathbf{x}^*$ e $\\mathbf{y}^*$ são óptimos se e só se:\n        \\[\n        y_i^* (b_i - \\mathbf{a}_i^T \\mathbf{x}^*) = 0, \\quad \\forall i = 1, \\dots, m\n        \\]\n        \\[\n        x_j^* (\\mathbf{A}_j^T \\mathbf{y}^* - c_j) = 0, \\quad \\forall j = 1, \\dots, n\n        \\]\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p>Formulação Canónica Matricial:</p>\n      \\[\n      \\begin{aligned}\n      \\textbf{Primal (P):} \\quad & \\max \\ Z = \\mathbf{c}^T \\mathbf{x} \\quad \\text{s.a.} \\quad \\mathbf{A}\\mathbf{x} \\le \\mathbf{b}, \\quad \\mathbf{x} \\ge \\mathbf{0} \\\\\n      \\textbf{Dual (D):} \\quad & \\min \\ W = \\mathbf{b}^T \\mathbf{y} \\quad \\text{s.a.} \\quad \\mathbf{A}^T \\mathbf{y} \\ge \\mathbf{c}, \\quad \\mathbf{y} \\ge \\mathbf{0}\n      \\end{aligned}\n      \\]\n    ",
+    "algorithmProcedure": "\n      <h4>Procedimento de Análise Pós-Óptima de Sensibilidade:</h4>\n      <ol>\n        <li><strong>Identificação da Inversa da Base ($\\mathbf{B}^{-1}$):</strong> Extrair $\\mathbf{B}^{-1}$ das colunas correspondentes às variáveis de folga do tableau final do Simplex.</li>\n        <li><strong>Variação no Lado Direito ($\\Delta b_k$):</strong> Recalcular $\\mathbf{x}_B = \\mathbf{B}^{-1}(\\mathbf{b} + \\Delta \\mathbf{b})$. A base actual permanece viável enquanto $\\mathbf{x}_B \\ge \\mathbf{0}$.</li>\n        <li><strong>Variação nos Coeficientes da F.O. ($\\Delta c_j$):</strong> Actualizar os custos reduzidos $\\bar{c}_j = \\mathbf{c}_B^T \\mathbf{B}^{-1}\\mathbf{A}_j - c_j$. A base permanece óptima enquanto $\\bar{c}_j \\ge 0$.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 360\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"360\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow4\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"30\" y=\"25\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">Problema Primal (P)</text>\n\n        <path d=\"M 230 47 L 310 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow4)\"/>\n\n        <rect x=\"310\" y=\"25\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"420\" y=\"45\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Mapeamento Canónico</text>\n        <text x=\"420\" y=\"60\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">A → AT, c → b, max → min</text>\n\n        <path d=\"M 530 47 L 590 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow4)\"/>\n\n        <rect x=\"590\" y=\"25\" width=\"140\" height=\"45\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"660\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#ffffff\">Problema Dual (D)</text>\n\n        <path d=\"M 130 70 L 130 140\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow4)\"/>\n\n        <rect x=\"30\" y=\"140\" width=\"200\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"163\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Solução Óptima Primal x*</text>\n        <text x=\"130\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Verificação de Folgas si*</text>\n\n        <path d=\"M 230 165 L 340 165\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow4)\"/>\n\n        <rect x=\"340\" y=\"135\" width=\"260\" height=\"60\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"470\" y=\"160\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Teorema das Folgas Complementares</text>\n        <text x=\"470\" y=\"176\" text-anchor=\"middle\" font-size=\"10\" fill=\"#a1a1aa\">si* > 0 ⇒ yi* = 0  |  xj* > 0 ⇒ restrição j activa</text>\n\n        <path d=\"M 470 195 L 470 260\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow4)\"/>\n\n        <rect x=\"340\" y=\"260\" width=\"260\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"470\" y=\"283\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Solução Dual Óptima y*</text>\n        <text x=\"470\" y=\"299\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Preços-Sombra e Análise Económica</text>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Aplicação das Folgas Complementares</h4>\n      <p>Dado o Primal:</p>\n      \\[\n      \\max Z = 5x_1 + 2x_2 \\quad \\text{s.a.} \\quad x_1 \\le 3, \\quad x_1 + 2x_2 \\le 7, \\quad x_1, x_2 \\ge 0\n      \\]\n      Sabe-se que a solução óptima primal é $\\mathbf{x}^* = (3, 2)$ com $Z^* = 19$.\n\n      <h4>Passo 1: Construção do Dual</h4>\n      \\[\n      \\min W = 3y_1 + 7y_2 \\quad \\text{s.a.} \\quad y_1 + y_2 \\ge 5, \\quad 2y_2 \\ge 2, \\quad y_1, y_2 \\ge 0\n      \\]\n\n      <h4>Passo 2: Análise das Folgas Primais</h4>\n      <ul>\n        <li>Restrição 1: $x_1^* = 3 \\Rightarrow 3 \\le 3 \\Rightarrow s_1^* = 0$ (Recurso escasso).</li>\n        <li>Restrição 2: $x_1^* + 2x_2^* = 3 + 2(2) = 7 \\Rightarrow s_2^* = 0$ (Recurso escasso).</li>\n      </ul>\n\n      <h4>Passo 3: Aplicação do Teorema das Folgas Complementares</h4>\n      <p>Como $x_1^* > 0$ e $x_2^* > 0$, ambas as restrições duais devem ser satisfeitas em estrita igualdade:</p>\n      \\[\n      \\begin{cases}\n      y_1 + y_2 = 5 \\\\\n      2y_2 = 2 \\Rightarrow y_2^* = 1\n      \\end{cases}\n      \\quad \\Longrightarrow \\quad y_1^* = 4\n      \\]\n\n      <h4>Interpretação Económica:</h4>\n      <ul>\n        <li>$y_1^* = 4$ MT: Aumentar a disponibilidade da restrição 1 em uma unidade incrementará o lucro máximo $Z^*$ em exactamente 4 Meticais.</li>\n        <li>$y_2^* = 1$ MT: Cada hora adicional da restrição 2 vale 1 Metical marginal para a empresa.</li>\n        <li>Verificação da Dualidade Forte: $W^* = 3(4) + 7(1) = 19 = Z^*$.</li>\n      </ul>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>Avaliação de Contratos de Fornecimento Eléctrico Industrial:</strong>\n        Determinação de tarifas de ponta horária (preços-sombra da capacidade de transmissão) em subestações de alta tensão na província de Tete.\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 4.1:</strong> Formule o dual para: $\\max Z = 6x_1 + 8x_2$ s.a. $2x_1 + 4x_2 \\le 16$, $3x_1 + 2x_2 = 12$, $x_1 \\ge 0, x_2 \\in \\mathbb{R}$.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. O que representa fisicamente o preço-sombra (variável dual y_i*) de um recurso?",
+        "options": [
+          "A O custo total despendido na aquisição inicial da máquina.",
+          "B A taxa marginal de variação do valor óptimo da função objectivo Z* por unidade adicional do recurso b_i.",
+          "C O valor residual do equipamento após amortização contábil.",
+          "D O lucro médio obtido por todos os produtos combinados."
+        ],
+        "correct": 1,
+        "explanation": "O preço-sombra traduz analiticamente a derivada parcial ∂Z*/∂b_i, medindo a disposição máxima a pagar por uma unidade marginal suplementar daquele recurso escasso."
+      }
+    ],
+    "synthesis": "\n      <p>\n        A Dualidade unifica a optimização técnica e a teoria económica dos preços marginais, permitindo avaliar a robustez de decisões de engenharia perante incertezas do mercado.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Hillier, F. S., & Lieberman, G. J. (2021). Introduction to Operations Research (11th ed.). McGraw-Hill Education. ISBN: 978-1259872990."
+      },
+      {
+        "num": 2,
+        "citation": "Bertsimas, D., & Tsitsiklis, J. N. (1997). Introduction to Linear Optimization. Athena Scientific. ISBN: 978-1886529199."
+      }
+    ]
+  },
+  "Problemas de Transporte": {
+    "id": "transportation-assignment",
+    "title": "Módulo 5: Modelos de Transporte, Transbordo e Afectação",
+    "subtitle": "Otimização Logística de Distribuição e Alocação Unívoca de Recursos",
+    "duration": "5 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Programação Linear (Módulo 1) e Dualidade (Módulo 4)",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-05",
+      "workload": "5h Teórico-Práticas + 6h Estudo Autónomo",
+      "keywords": [
+        "Problema de Transporte",
+        "Método de Vogel (VAM)",
+        "Algoritmo MODI",
+        "Problema de Afectação",
+        "Método Húngaro"
+      ]
+    },
+    "introduction": "\n      A distribuição eficiente de mercadorias a partir de centros de produção (fábricas, portos de Maputo, Beira e Nacala) para centros de consumo e armazéns regionais constitui uma das principais aplicações práticas da Investigação Operacional na Engenharia Logística.\n      <br><br>\n      Embora o Problema de Transporte possa ser formulado como um modelo de Programação Linear, a sua estrutura de coeficientes técnicos apresenta uma propriedade matemática notável: a matriz de restrições é <strong>totalmente unimodular</strong>. Esta propriedade garante que, desde que as ofertas e procuras sejam inteiras, a solução óptima será naturalmente inteira, permitindo a utilização de algoritmos dedicados ordens de magnitude mais rápidos que o Simplex geral, designadamente o <strong>Método de Aproximação de Vogel (VAM)</strong> e o <strong>Método MODI</strong>.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender as propriedades da matriz de transporte e a condição de equilíbrio global $\\sum a_i = \\sum b_j$."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Determinar uma Solução Básica Inicial pelo Método de Aproximação de Vogel (VAM)."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Avaliar custos de oportunidade através de multiplicadores duais $u_i + v_j = c_{ij}$ (Método MODI)."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Construir e optimizar circuitos de compensação (stepping stone) e resolver o Problema de Afectação pelo Método Húngaro."
+      }
+    ],
+    "competencies": [
+      "Balanceamento de redes de transporte logísticas com origens ou destinos fictícios.",
+      "Identificação de soluções básicas degeneradas ($m+n-1$ células básicas).",
+      "Modelagem e resolução de atribuição de tarefas a operadores/máquinas."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Estrutura Matemática do Modelo de Transporte:</strong>\n        \\[\n        \\begin{aligned}\n        \\min \\quad & Z = \\sum_{i=1}^m \\sum_{j=1}^n c_{ij} x_{ij} \\\\\n        \\text{s.a.} \\quad & \\sum_{j=1}^n x_{ij} = a_i, \\quad \\forall i=1,\\dots,m \\quad (\\text{Ofertas}) \\\\\n        & \\sum_{i=1}^m x_{ij} = b_j, \\quad \\forall j=1,\\dots,n \\quad (\\text{Procuras}) \\\\\n        & x_{ij} \\ge 0\n        \\end{aligned}\n        \\]\n        <strong>Propriedade de Base:</strong> Qualquer base viável não-degenerada contém exactamente $m + n - 1$ variáveis básicas.\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Condição de Otimalidade MODI (Multiplicadores Duais):</strong><br>\n        Para todas as células básicas $(i,j) \\in B$, os potenciais duais $u_i$ e $v_j$ satisfazem:\n        \\[\n        u_i + v_j = c_{ij}\n        \\]\n        Para as células não-básicas $(i,j) \\notin B$, o custo de oportunidade (reduzido) define-se como:\n        \\[\n        \\Delta_{ij} = c_{ij} - (u_i + v_j)\n        \\]\n        <strong>Critério de Paragem:</strong> Se $\\Delta_{ij} \\ge 0$ para todas as células não-básicas, o plano de transporte actual é ÓPTIMO.\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p>O Método Húngaro para o Problema de Afectação ($m=n$):</p>\n      \\[\n      \\min Z = \\sum_{i=1}^n \\sum_{j=1}^n c_{ij} x_{ij} \\quad \\text{s.a.} \\quad x_{ij} \\in \\{0, 1\\}\n      \\]\n    ",
+    "algorithmProcedure": "\n      <h4>Etapas do Método de Aproximação de Vogel (VAM):</h4>\n      <ol>\n        <li>Calcular a <em>penalidade</em> de cada linha e coluna: diferença aritmética entre os dois menores custos unitários $c_{ij}$.</li>\n        <li>Identificar a linha ou coluna com a maior penalidade.</li>\n        <li>Nessa linha/coluna, alocar a máxima quantidade possível $x_{ij} = \\min(a_i, b_j)$ à célula com o menor custo unitário.</li>\n        <li>Ajustar a oferta e a procura. Riscar a linha ou coluna esgotada.</li>\n        <li>Repetir o procedimento até que toda a oferta e procura sejam plenamente satisfeitas.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 360\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"360\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow5\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"30\" y=\"25\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">Tabela de Custos e Balanço</text>\n\n        <path d=\"M 230 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow5)\"/>\n\n        <rect x=\"290\" y=\"25\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"400\" y=\"45\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Método de Vogel (VAM)</text>\n        <text x=\"400\" y=\"60\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Solução Inicial (m+n-1 células)</text>\n\n        <path d=\"M 400 70 L 400 120\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow5)\"/>\n\n        <rect x=\"290\" y=\"120\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"400\" y=\"142\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Calcular Multiplicadores MODI</text>\n        <text x=\"400\" y=\"157\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">ui + vj = cij nas células básicas</text>\n\n        <path d=\"M 400 165 L 400 210\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow5)\"/>\n\n        <!-- Decisão MODI -->\n        <polygon points=\"400,210 490,245 400,280 310,245\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"400\" y=\"242\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Todos Δij ≥ 0?</text>\n        <text x=\"400\" y=\"256\" text-anchor=\"middle\" font-size=\"10\" fill=\"#a1a1aa\">(Critério Paragem)</text>\n\n        <path d=\"M 490 245 L 580 245\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow5)\"/>\n        <text x=\"535\" y=\"235\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"580\" y=\"225\" width=\"150\" height=\"40\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"655\" y=\"250\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">PLANO ÓPTIMO</text>\n\n        <path d=\"M 310 245 L 210 245\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow5)\"/>\n        <text x=\"260\" y=\"235\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">NÃO</text>\n\n        <rect x=\"30\" y=\"220\" width=\"180\" height=\"50\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"120\" y=\"242\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Construir Circuito Fechado</text>\n        <text x=\"120\" y=\"258\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Stepping Stone e Realocação θ</text>\n\n        <!-- Feedback Loop -->\n        <path d=\"M 120 220 L 120 142 L 290 142\" stroke=\"#18181b\" stroke-width=\"1.8\" stroke-dasharray=\"4\" fill=\"none\" marker-end=\"url(#arrow5)\"/>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Caso Resolvido: Distribuição Logística Portuária em Moçambique</h4>\n      <p>Três entrepostos portuários ($P_1$: Maputo, $P_2$: Beira, $P_3$: Nacala) abastecem quatro centros provinciais ($D_1$: Gaza, $D_2$: Sofala, $D_3$: Nampula, $D_4$: Niassa).</p>\n      <ul>\n        <li><strong>Ofertas:</strong> $P_1 = 300$, $P_2 = 400$, $P_3 = 500$ toneladas (Total = 1.200 t).</li>\n        <li><strong>Procuras:</strong> $D_1 = 250$, $D_2 = 350$, $D_3 = 400$, $D_4 = 200$ toneladas (Total = 1.200 t, Equilibrado).</li>\n      </ul>\n      <p>Aplicação do algoritmo de Vogel e otimização por MODI conduz ao plano de custo mínimo com verificação de todos os multiplicadores $\\Delta_{ij} \\ge 0$.</p>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>Planeamento da Cadeia de Abastecimento de Combustíveis (IMOPETRO):</strong>\n        Determinação das rotas de cabotagem e envio ferroviário de gasóleo a partir dos terminais oceânicos para depósitos do interior.\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 5.1:</strong> Obtenha a solução básica admissível inicial pelo Método do Canto Noroeste e pelo Método de Vogel para uma matriz $3 \\times 3$. Compare os custos obtidos.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. Quantas células básicas devem existir numa solução viável não-degenerada de transporte com m origens e n destinos?",
+        "options": [
+          "A m × n",
+          "B m + n",
+          "C m + n - 1",
+          "D (m - 1) × (n - 1)"
+        ],
+        "correct": 2,
+        "explanation": "Devido à redundância linear da equação de equilíbrio de fluxo global (∑ a_i = ∑ b_j), o posto da matriz tecnológica é exactamente m + n - 1."
+      }
+    ],
+    "synthesis": "\n      <p>\n        Os modelos de transporte e afectação exploram a estrutura combinatorial de redes bipartidas, fornecendo soluções inteiras directas de elevada eficiência computacional na logística industrial.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Taha, H. A. (2017). Operations Research: An Introduction (10th ed.). Pearson. ISBN: 978-0134444017."
+      },
+      {
+        "num": 2,
+        "citation": "Hillier, F. S., & Lieberman, G. J. (2021). Introduction to Operations Research (11th ed.). McGraw-Hill Education. ISBN: 978-1259872990."
+      }
+    ]
+  },
+  "Optimização em Redes": {
+    "id": "network-optimization",
+    "title": "Módulo 6: Teoria de Grafos e Optimização em Redes",
+    "subtitle": "Caminho Mais Curto (Dijkstra), Fluxo Máximo (Ford-Fulkerson) e Redes de Projectos CPM/PERT",
+    "duration": "6 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Álgebra Linear e Estruturas de Dados / Algoritmos",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-06",
+      "workload": "6h Teórico-Práticas + 8h Estudo Autónomo",
+      "keywords": [
+        "Algoritmo de Dijkstra",
+        "Fluxo Máximo",
+        "Ford-Fulkerson",
+        "Corte Mínimo",
+        "CPM/PERT",
+        "Caminho Crítico"
+      ]
+    },
+    "introduction": "\n      Muitos sistemas de engenharia física organizam-se naturalmente sob a forma de redes estruturadas: redes de distribuição de água potável, redes de transporte ferroviário e rodoviário, sistemas de transmissão de energia eléctrica e redes de telecomunicações de fibra óptica.\n      <br><br>\n      A Teoria de Redes e Grafos traduz estas infra-estruturas num conjunto formal de vértices (nós) $V$ e arestas/arcos direcionados $E$. Este módulo aborda os três problemas axiomáticos da optimização em redes: a determinação da rota de menor resistência ou distância (*Algoritmo de Dijkstra*), a capacidade máxima de vazão entre uma nascente e um sumidouro (*Teorema do Corte Mínimo e Fluxo Máximo de Ford-Fulkerson*) e o planeamento temporal de grandes obras de engenharia (*Métodos CPM/PERT*).\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender a representação matricial de grafos (matriz de adjacência e matriz de incidência nó-arco)."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Executar o algoritmo de Dijkstra com etiquetas permanentes e temporárias para determinar caminhos mínimos."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Calcular o fluxo máximo através de cadeias aumentantes e identificar o corte mínimo separador."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Construir diagramas de precedência de actividades CPM/PERT, identificando o caminho crítico e as folgas de projecto."
+      }
+    ],
+    "competencies": [
+      "Optimização de rotas e topologias de comunicação em redes de transporte.",
+      "Identificação de gargalos de capacidade em redes de fluidos e condutas de água.",
+      "Controlo de prazos e cálculo de probabilidades de conclusão de projectos em regime de incerteza (distribuição Beta / PERT)."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Conceitos Básicos de Grafos:</strong>\n        <ul>\n          <li><strong>Grafo Conexo $G = (V, E)$:</strong> Conjunto de $n = |V|$ vértices e $m = |E|$ arcos direcionados $(i,j)$ com pesos/capacidades $c_{ij} \\ge 0$.</li>\n          <li><strong>Caminho Mais Curto:</strong> Rota de nós $v_1, v_2, \\dots, v_k$ que minimiza o somatório dos comprimentos das arestas $\\sum d_{ij}$.</li>\n          <li><strong>Corte $(S, T)$:</strong> Partição dos vértices em dois conjuntos disjuntos $S$ e $T = V \\setminus S$ tal que a origem $s \\in S$ e o sumidouro $t \\in T$. A capacidade do corte é $C(S,T) = \\sum_{i \\in S, j \\in T} c_{ij}$.</li>\n        </ul>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Teorema do Fluxo Máximo e Corte Mínimo (Max-Flow Min-Cut Theorem):</strong><br>\n        <em>Em qualquer rede conexa de transporte com capacidades finitas nos arcos, o valor do fluxo máximo sustentável entre uma fonte $s$ e um sumidouro $t$ é exactamente igual à capacidade do corte mínimo que separa $s$ de $t$:</em>\n        \\[\n        \\max |f| = \\min_{(S,T)} C(S,T)\n        \\]\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p>Formulação do Caminho Crítico (CPM):</p>\n      \\[\n      \\begin{aligned}\n      ES_j &= \\max_{i \\in \\text{Pred}(j)} \\{ EF_i \\} \\\\\n      EF_j &= ES_j + t_j \\\\\n      LF_i &= \\min_{j \\in \\text{Suc}(i)} \\{ LS_j \\} \\\\\n      LS_i &= LF_i - t_i \\\\\n      \\text{Folga Total: } & FT_i = LS_i - ES_i = LF_i - EF_i\n      \\end{aligned}\n      \\]\n      O Caminho Crítico é composto pelas actividades com folga total estritamente nula ($FT_i = 0$).\n    ",
+    "algorithmProcedure": "\n      <h4>Passo a Passo do Algoritmo de Dijkstra:</h4>\n      <ol>\n        <li>Atribuir à origem a etiqueta permanente $[0, -]$. Para todos os outros nós $v \\neq s$, atribuir a etiqueta temporária $[\\infty, -]$. Definir nó actual $u = s$.</li>\n        <li>Para cada nó adjacente $v$ com etiqueta temporária, actualizar: $d(v) = \\min(d(v), d(u) + c_{uv})$.</li>\n        <li>Dentre todos os nós com etiqueta temporária, escolher o de menor distância $d(v)$, tornando a sua etiqueta <strong>permanente</strong>.</li>\n        <li>Definir $u = v$. Se o nó de destino $t$ tiver recebido etiqueta permanente, PARAR; caso contrário, repetir do passo 2.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 360\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"360\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow6\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"30\" y=\"25\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"130\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#18181b\">Inicializar Nós: d(s)=0, d(v)=∞</text>\n\n        <path d=\"M 230 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow6)\"/>\n\n        <rect x=\"290\" y=\"25\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"400\" y=\"45\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Tornar Nó Actual Permanente</text>\n        <text x=\"400\" y=\"60\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Actualizar Vizinhos: d(u) + cuv</text>\n\n        <path d=\"M 400 70 L 400 120\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow6)\"/>\n\n        <!-- Decisão Dijkstra -->\n        <polygon points=\"400,120 490,155 400,190 310,155\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"400\" y=\"152\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Destino Permanente?</text>\n\n        <path d=\"M 490 155 L 580 155\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow6)\"/>\n        <text x=\"535\" y=\"145\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"580\" y=\"135\" width=\"150\" height=\"40\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"655\" y=\"160\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">ROTA MÍNIMA ACHADA</text>\n\n        <path d=\"M 400 190 L 400 240\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow6)\"/>\n        <text x=\"415\" y=\"215\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">NÃO</text>\n\n        <rect x=\"290\" y=\"240\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"400\" y=\"262\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Eleger Nó Temporário de Menor d(v)</text>\n        <text x=\"400\" y=\"277\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Próximo Nó de Análise</text>\n\n        <!-- Feedback Loop -->\n        <path d=\"M 290 262 L 200 262 L 200 47 L 290 47\" stroke=\"#18181b\" stroke-width=\"1.8\" stroke-dasharray=\"4\" fill=\"none\" marker-end=\"url(#arrow6)\"/>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Problema de Caminho Crítico (CPM) em Obra de Construção Civil</h4>\n      <p>Projecto de construção de uma ponte rodoviária sobre o Rio Licungo com 6 actividades interdependentes:</p>\n      <table class=\"academic-table\">\n        <thead>\n          <tr><th>Actividade</th><th>Descrição</th><th>Precedentes</th><th>Duração (dias)</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>Folga Total (FT)</th><th>Crítica?</th></tr>\n        </thead>\n        <tbody>\n          <tr style=\"font-weight:600;\"><td>A</td><td>Escavação de Fundações</td><td>—</td><td>4</td><td>0</td><td>4</td><td>0</td><td>4</td><td>0</td><td>SIM</td></tr>\n          <tr style=\"font-weight:600;\"><td>B</td><td>Pilares de Betão</td><td>A</td><td>6</td><td>4</td><td>10</td><td>4</td><td>10</td><td>0</td><td>SIM</td></tr>\n          <tr><td>C</td><td>Muros de Contenção</td><td>A</td><td>3</td><td>4</td><td>7</td><td>7</td><td>10</td><td>3</td><td>NÃO</td></tr>\n          <tr style=\"font-weight:600;\"><td>D</td><td>Vigas de Tabuleiro</td><td>B, C</td><td>5</td><td>10</td><td>15</td><td>10</td><td>15</td><td>0</td><td>SIM</td></tr>\n          <tr><td>E</td><td>Pavimentação Asfáltica</td><td>D</td><td>2</td><td>15</td><td>17</td><td>16</td><td>18</td><td>1</td><td>NÃO</td></tr>\n          <tr style=\"font-weight:600;\"><td>F</td><td>Testes de Carga e Guarda-corpos</td><td>D</td><td>3</td><td>15</td><td>18</td><td>15</td><td>18</td><td>0</td><td>SIM</td></tr>\n        </tbody>\n      </table>\n      <p>\n        <strong>Duração Mínima do Projecto:</strong> 18 dias.<br>\n        <strong>Caminho Crítico:</strong> $A \\rightarrow B \\rightarrow D \\rightarrow F$. Qualquer atraso nestas quatro actividades provocará um atraso idêntico na entrega da obra.\n      </p>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>Rede de Transporte e Logística do Corredor de Nacala:</strong>\n        Optimização do encaminhamento de composições de carvão mineral de Moatize até ao porto de águas profundas de Nacala-a-Velha com cálculo de capacidade máxima de linha.\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 6.1:</strong> Dado um grafo de 5 nós com pesos positivos nas arestas, execute manualmente o algoritmo de Dijkstra da origem 1 até ao nó 5 apresentando a tabela de etiquetas.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. O Algoritmo de Dijkstra pode ser aplicado a grafos com pesos de arestas negativos?",
+        "options": [
+          "A Sim, sem qualquer alteração aos critérios de paragem.",
+          "B Não, a presença de arestas com peso negativo exige o algoritmo de Bellman-Ford, pois Dijkstra assume monotonicidade não-decrescente nas distâncias.",
+          "C Sim, desde que o grafo não possua ciclos.",
+          "D Sim, subtraindo o menor peso negativo de todas as arestas."
+        ],
+        "correct": 1,
+        "explanation": "Dijkstra assume ganância óptima: uma vez tornado permanente um nó, a sua distância não pode ser reduzida posteriormente, premissa que falha caso existam arestas com custos negativos."
+      }
+    ],
+    "synthesis": "\n      <p>\n        A modelação em redes combina formulações matemáticas limpas com algoritmos polinomiais ultra-rápidos, constituindo a espinha dorsal computacional da engenharia de tráfego, telecomunicações e gestão de projectos.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Ahuja, R. K., Magnanti, T. L., & Orlin, J. B. (1993). Network Flows: Theory, Algorithms, and Applications. Prentice Hall. ISBN: 978-0136175490."
+      },
+      {
+        "num": 2,
+        "citation": "Bazaraa, M. S., Jarvis, J. J., & Sherali, H. D. (2010). Linear Programming and Network Flows (4th ed.). John Wiley & Sons. ISBN: 978-0470462720."
+      }
+    ]
+  },
+  "Programação Inteira": {
+    "id": "integer-programming",
+    "title": "Módulo 7: Programação Linear Inteira e Métodos Combinatórios",
+    "subtitle": "Branch and Bound, Planos de Corte de Gomory e Decisões Lógicas Binárias",
+    "duration": "5 horas lectivas (Teórica e Prática)",
+    "level": "Licenciatura em Engenharia (3.º Ano)",
+    "prerequisites": "Programação Linear (Módulo 1) e Método Simplex Primal (Módulo 2)",
+    "identification": {
+      "institution": "Faculdade de Engenharia &bull; Universidade Eduardo Mondlane",
+      "discipline": "Investigação Operacional",
+      "code": "ENG-IO-07",
+      "workload": "5h Teórico-Práticas + 8h Estudo Autónomo",
+      "keywords": [
+        "Programação Linear Inteira",
+        "Branch and Bound",
+        "Planos de Corte",
+        "Gomory",
+        "Variáveis Binárias",
+        "Problema da Mochila"
+      ]
+    },
+    "introduction": "\n      Na prática da Engenharia, um vasto conjunto de decisões não admite grandezas contínuas fraccionárias: não é viável construir $2.4$ pontes, adquirir $3.7$ turbinas hidroeléctricas, nem afectar $0.5$ de um engenheiro a uma tarefa de segurança crítica.\n      <br><br>\n      A <strong>Programação Linear Inteira (PLI)</strong> e a <strong>Programação Linear Inteira Mista (PLIM)</strong> abordam problemas onde algumas ou a totalidade das variáveis de decisão pertencem ao conjunto dos números inteiros ($\\mathbb{Z}$) ou booleanos ($\\{0, 1\\}$). Ao contrário da Programação Linear contínua, o problema de PLI é classificado teoricamente como **NP-Difícil** (*NP-Hard*). O simples arredondamento da solução contínua do Simplex pode resultar em soluções inviáveis ou severamente subóptimas, exigindo métodos estruturados como o **Branch & Bound** e os **Planos de Corte de Gomory**.\n    ",
+    "learningObjectives": [
+      {
+        "level": "Compreender",
+        "desc": "Compreender por que razão o arredondamento heurístico da solução relaxada é ineficaz e matematicamente inválido."
+      },
+      {
+        "level": "Aplicar",
+        "desc": "Construir árvores de ramificação e poda no algoritmo Branch and Bound."
+      },
+      {
+        "level": "Analisar",
+        "desc": "Formular restrições lógicas e disjuntivas complexas através de variáveis binárias auxiliares ($x_j \\in \\{0, 1\\}$)."
+      },
+      {
+        "level": "Avaliar",
+        "desc": "Avaliar critérios de poda de nós: por infactibilidade, por cota inferior/superior e por integralidade."
+      }
+    ],
+    "competencies": [
+      "Modelação de decisões de investimento com custos fixos (setup costs) e economias de escala.",
+      "Resolução do Problema da Mochila (Knapsack Problem) e de Localização de Instalações Industriais.",
+      "Cálculo e actualização de limites globais superiores e inferiores na convergência do Branch & Bound."
+    ],
+    "fundamentalConcepts": "\n      <div class=\"concept-block\">\n        <strong>Tipologia de Modelos Inteiros:</strong>\n        <ul>\n          <li><strong>PLI Pura:</strong> Todas as variáveis de decisão são inteiras: $x_j \\in \\mathbb{Z}_+, \\forall j$.</li>\n          <li><strong>PLI Mista (MIP):</strong> Apenas um subconjunto de variáveis é restrito a inteiros.</li>\n          <li><strong>Programação Binária (0-1):</strong> Variáveis dicotómicas de decisão $x_j \\in \\{0, 1\\}$ (Sim/Não, Construir/Não Construir).</li>\n          <li><strong>Relaxamento Linear (LP Relaxation):</strong> Modelo obtido omitindo a restrição de integralidade (substituindo $x_j \\in \\mathbb{Z}_+$ por $x_j \\ge 0$). O valor óptimo da relaxação fornece uma <em>cota superior</em> (em maximização) para o problema inteiro: $Z_{LP}^* \\ge Z_{IP}^*$.</li>\n        </ul>\n      </div>\n    ",
+    "theoreticalFoundations": "\n      <div class=\"theory-theorem\">\n        <strong>Três Critérios de Poda de Nós no Branch & Bound:</strong><br>\n        Um nó da árvore de ramificação é podado (interrompendo a exploração dos seus descendentes) se e só se verificar uma das três condições:\n        <ol>\n          <li><strong>Poda por Integralidade:</strong> A solução do relaxamento do nó é inteira ($x_j \\in \\mathbb{Z}$). O seu valor actualiza o melhor valor inteiro conhecido (*Incumbente*).</li>\n          <li><strong>Poda por Cota:</strong> O valor da F.O. da relaxação do nó é pior ou igual ao valor da melhor solução inteira já encontrada ($Z_{nó} \\le Z_{\\text{incumbente}}$ em maximização).</li>\n          <li><strong>Poda por Inviabilidade:</strong> O sistema de restrições do nó relaxado é infactível ($S_{nó} = \\emptyset$).</li>\n        </ol>\n      </div>\n    ",
+    "mathematicalFormulation": "\n      <p>Modelação de Custos Fixos com Variável Binária:</p>\n      \\[\n      C(x) = \n      \\begin{cases}\n      K + c \\cdot x, & \\text{se } x > 0 \\\\\n      0, & \\text{se } x = 0\n      \\end{cases}\n      \\quad \\Longrightarrow \\quad\n      \\begin{aligned}\n      \\text{Min } & K y + c x \\\\\n      \\text{s.a. } & x \\le M y, \\quad y \\in \\{0, 1\\}, \\ x \\ge 0\n      \\end{aligned}\n      \\]\n      Onde $M$ é um limite superior para a capacidade de produção $x$.\n    ",
+    "algorithmProcedure": "\n      <h4>Passo a Passo do Algoritmo Branch & Bound (Maximização):</h4>\n      <ol>\n        <li>Resolver o <em>Relaxamento Linear</em> inicial $P_0$. Definir incumbente provisório $Z^* = -\\infty$.</li>\n        <li>Se a solução de $P_0$ for inteira, PARAR (já é óptima). Caso contrário, adicionar $P_0$ à lista de nós activos.</li>\n        <li>Seleccionar um nó activo e escolher uma variável fraccionária $x_k = \\beta \\notin \\mathbb{Z}$.</li>\n        <li><strong>Ramificar</strong> em dois subproblemas:\n          <ul>\n            <li>Ramo Esquerdo: Adicionar restrição $x_k \\le \\lfloor \\beta \\rfloor$.</li>\n            <li>Ramo Direito: Adicionar restrição $x_k \\ge \\lceil \\beta \\rceil$.</li>\n          </ul>\n        </li>\n        <li>Resolver os relaxamentos lineares dos dois nós. Aplicar os 3 critérios de poda. Se surgir nova solução inteira com $Z > Z^*$, actualizar o incumbente.</li>\n        <li>Repetir até que a lista de nós activos esteja vazia. O incumbente actual é a Solução Óptima Inteira Global.</li>\n      </ol>\n    ",
+    "flowchartSVG": "\n      <svg viewBox=\"0 0 760 380\" class=\"academic-flowchart\" xmlns=\"http://www.w3.org/2000/svg\">\n        <rect x=\"0\" y=\"0\" width=\"760\" height=\"380\" fill=\"#ffffff\" rx=\"8\" stroke=\"#e4e4e7\" stroke-width=\"1\"/>\n        <defs>\n          <marker id=\"arrow7\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n            <path d=\"M 0 1 L 10 5 L 0 9 z\" fill=\"#18181b\"/>\n          </marker>\n        </defs>\n\n        <rect x=\"280\" y=\"20\" width=\"200\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"380\" y=\"47\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Resolver Relaxamento P0</text>\n\n        <path d=\"M 380 65 L 380 110\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow7)\"/>\n\n        <!-- Decisão Integralidade -->\n        <polygon points=\"380,110 470,145 380,180 290,145\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"1\"/>\n        <text x=\"380\" y=\"142\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Solução Inteira?</text>\n\n        <path d=\"M 470 145 L 560 145\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow7)\"/>\n        <text x=\"515\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">SIM</text>\n\n        <rect x=\"560\" y=\"125\" width=\"160\" height=\"40\" rx=\"6\" fill=\"#18181b\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"640\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#ffffff\">Óptimo Inteiro Encontrado</text>\n\n        <path d=\"M 380 180 L 380 220\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow7)\"/>\n        <text x=\"395\" y=\"200\" font-size=\"10\" font-weight=\"600\" fill=\"#18181b\">NÃO</text>\n\n        <rect x=\"270\" y=\"220\" width=\"220\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"2\"/>\n        <text x=\"380\" y=\"242\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Escolher Variável Fraccionária xk</text>\n        <text x=\"380\" y=\"257\" text-anchor=\"middle\" font-size=\"10\" fill=\"#52525b\">Ramificar em dois nós</text>\n\n        <!-- Ramificação Esquerda e Direita -->\n        <path d=\"M 310 265 L 200 310\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow7)\"/>\n        <path d=\"M 450 265 L 560 310\" stroke=\"#18181b\" stroke-width=\"1.8\" marker-end=\"url(#arrow7)\"/>\n\n        <rect x=\"100\" y=\"315\" width=\"180\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"1.5\"/>\n        <text x=\"190\" y=\"337\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Ramo 1: xk ≤ ⌊β⌋</text>\n        <text x=\"190\" y=\"351\" text-anchor=\"middle\" font-size=\"9\" fill=\"#52525b\">Avaliar Poda (Cota/Inviab/Int)</text>\n\n        <rect x=\"480\" y=\"315\" width=\"180\" height=\"45\" rx=\"6\" fill=\"#f4f4f5\" stroke=\"#18181b\" stroke-width=\"1.5\"/>\n        <text x=\"570\" y=\"337\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"600\" fill=\"#18181b\">Ramo 2: xk ≥ ⌈β⌉</text>\n        <text x=\"570\" y=\"351\" text-anchor=\"middle\" font-size=\"9\" fill=\"#52525b\">Avaliar Poda (Cota/Inviab/Int)</text>\n      </svg>\n    ",
+    "solvedExercise": "\n      <h4>Problema da Mochila (Knapsack) para Selecção de Projectos de Engenharia</h4>\n      <p>Um consórcio de engenharia em Moçambique dispõe de um orçamento máximo de capital de <strong>14 milhões de Meticais</strong> para investir num conjunto de 4 projectos com retorno esperado líquido e requisitos de capital:</p>\n      <ul>\n        <li>Projecto 1: Custo = 5 M MT, Retorno = 16 M MT ($y_1 \\in \\{0, 1\\}$)</li>\n        <li>Projecto 2: Custo = 7 M MT, Retorno = 22 M MT ($y_2 \\in \\{0, 1\\}$)</li>\n        <li>Projecto 3: Custo = 4 M MT, Retorno = 12 M MT ($y_3 \\in \\{0, 1\\}$)</li>\n        <li>Projecto 4: Custo = 3 M MT, Retorno = 8 M MT ($y_4 \\in \\{0, 1\\}$)</li>\n      </ul>\n      \\[\n      \\max Z = 16y_1 + 22y_2 + 12y_3 + 8y_4 \\quad \\text{s.a.} \\quad 5y_1 + 7y_2 + 4y_3 + 3y_4 \\le 14, \\quad y_i \\in \\{0, 1\\}\n      \\]\n      <p>\n        <strong>Resolução pelo Branch & Bound:</strong><br>\n        A relaxação linear inicial atribui fracções às variáveis ordenadas por eficiência decrescente ($c_i/a_i$). A árvore de Branch & Bound poda os ramos subóptimos e estabelece como solução inteira global exacta: \n        <strong>Investir nos Projectos 1, 2 e 4</strong> ($y_1^* = 1, y_2^* = 1, y_3^* = 0, y_4^* = 1$), com custo total de $5 + 7 + 3 = 15$ não viável; a combinação óptima viável exacta é $y_1^*=1, y_2^*=1, y_3^*=0, y_4^*=0$ (custo 12, valor 38) ou $y_2^*=1, y_3^*=1, y_4^*=1$ (custo $7+4+3=14$, valor $22+12+8=42$).<br>\n        <strong>Solução Óptima Inteira:</strong> Seleccionar Projectos 2, 3 e 4 com consumo orçamental de 14 M MT e valor máximo de <strong>42 Milhões de Meticais</strong>.\n      </p>\n    ",
+    "engineeringApplications": "\n      <div class=\"application-card\">\n        <strong>Localização e Dimensionamento de Subestações Eléctricas:</strong>\n        Problema de cobertura de conjuntos (*Set Covering Problem*) para posicionar geradores solares fotovoltaicos rurais em distritos de Inhambane e Gaza.\n      </div>\n    ",
+    "proposedExercises": "\n      <div class=\"exercise-tier\">\n        <span class=\"tier-badge basic\">Nível 1: Básico</span>\n        <p><strong>Problema 7.1:</strong> Considere o modelo $\\max Z = 5x_1 + 6x_2$ s.a. $x_1 + x_2 \\le 5$, $4x_1 + 7x_2 \\le 28$, $x_1, x_2 \\ge 0$ e inteiros. Desenhe a árvore de Branch & Bound completa.</p>\n      </div>\n    ",
+    "learningAssessment": [
+      {
+        "question": "1. O que acontece com o valor da função objectivo do relaxamento linear em relação ao problema inteiro (num problema de maximização)?",
+        "options": [
+          "A Z_LP* é sempre menor ou igual a Z_IP*.",
+          "B Z_LP* é sempre maior ou igual a Z_IP* (constitui uma cota superior).",
+          "C Z_LP* é sempre igual a Z_IP*.",
+          "D Não existe relação previsível entre Z_LP* e Z_IP*."
+        ],
+        "correct": 1,
+        "explanation": "Como o conjunto viável da relaxação contém integralmente o conjunto viável discreto inteiro (S_IP ⊆ S_LP), o máximo obtido no conjunto maior nunca pode ser superado pelo máximo no conjunto restrito."
+      }
+    ],
+    "synthesis": "\n      <p>\n        A Programação Inteira permite modelar decisões qualitativas discretas na engenharia. O Branch and Bound alia relaxamento linear contínuo com estratégias de poda por cotas, viabilizando soluções exactas para problemas combinatórios complexos.\n      </p>\n    ",
+    "references": [
+      {
+        "num": 1,
+        "citation": "Wolsey, L. A. (2020). Integer Programming (2nd ed.). John Wiley & Sons. ISBN: 978-1119606536."
+      },
+      {
+        "num": 2,
+        "citation": "Nemhauser, G. L., & Wolsey, L. A. (1988). Integer and Combinatorial Optimization. John Wiley & Sons. ISBN: 978-0471828198."
+      },
+      {
+        "num": 3,
+        "citation": "Bertsimas, D., & Weismantel, R. (2005). Optimization over Integers. Dynamic Ideas. ISBN: 978-0975914625."
+      }
+    ]
+  }
+}

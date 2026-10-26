@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investigação Operacional — FE-UEM</title>
+  <link rel="icon" type="image/png" href="Logotipo sem UEM.png">
+  
+  <!-- Bootstrap 5.3.3 (CSS Local de Alta Velocidade) -->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Estilos Customizados da FE-UEM (Carregados após Bootstrap para preservar a identidade visual institucional) -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- MathJax para renderização de fórmulas matemáticas em LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Barra Superior / Header Minimalista Reestruturado -->
+    <header class="app-header">
+      <div class="header-left">
+        <button id="sidebar-toggle-btn" class="icon-btn" aria-label="Alternar tópicos curriculares" title="Tópicos Curriculares">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="brand" id="brand-home-link" style="cursor: pointer;" title="Ir para a Página Inicial">
+          <img src="Logotipo sem UEM.png" alt="Logótipo Institucional FE-UEM" class="brand-logo" width="34" height="34">
+          <div class="brand-text">
+            <span class="brand-title">Investigação Operacional</span>
+            <span class="brand-subtitle">Faculdade de Engenharia &bull; UEM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Navegação Central -->
+      <nav class="header-center-nav">
+        <div class="view-switch-group">
+          <button type="button" id="btn-view-home" class="view-switch-btn active" title="Página Inicial da Disciplina">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Início</span>
+          </button>
+          <button type="button" id="btn-view-dashboard" class="view-switch-btn" title="Painel Académico (Estudante / Docente)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span id="dashboard-btn-label">Meu Painel</span>
+          </button>
+          <button type="button" id="btn-view-lesson" class="view-switch-btn" title="Sala de Aula Digital (7 Módulos Curriculares)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>Sala de Aula</span>
+          </button>
+          <button type="button" id="btn-view-forum" class="view-switch-btn" title="Fórum Académico Interactivo (Estudantes, Docentes e IA)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Fórum Académico</span>
+          </button>
+          <button type="button" id="btn-view-chat" class="view-switch-btn" title="Tutor Inteligente de IA (Acompanhamento Individual)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Tutor IA</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="header-right">
+        <!-- Indicador MongoDB Atlas -->
+        <div class="status-pill" id="db-status-pill" title="Base de Dados na Nuvem (MongoDB Atlas)">
+          <span class="status-dot" style="background-color: #10b981;"></span>
+          <span id="db-status-label">🍃 Atlas</span>
+        </div>
+
+        <!-- Selector de Modelo IA -->
+        <div class="model-selector-container">
+          <label for="model-select" class="sr-only">Modelo de Inteligência Artificial</label>
+          <select id="model-select" class="model-select">
+            <option value="llama3.2:3b" selected>Llama 3.2 (3B)</option>
+            <option value="llama3.2:1b">Llama 3.2 (1B)</option>
+            <option value="academic-engine">Motor FE-UEM</option>
+            <option value="deepseek-r1:1.5b">DeepSeek-R1</option>
+            <option value="gpt-4o-mini">OpenAI GPT-4o</option>
+          </select>
+        </div>
+
+        <!-- Menu Dropdown de Utilizador Elegante com Logout Rápido e Seguro -->
+        <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
+          <button type="button" class="user-profile-trigger" id="user-profile-trigger" aria-haspopup="true" aria-expanded="false" title="Menu da Conta">
+            <div class="user-avatar-circle" id="user-avatar-initials">EM</div>
+            <div class="user-trigger-text">
+              <span class="user-trigger-name" id="header-user-name">Edilson Macamo</span>
+              <span class="user-trigger-role-badge" id="header-user-role">🎓 Estudante</span>
+            </div>
+            <svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Dropdown Flutuante -->
+          <div class="user-dropdown-card" id="user-dropdown-card" style="display: none;">
+            <div class="dropdown-user-header">
+              <div class="dropdown-user-name" id="dropdown-user-name">Edilson Macamo</div>
+              <div class="dropdown-user-email" id="dropdown-user-email">estudante@fe.uem.mz</div>
+              <div class="dropdown-user-course" id="dropdown-user-course">Licenciatura em Engenharia Mecânica</div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="dropdown-item-btn" id="dropdown-item-dashboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>Meu Painel Académico</span>
+            </button>
+            <button type="button" class="dropdown-item-btn" id="dropdown-item-switch">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Alternar Conta / Demonstração</span>
+            </button>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="dropdown-item-btn logout-item-btn" id="dropdown-item-logout">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Terminar Sessão (Logout)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Estrutura Principal -->
+    <div class="main-wrapper">
+      <!-- Painel Lateral Retrátil de Tópicos (Acesso Progressivo) -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-title">Programa Curricular</span>
+          <button id="sidebar-close-btn" class="icon-btn close-btn" aria-label="Fechar painel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="topic-group">
+            <span class="topic-group-label">Módulos de Optimização</span>
+            <div class="topic-list">
+              <button class="topic-item" data-topic="Programação Linear">
+                <span class="topic-name">1. Programação Linear</span>
+                <span class="topic-desc">Modelação, variáveis de decisão e restrições</span>
+              </button>
+              <button class="topic-item" data-topic="Método Simplex Primal">
+                <span class="topic-name">2. Método Simplex Primal</span>
+                <span class="topic-desc">Tableaux, forma padrão e pivoteamento</span>
+              </button>
+              <button class="topic-item" data-topic="Duas Fases e Grande M">
+                <span class="topic-name">3. Duas Fases &amp; Grande M</span>
+                <span class="topic-desc">Variáveis artificiais e penalizações</span>
+              </button>
+              <button class="topic-item" data-topic="Dualidade e Sensibilidade">
+                <span class="topic-name">4. Dualidade &amp; Sensibilidade</span>
+                <span class="topic-desc">Preços-sombra e folgas complementares</span>
+              </button>
+              <button class="topic-item" data-topic="Problemas de Transporte">
+                <span class="topic-name">5. Transportes &amp; Afectação</span>
+                <span class="topic-desc">Canto Noroeste, Vogel (VAM) e MODI</span>
+              </button>
+              <button class="topic-item" data-topic="Optimização em Redes">
+                <span class="topic-name">6. Redes &amp; Grafos</span>
+                <span class="topic-desc">Dijkstra, Fluxo Máximo e CPM/PERT</span>
+              </button>
+              <button class="topic-item" data-topic="Programação Inteira">
+                <span class="topic-name">7. Programação Inteira</span>
+                <span class="topic-desc">Branch &amp; Bound e Planos de Corte</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="criteria-card">
+            <span class="criteria-label">Critérios de Avaliação</span>
+            <ul>
+              <li>Definição explícita das variáveis e unidades</li>
+              <li>Estruturação da função objectivo e restrições</li>
+              <li>Apresentação dos tableaux canónicos</li>
+              <li>Interpretação económica da solução óptima</li>
+              <li>Citações numéricas no formato BibTeX [1], [2]</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Overlay para fechar sidebar no mobile -->
+      <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+      <!-- Área Central de Conversação e Trabalho / Aulas Universitárias -->
+      <main class="chat-container">
+        <!-- Página Inicial Institucional (Home / Apresentação Geral com Tecnologia Bootstrap 5) -->
+        <section id="home-view" class="container-xl py-4 home-view">
+          <!-- Hero Card com Identidade FE-UEM -->
+          <div class="card shadow-sm border rounded-4 p-4 p-lg-5 mb-5 text-center bg-white home-hero-card">
+            <div class="d-inline-block mx-auto mb-3">
+              <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fw-semibold home-hero-badge">
+                Universidade Eduardo Mondlane &bull; Faculdade de Engenharia
+              </span>
+            </div>
+            <h1 class="display-5 fw-bold text-dark mb-3 home-hero-title">Investigação Operacional</h1>
+            <p class="lead text-secondary mx-auto mb-4 home-hero-subtitle" style="max-width: 820px; font-size: 1.05rem;">
+              Ambiente Digital Universitário de Modelação Matemática, Algoritmos de Optimização, Tutoria Inteligente com IA e Fórum Científico Colaborativo para os Cursos de Engenharia.
+            </p>
+            <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap home-cta-group">
+              <button type="button" class="btn btn-dark d-inline-flex align-items-center gap-2 px-4 py-2 rounded-3 shadow-sm home-cta-btn primary" id="home-btn-go-dashboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Aceder ao Meu Painel</span>
+              </button>
+              <button type="button" class="btn btn-outline-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3 home-cta-btn secondary" id="home-btn-go-lesson">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Explorar as Aulas (7 Módulos)</span>
+              </button>
+              <button type="button" class="btn btn-outline-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3 home-cta-btn secondary" id="home-btn-go-forum">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                </svg>
+                <span>Fórum de Dúvidas</span>
+              </button>
+              <button type="button" class="btn btn-outline-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3 home-cta-btn secondary" id="home-btn-go-chat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Tutor de IA</span>
+              </button>
+            </div>
+
+            <!-- Mini Destaques / Indicadores com Grid Bootstrap -->
+            <div class="row g-3 justify-content-center align-items-center mt-4 pt-4 border-top home-hero-highlights">
+              <div class="col-6 col-sm-3 text-center hero-stat-item">
+                <span class="fs-4 fw-bold text-dark d-block hero-stat-num">7</span>
+                <span class="text-muted text-uppercase small fw-semibold hero-stat-lbl">Módulos Curriculares</span>
+              </div>
+              <div class="col-6 col-sm-3 text-center hero-stat-item">
+                <span class="fs-4 fw-bold text-dark d-block hero-stat-num">100%</span>
+                <span class="text-muted text-uppercase small fw-semibold hero-stat-lbl">Nuvem MongoDB Atlas</span>
+              </div>
+              <div class="col-6 col-sm-3 text-center hero-stat-item">
+                <span class="fs-4 fw-bold text-dark d-block hero-stat-num">RAG</span>
+                <span class="text-muted text-uppercase small fw-semibold hero-stat-lbl">Tutor IA Especializado</span>
+              </div>
+              <div class="col-6 col-sm-3 text-center hero-stat-item">
+                <span class="fs-4 fw-bold text-dark d-block hero-stat-num">RBAC</span>
+                <span class="text-muted text-uppercase small fw-semibold hero-stat-lbl">Estudante &amp; Docente</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pilares da Plataforma com Cards Bootstrap -->
+          <h2 class="h3 fw-bold text-dark text-center mb-2 home-section-title">Pilares Metodológicos e Tecnológicos</h2>
+          <p class="text-muted text-center mb-4 mx-auto home-section-subtitle" style="max-width: 640px;">
+            Arquitectura pedagógica concebida para potenciar o raciocínio matemático e a autonomia dos estudantes.
+          </p>
+          <div class="row g-4 mb-5 home-pillars-grid">
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 home-pillar-card bg-white">
+                <div class="fs-2 mb-2 p-2 rounded-3 bg-light d-inline-flex align-items-center justify-content-center home-pillar-icon" style="width: 48px; height: 48px;">📐</div>
+                <h3 class="h5 fw-bold text-dark mb-2 home-pillar-title">Rigor Científico</h3>
+                <p class="text-secondary small mb-0 home-pillar-desc">
+                  Deduções matemáticas canónicas em notação matricial padrão, tableaux simplex, folgas complementares e citações numéricas BibTeX [1], [2].
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 home-pillar-card bg-white">
+                <div class="fs-2 mb-2 p-2 rounded-3 bg-light d-inline-flex align-items-center justify-content-center home-pillar-icon" style="width: 48px; height: 48px;">🎓</div>
+                <h3 class="h5 fw-bold text-dark mb-2 home-pillar-title">15 Secções de Bloom</h3>
+                <p class="text-secondary small mb-0 home-pillar-desc">
+                  Aulas estruturadas com base na Taxonomia de Bloom revista: identificação, conceitos, teoremas, fluxogramas algorítmicos SVG e auto-avaliação.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 home-pillar-card bg-white">
+                <div class="fs-2 mb-2 p-2 rounded-3 bg-light d-inline-flex align-items-center justify-content-center home-pillar-icon" style="width: 48px; height: 48px;">👨‍🏫</div>
+                <h3 class="h5 fw-bold text-dark mb-2 home-pillar-title">Validação Docente</h3>
+                <p class="text-secondary small mb-0 home-pillar-desc">
+                  Comunicação aberta entre estudantes e o corpo docente. O Regente e o Assistente atribuem selos oficiais de certificação científica às respostas.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 home-pillar-card bg-white">
+                <div class="fs-2 mb-2 p-2 rounded-3 bg-light d-inline-flex align-items-center justify-content-center home-pillar-icon" style="width: 48px; height: 48px;">🍃</div>
+                <h3 class="h5 fw-bold text-dark mb-2 home-pillar-title">MongoDB &amp; RAG</h3>
+                <p class="text-secondary small mb-0 home-pillar-desc">
+                  Todos os módulos, discussões e progressos persistem em tempo real no cluster MongoDB Atlas com tutoria de IA alimentada por RAG.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destaque dos 7 Módulos Curriculares com Cards e Grid Bootstrap -->
+          <h2 class="h3 fw-bold text-dark text-center mb-2 home-section-title">Programa Curricular da Disciplina</h2>
+          <p class="text-muted text-center mb-4 mx-auto home-section-subtitle" style="max-width: 640px;">
+            Estrutura de tópicos do plano de estudos oficial para os cursos de Engenharia da UEM.
+          </p>
+          <div class="row g-4 mb-5 home-modules-grid">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Programação Linear">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-01 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">1. Programação Linear &amp; Modelação</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Concepção de modelos de decisão óptima, variáveis, função objectivo e poliedros de viabilidade.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Método Simplex Primal">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-02 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">2. Método Simplex Primal</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Álgebra matricial de Dantzig, custos reduzidos, teste da razão mínima e prevenção de ciclagem por Bland.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Duas Fases e Grande M">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-03 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">3. Duas Fases &amp; Grande M</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Tratamento formal de variáveis artificiais, restrições com igualdade ou excesso e penalização M.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Dualidade e Sensibilidade">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-04 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">4. Teoria da Dualidade &amp; Sensibilidade</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Preços-sombra, Teorema das Folgas Complementares, custos de oportunidade e análise pós-optimal.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Problemas de Transporte">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-05 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">5. Transportes, Transbordo &amp; Afectação</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Aproximação de Vogel (VAM), método MODI dos multiplicadores e Algoritmo Húngaro.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Optimização em Redes">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-06 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">6. Redes, Fluxos &amp; Grafos</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Algoritmo de Dijkstra para caminhos mínimos, Ford-Fulkerson (Max-Flow Min-Cut) e gestão CPM/PERT.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border rounded-3 p-4 d-flex flex-column justify-content-between home-module-card bg-white" data-topic="Programação Inteira">
+                <div>
+                  <span class="badge bg-secondary-subtle text-secondary border mb-2 home-module-badge">ENG-IO-07 &bull; 4h lectivas</span>
+                  <h3 class="h5 fw-bold text-dark mb-2 home-module-name">7. Programação Linear Inteira</h3>
+                  <p class="text-secondary small mb-3 home-module-desc">Variáveis discretas e binárias, relaxamento linear contínuo, Branch and Bound e planos de corte de Gomory.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top home-module-footer">
+                  <span class="text-muted small">Licenciatura em Engenharia</span>
+                  <span class="text-dark fw-bold small home-module-link">Aceder à Aula &rarr;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Corpo Docente e Regência com Grid e Badges Bootstrap -->
+          <div class="card shadow-sm border rounded-4 p-4 mb-5 bg-white home-faculty-card">
+            <h3 class="h5 fw-bold text-dark mb-1">Corpo Docente da Disciplina</h3>
+            <p class="text-muted small mb-3">Supervisão pedagógica e moderação científica na Faculdade de Engenharia.</p>
+            <div class="row g-3 home-faculty-grid">
+              <div class="col-12 col-md-6">
+                <div class="card border p-3 rounded-3 d-flex flex-row align-items-center gap-3 faculty-person-item bg-light">
+                  <div class="faculty-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">MS</div>
+                  <div class="faculty-meta">
+                    <span class="fw-bold text-dark d-block faculty-name">Prof. Doutor Manuel Sitoe</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle faculty-role">Docente Regente</span>
+                    <span class="text-muted small d-block faculty-dept mt-1">Departamento de Engenharia Mecânica / Produção</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="card border p-3 rounded-3 d-flex flex-row align-items-center gap-3 faculty-person-item bg-light">
+                  <div class="faculty-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">AC</div>
+                  <div class="faculty-meta">
+                    <span class="fw-bold text-dark d-block faculty-name">Prof. Doutora Anabela Cossa</span>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle faculty-role">Docente Assistente</span>
+                    <span class="text-muted small d-block faculty-dept mt-1">Departamento de Engenharia Electrotécnica</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Painel Académico Individual (Estudante e Docente com Bootstrap) -->
+        <section id="dashboard-view" class="container-xl py-4 dashboard-view" style="display: none;">
+          <!-- Cartão de Destaque / Boas-vindas Personalizadas -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-hero-card">
+            <div class="dashboard-user-meta">
+              <span class="badge bg-dark px-3 py-2 rounded-pill mb-2 fw-semibold dashboard-role-badge-large" id="dash-user-badge">🎓 Estudante</span>
+              <h2 class="h4 fw-bold text-dark mb-1 dashboard-greeting" id="dash-user-greeting">Olá, Edilson Macamo</h2>
+              <span class="text-secondary small dashboard-subinfo" id="dash-user-subinfo">Licenciatura em Engenharia Mecânica &bull; Nº 2024-ENG-089</span>
+            </div>
+            <div class="dashboard-hero-actions">
+              <button type="button" class="btn btn-outline-dark btn-sm rounded-3 px-3 module-progress-action-btn" id="dash-switch-account-btn">Alternar / Gerir Conta</button>
+            </div>
+          </div>
+
+          <!-- A. Vista Específica para Estudantes -->
+          <div id="student-dashboard-content" class="dashboard-role-content">
+            <!-- Grelha de Métricas (KPIs do Estudante com Grid Bootstrap) -->
+            <div class="row g-3 mb-4 kpi-metrics-grid">
+              <div class="col-6 col-lg-3">
+                <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                  <span class="text-muted text-uppercase small fw-bold kpi-card-title">Módulos Concluídos</span>
+                  <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-student-modules-count">0 / 7</span>
+                  <span class="text-secondary small kpi-card-desc">Programa Curricular FE-UEM</span>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                  <span class="text-muted text-uppercase small fw-bold kpi-card-title">Progresso da Cadeira</span>
+                  <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-student-progress-pct">0%</span>
+                  <span class="text-secondary small kpi-card-desc">Secções Concluídas</span>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                  <span class="text-muted text-uppercase small fw-bold kpi-card-title">Média nos Quizzes</span>
+                  <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-student-quiz-score">--</span>
+                  <span class="text-secondary small kpi-card-desc">Auto-Avaliação</span>
+                </div>
+              </div>
+              <div class="col-6 col-lg-3">
+                <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                  <span class="text-muted text-uppercase small fw-bold kpi-card-title">Participações no Fórum</span>
+                  <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-student-forum-count">1</span>
+                  <span class="text-secondary small kpi-card-desc">Dúvidas Submetidas</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lista de Módulos com Progresso Real -->
+            <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card">
+              <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom dashboard-section-header">
+                <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Plano de Estudos &bull; Investigação Operacional</h3>
+                <span class="badge bg-light text-secondary border">7 Módulos Curriculares</span>
+              </div>
+              <div class="student-module-progress-list" id="student-modules-list-container">
+                <!-- Preenchido dinamicamente via app.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- B. Vista Específica para Docentes (Regente e Assistente) -->
+          <div id="teacher-dashboard-content" class="dashboard-role-content" style="display: none;">
+            <!-- Abas Internas de Gestão Pedagógica -->
+            <nav class="docente-nav-subtabs mb-4">
+              <button type="button" class="docente-subtab-btn active" data-subtab="subtab-analytics">1. Indicadores da Cadeira</button>
+              <button type="button" class="docente-subtab-btn" data-subtab="subtab-team" id="teacher-subtab-team-btn">2. Equipa Docente &amp; Permissões</button>
+              <button type="button" class="docente-subtab-btn" data-subtab="subtab-modules">3. Gestão Curricular na Nuvem</button>
+              <button type="button" class="docente-subtab-btn" data-subtab="subtab-moderation">4. Moderação &amp; Fórum</button>
+            </nav>
+
+            <!-- Painel 1: Indicadores e Métricas Globais da Cadeira -->
+            <div class="docente-subtab-pane active" id="subtab-analytics">
+              <div class="row g-3 mb-4 kpi-metrics-grid">
+                <div class="col-6 col-lg-3">
+                  <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                    <span class="text-muted text-uppercase small fw-bold kpi-card-title">Estudantes Registados</span>
+                    <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-teacher-students-count">0</span>
+                    <span class="text-secondary small kpi-card-desc">Inscritos na Disciplina</span>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                    <span class="text-muted text-uppercase small fw-bold kpi-card-title">Equipa Docente</span>
+                    <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-teacher-staff-count">2</span>
+                    <span class="text-secondary small kpi-card-desc">Regentes e Assistentes</span>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                    <span class="text-muted text-uppercase small fw-bold kpi-card-title">Tópicos no Fórum</span>
+                    <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-teacher-threads-count">0</span>
+                    <span class="text-secondary small kpi-card-desc">Discussões Científicas</span>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <span class="kpi-card-title">Validadas por Docente</span>
+                  <span class="kpi-card-value" id="dash-teacher-validated-count">0</span>
+                  <span class="kpi-card-desc">Com Selo de Aprovação</span>
+                </div>
+              </div>
+
+              <div class="dashboard-section-card">
+                <div class="dashboard-section-header">
+                  <h3 class="dashboard-section-title">Estudantes Inscritos e Acompanhamento Individual</h3>
+                </div>
+                <div class="academic-table-wrapper">
+                  <table class="academic-table">
+                    <thead>
+                      <tr>
+                        <th>Nome Completo</th>
+                        <th>Email Institucional</th>
+                        <th>Curso / Departamento</th>
+                        <th>Nº Estudante</th>
+                        <th>Estado</th>
+                        <th>Último Acesso</th>
+                      </tr>
+                    </thead>
+                    <tbody id="teacher-students-tbody">
+                      <!-- Preenchido dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel 2: Equipa Docente e Permissões (Exclusivo Regente) -->
+            <div class="docente-subtab-pane" id="subtab-team" style="display: none;">
+              <!-- Alerta para Candidatos a Docente Pendentes -->
+              <div class="dashboard-section-card" id="pending-teachers-card">
+                <div class="dashboard-section-header">
+                  <h3 class="dashboard-section-title">Pedidos de Autorização de Docentes (Aprovação Obrigatória da Regência)</h3>
+                </div>
+                <p style="font-size: 0.88em; color: #52525b; margin-bottom: 12px;">
+                  Conforme a política institucional da FE-UEM, novos utilizadores que se registam como docentes ficam pendentes até que o Docente Regente aprove formalmente o perfil e defina a categoria (Regente ou Assistente).
+                </p>
+                <div class="academic-table-wrapper">
+                  <table class="academic-table">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Departamento</th>
+                        <th>Data de Pedido</th>
+                        <th>Decisão da Regência</th>
+                      </tr>
+                    </thead>
+                    <tbody id="pending-teachers-tbody">
+                      <!-- Preenchido dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Tabela da Equipa Docente Activa -->
+              <div class="dashboard-section-card">
+                <div class="dashboard-section-header">
+                  <h3 class="dashboard-section-title">Corpo Docente Activo da Disciplina</h3>
+                </div>
+                <div class="academic-table-wrapper">
+                  <table class="academic-table">
+                    <thead>
+                      <tr>
+                        <th>Nome do Docente</th>
+                        <th>Email</th>
+                        <th>Papel Atribuído</th>
+                        <th>Permissões Pedagógicas</th>
+                        <th>Gestão</th>
+                      </tr>
+                    </thead>
+                    <tbody id="active-teachers-tbody">
+                      <!-- Preenchido dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel 3: Gestão Curricular na Nuvem (MongoDB Atlas) -->
+            <div class="docente-subtab-pane" id="subtab-modules" style="display: none;">
+              <div class="dashboard-section-card">
+                <div class="dashboard-section-header">
+                  <h3 class="dashboard-section-title">Módulos Curriculares Persistidos no MongoDB Atlas</h3>
+                  <button type="button" class="forum-primary-btn" id="btn-create-new-module" style="padding: 6px 12px; font-size: 0.85em;">
+                    + Novo Módulo / Actualizar Aula
+                  </button>
+                </div>
+                <p style="font-size: 0.88em; color: #71717a; margin-bottom: 14px;">
+                  Os conteúdos pedagógicos abaixo estão armazenados na nuvem. Alterações efectuadas pelo corpo docente reflectem-se instantaneamente para todos os estudantes.
+                </p>
+                <div class="academic-table-wrapper">
+                  <table class="academic-table">
+                    <thead>
+                      <tr>
+                        <th>Código</th>
+                        <th>Título do Módulo</th>
+                        <th>Carga Horária</th>
+                        <th>Nível</th>
+                        <th>Última Actualização</th>
+                        <th>Acções</th>
+                      </tr>
+                    </thead>
+                    <tbody id="teacher-modules-tbody">
+                      <!-- Preenchido dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel 4: Moderação do Fórum & Supervisão de IA -->
+            <div class="docente-subtab-pane" id="subtab-moderation" style="display: none;">
+              <div class="dashboard-section-card">
+                <div class="dashboard-section-header">
+                  <h3 class="dashboard-section-title">Discussões e Pareceres do Tutor IA a Supervisionar</h3>
+                  <button type="button" class="module-progress-action-btn" id="dash-go-forum-btn">Ir para o Fórum Completo</button>
+                </div>
+                <div id="teacher-forum-moderation-list" style="display: flex; flex-direction: column; gap: 10px;">
+                  <!-- Preenchido dinamicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Visualizador de Aulas Universitárias (Completo, Rigoroso e com 15 Secções) -->
+        <section id="lesson-view" class="lesson-view" style="display: none;">
+          <div class="lesson-header-card">
+            <div class="lesson-header-top">
+              <div class="lesson-badge-group">
+                <span class="lesson-code-badge" id="lesson-module-code">ENG-IO-01</span>
+                <span class="lesson-meta-pill" id="lesson-module-duration">4h lectivas</span>
+                <span class="lesson-meta-pill" id="lesson-module-level">Licenciatura em Engenharia</span>
+              </div>
+              <div class="lesson-actions-group">
+                <button type="button" id="lesson-forum-btn" class="lesson-action-btn forum-btn" title="Ir para o debate deste módulo no Fórum Académico">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                  </svg>
+                  <span>Debater no Fórum</span>
+                </button>
+                <button type="button" id="lesson-ask-ai-btn" class="lesson-action-btn" title="Fazer perguntas ao Tutor IA sobre este módulo">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>Tirar Dúvida no Chat</span>
+                </button>
+              </div>
+            </div>
+            <h1 class="lesson-main-title" id="lesson-title">Módulo 1: Programação Linear e Modelação Matemática</h1>
+            <p class="lesson-main-subtitle" id="lesson-subtitle">Concepção de Modelos de Decisão Óptima em Sistemas de Engenharia</p>
+
+            <!-- Barra de Navegação Progressiva por Secções Pedagógicas -->
+            <nav class="lesson-nav-tabs" aria-label="Secções da Aula">
+              <button class="lesson-tab-btn active" data-tab="tab-overview">1. Visão Geral &amp; Bloom</button>
+              <button class="lesson-tab-btn" data-tab="tab-theory">2. Fundamentos &amp; Teoremas</button>
+              <button class="lesson-tab-btn" data-tab="tab-algorithm">3. Algoritmo &amp; Fluxograma</button>
+              <button class="lesson-tab-btn" data-tab="tab-solved">4. Exercício Resolvido</button>
+              <button class="lesson-tab-btn" data-tab="tab-practice">5. Engenharia &amp; Propostos</button>
+              <button class="lesson-tab-btn" data-tab="tab-assessment">6. Auto-Avaliação &amp; Fontes</button>
+            </nav>
+          </div>
+
+          <div class="lesson-content-area" id="lesson-content-area">
+            <!-- Painel 1: Identificação, Contexto, Objectivos de Bloom e Competências -->
+            <div class="lesson-panel active" id="tab-overview">
+              <section class="lesson-section">
+                <h3 class="section-title">1. Identificação da Aula Universitária</h3>
+                <div class="id-grid" id="lesson-id-grid"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">2. Introdução e Contextualização na Engenharia</h3>
+                <div class="academic-text" id="lesson-introduction"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">3. Objectivos de Aprendizagem (Taxonomia de Bloom Revista)</h3>
+                <div class="bloom-list" id="lesson-bloom-list"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">4. Competências a Desenvolver</h3>
+                <div class="competencies-box" id="lesson-competencies"></div>
+              </section>
+            </div>
+
+            <!-- Painel 2: Conceitos, Teoremas e Formulação Matemática -->
+            <div class="lesson-panel" id="tab-theory">
+              <section class="lesson-section">
+                <h3 class="section-title">5. Conceitos e Definições Fundamentais</h3>
+                <div class="academic-text" id="lesson-concepts"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">6. Fundamentos Teóricos e Teoremas Aplicáveis</h3>
+                <div class="academic-text" id="lesson-theorems"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">7. Formulação Matemática Formal (Notação Escalar e Matricial)</h3>
+                <div class="academic-text" id="lesson-formulation"></div>
+              </section>
+            </div>
+
+            <!-- Painel 3: Algoritmos, Condições de Paragem e Fluxograma em SVG -->
+            <div class="lesson-panel" id="tab-algorithm">
+              <section class="lesson-section">
+                <h3 class="section-title">8. Algoritmos e Procedimentos de Resolução</h3>
+                <div class="academic-text" id="lesson-algorithm"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">9. Fluxograma Rigoroso do Algoritmo</h3>
+                <p class="section-desc">Representação gráfica vetorial evidenciando inicialização, critérios de decisão, iterações e convergência.</p>
+                <div class="flowchart-container" id="lesson-flowchart"></div>
+              </section>
+            </div>
+
+            <!-- Painel 4: Exercício Integralmente Resolvido Passo a Passo -->
+            <div class="lesson-panel" id="tab-solved">
+              <section class="lesson-section">
+                <h3 class="section-title">10. Exercício Integralmente Resolvido Passo a Passo</h3>
+                <p class="section-desc">Deduções matemáticas integrais, construção de tableaux canónicos e interpretação física dos resultados.</p>
+                <div class="solved-exercise-box" id="lesson-solved-exercise"></div>
+              </section>
+            </div>
+
+            <!-- Painel 5: Aplicações na Engenharia e Exercícios Propostos -->
+            <div class="lesson-panel" id="tab-practice">
+              <section class="lesson-section">
+                <h3 class="section-title">11. Aplicações Práticas em Engenharia e Sistemas Reais</h3>
+                <div class="applications-container" id="lesson-applications"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">12. Exercícios Propostos por Níveis de Dificuldade</h3>
+                <p class="section-desc">Estruturados em Nível 1 (Básico), Nível 2 (Intermédio) e Nível 3 (Avançado) com verificação de soluções.</p>
+                <div class="proposed-exercises-container" id="lesson-proposed-exercises"></div>
+              </section>
+            </div>
+
+            <!-- Painel 6: Auto-Avaliação Interactiva, Síntese e Bibliografia -->
+            <div class="lesson-panel" id="tab-assessment">
+              <section class="lesson-section">
+                <h3 class="section-title">13. Avaliação da Aprendizagem (Quiz Conceitual Interactivo)</h3>
+                <div class="quiz-container" id="lesson-quiz-container"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">14. Síntese e Conclusões da Aula</h3>
+                <div class="synthesis-card" id="lesson-synthesis"></div>
+              </section>
+              <section class="lesson-section">
+                <h3 class="section-title">15. Referências Bibliográficas Científicas Verificáveis</h3>
+                <div class="references-list" id="lesson-references"></div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <!-- B. Fórum Académico Interactivo (Colaboração entre Estudantes, Docentes e Tutor de IA) -->
+        <section id="forum-view" class="forum-view" style="display: none;">
+          <div class="forum-header-bar">
+            <div class="forum-header-info">
+              <h2 class="forum-main-title">Fórum Académico &bull; Investigação Operacional</h2>
+              <p class="forum-main-desc">Comunicação e colaboração científica: coloque dúvidas, debata modelos matemáticos, partilhe resoluções e consulte a validação dos Docentes e do Tutor de IA.</p>
+            </div>
+            <div class="forum-header-controls">
+              <div class="forum-user-role-card">
+                <span class="role-caption">Perfil Activo:</span>
+                <select id="forum-current-role" class="forum-role-selector" title="Alternar perfil de intervenção no fórum">
+                  <option value="student">🎓 Estudante (FE-UEM)</option>
+                  <option value="teacher">👨‍🏫 Docente (Investigação Operacional)</option>
+                </select>
+              </div>
+              <button type="button" id="btn-open-new-thread" class="forum-primary-btn" title="Criar uma nova discussão ou submeter um problema">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Nova Questão / Discussão</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Barra de Filtros, Módulos e Pesquisa Académica -->
+          <div class="forum-nav-toolbar">
+            <div class="forum-module-filter-box">
+              <select id="forum-module-filter" class="forum-select">
+                <option value="Todos">Todos os Módulos Curriculares</option>
+                <option value="Programação Linear">1. Programação Linear</option>
+                <option value="Método Simplex Primal">2. Método Simplex Primal</option>
+                <option value="Duas Fases e Grande M">3. Duas Fases &amp; Grande M</option>
+                <option value="Dualidade e Sensibilidade">4. Dualidade &amp; Sensibilidade</option>
+                <option value="Problemas de Transporte">5. Problemas de Transporte</option>
+                <option value="Optimização em Redes">6. Optimização em Redes</option>
+                <option value="Programação Inteira">7. Programação Inteira</option>
+              </select>
+            </div>
+
+            <div class="forum-filter-pills">
+              <button type="button" class="forum-filter-pill active" data-filter="all">Todas</button>
+              <button type="button" class="forum-filter-pill" data-filter="validated">✓ Validadas por Docente</button>
+              <button type="button" class="forum-filter-pill" data-filter="frequent">★ Dúvidas Frequentes</button>
+              <button type="button" class="forum-filter-pill" data-filter="unanswered">⏳ Aguarda Resposta</button>
+            </div>
+
+            <div class="forum-search-wrapper">
+              <input type="text" id="forum-search-box" placeholder="Pesquisar por conceito, algoritmo, fórmula..." class="forum-search-input">
+              <button type="button" id="forum-do-search" class="icon-btn" title="Executar pesquisa">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Conteúdo do Fórum: Lista de Threads ou Detalhes da Discussão -->
+          <div class="forum-body-workspace">
+            <!-- Modal de Abertura de Nova Discussão -->
+            <div id="forum-modal-container" class="forum-modal-backdrop" style="display: none;">
+              <div class="forum-modal-window">
+                <div class="forum-modal-top">
+                  <h3>Submeter Nova Questão / Tópico de Debate</h3>
+                  <button type="button" id="btn-close-thread-modal" class="icon-btn">&times;</button>
+                </div>
+                <form id="forum-create-thread-form">
+                  <div class="form-row">
+                    <label>Módulo Curricular:</label>
+                    <select id="modal-thread-module" required class="forum-select">
+                      <option value="Programação Linear">1. Programação Linear</option>
+                      <option value="Método Simplex Primal">2. Método Simplex Primal</option>
+                      <option value="Duas Fases e Grande M">3. Duas Fases &amp; Grande M</option>
+                      <option value="Dualidade e Sensibilidade">4. Dualidade &amp; Sensibilidade</option>
+                      <option value="Problemas de Transporte">5. Problemas de Transporte</option>
+                      <option value="Optimização em Redes">6. Optimização em Redes</option>
+                      <option value="Programação Inteira">7. Programação Inteira</option>
+                    </select>
+                  </div>
+                  <div class="form-row">
+                    <label>Título da Pergunta / Dúvida:</label>
+                    <input type="text" id="modal-thread-title" placeholder="Ex.: Dúvida no cálculo das folgas complementares..." required class="forum-text-input">
+                  </div>
+                  <div class="form-row">
+                    <label>Fundamentação / Formulação da Dúvida (suporta LaTeX com MathJax):</label>
+                    <textarea id="modal-thread-content" rows="4" placeholder="Apresente a sua dúvida, proponha o seu raciocínio matemático ou contraponha uma hipótese de resolução..." required class="forum-textarea-input"></textarea>
+                  </div>
+                  <div class="form-row">
+                    <label>Identificação do Participante:</label>
+                    <input type="text" id="modal-thread-author" value="Estudante FE-UEM" required class="forum-text-input">
+                  </div>
+                  <div class="modal-buttons-row">
+                    <button type="button" id="btn-cancel-thread" class="text-btn">Cancelar</button>
+                    <button type="submit" class="forum-primary-btn">Publicar no Fórum</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- 1. Grelha de Discussões Existentes -->
+            <div id="forum-threads-container" class="forum-threads-container">
+              <div class="forum-loading-state" id="forum-threads-loading">A carregar discussões do fórum...</div>
+              <div class="forum-threads-grid" id="forum-threads-grid"></div>
+            </div>
+
+            <!-- 2. Visualizador Detalhado de Discussão com Respostas Encadeadas -->
+            <div id="forum-thread-view" class="forum-thread-view" style="display: none;">
+              <div class="thread-navigation-top">
+                <button type="button" id="btn-back-to-list" class="forum-text-action-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <span>Voltar à Lista de Discussões</span>
+                </button>
+                <div class="thread-meta-actions" id="thread-meta-actions"></div>
+              </div>
+
+              <!-- Cartão do Tópico Original -->
+              <article class="thread-card-lead" id="thread-card-lead"></article>
+
+              <!-- Painel de Respostas Encadeadas -->
+              <div class="thread-replies-wrapper">
+                <div class="thread-replies-heading">
+                  <h3 id="thread-replies-counter">Respostas e Debate Científico</h3>
+                  <button type="button" id="btn-summon-ai-tutor" class="summon-tutor-btn" title="Solicitar parecer e fundamentação científica ao Tutor Académico de IA">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>Consultar Tutor de IA nesta Discussão</span>
+                  </button>
+                </div>
+
+                <div class="replies-stream" id="replies-stream"></div>
+
+                <!-- Caixa de Envio de Nova Resposta / Contribuição -->
+                <div class="thread-reply-input-box">
+                  <h4>Participar no Debate</h4>
+                  <form id="forum-reply-form">
+                    <textarea id="reply-form-content" rows="3" placeholder="Apresente a sua demonstração, contraproposta matemática ou validação técnica (suporta fórmulas LaTeX \(...\))..." required class="forum-textarea-input"></textarea>
+                    <div class="reply-submit-toolbar">
+                      <span class="reply-active-author-pill" id="reply-active-author-pill">Intervindo como: <strong>Estudante</strong></span>
+                      <button type="submit" class="forum-primary-btn">Submeter Contribuição</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- C. Tutor Inteligente IA (Acompanhamento Individual / Chat RAG) -->
+        <section id="chat-view" class="chat-view-container">
+          <div class="chat-messages" id="chat-messages">
+            <!-- Mensagem Inicial Minimalista -->
+            <div class="message assistant-message initial-message">
+              <div class="message-meta">
+                <span class="sender-name">Assistente Académico</span>
+                <span class="message-time">FE-UEM</span>
+              </div>
+              <div class="message-body">
+                <article>
+                  <h3>Investigação Operacional &bull; Apoio Académico</h3>
+                  <p>
+                    Canal de apoio aos estudantes de Engenharia da Universidade Eduardo Mondlane para esclarecimento conceptual, formulações matemáticas e resolução de problemas de optimização.
+                  </p>
+                  
+                  <div class="quick-suggestions">
+                    <span class="suggestions-caption">Consultas frequentes:</span>
+                    <div class="suggestion-pills">
+                      <button type="button" class="suggestion-pill" data-prompt="Explique a resolução de um modelo pelo Método Simplex Primal com os respectivos tableaux.">
+                        Tableau Simplex
+                      </button>
+                      <button type="button" class="suggestion-pill" data-prompt="Como se interpretam os preços-sombra e o Teorema das Folgas Complementares no problema dual?">
+                        Preços-Sombra &amp; Dualidade
+                      </button>
+                      <button type="button" class="suggestion-pill" data-prompt="Qual a diferença entre o Método das Duas Fases e o Grande M no tratamento de variáveis artificiais?">
+                        Duas Fases vs. Grande M
+                      </button>
+                      <button type="button" class="suggestion-pill" data-prompt="Como formular matematicamente um problema de transporte com restrições de oferta e procura?">
+                        Modelo de Transportes
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de Progresso / Loading Minimalista -->
+          <div class="loading-bar" id="loading-bar" style="display: none;">
+            <div class="spinner"></div>
+            <span id="loading-text">A processar formulação e deduções matemáticas...</span>
+          </div>
+
+          <!-- Caixa de Entrada Minimalista -->
+          <footer class="chat-input-area">
+            <form id="chat-form" class="chat-form">
+              <div class="input-box-wrapper">
+                <textarea 
+                  id="user-input" 
+                  placeholder="Introduza uma pergunta ou problema de Investigação Operacional..." 
+                  rows="1"
+                  required
+                ></textarea>
+                <div class="input-toolbar">
+                  <button type="button" id="clear-btn" class="text-btn" title="Limpar histórico">Limpar sessão</button>
+                  <button type="submit" id="send-btn" class="send-btn">
+                    <span>Submeter</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="input-hint">
+                <span>Respostas com rigor científico, equações em LaTeX (MathJax) e citações numéricas BibTeX [1].</span>
+              </div>
+            </form>
+          </footer>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       MODAL DE AUTENTICAÇÃO, REGISTO E RECUPERAÇÃO DE PALAVRA-PASSE (EXEMPLAR DESIGN)
+       ============================================================================== -->
+  <div id="auth-modal-container" class="auth-modal-backdrop" style="display: none;">
+    <div class="auth-modal-window">
+      <!-- Ícone Circular Flutuante Superior (Estilo Exemplar) -->
+      <div class="auth-floating-avatar">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4.2"></circle>
+          <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path>
+        </svg>
+      </div>
+
+      <div class="auth-modal-header">
+        <button type="button" class="auth-modal-close-btn" id="auth-modal-close-btn" aria-label="Fechar janela">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="auth-brand-badge">
+          <img src="Logotipo sem UEM.png" alt="Logótipo FE-UEM" class="auth-brand-logo">
+          <h2 class="auth-modal-title">Faculdade de Engenharia</h2>
+        </div>
+        <p class="auth-modal-subtitle">Investigação Operacional &bull; UEM</p>
+      </div>
+
+      <!-- Abas de Navegação -->
+      <nav class="auth-nav-tabs">
+        <button type="button" class="auth-tab-btn active" data-tab="tab-login" id="btn-tab-login">Login</button>
+        <button type="button" class="auth-tab-btn" data-tab="tab-register" id="btn-tab-register">Criar Conta</button>
+        <button type="button" class="auth-tab-btn" data-tab="tab-recovery" id="btn-tab-recovery">Recuperar</button>
+      </nav>
+
+      <div class="auth-body-container">
+        <!-- Caixa de Alertas e Notificações de Erro/Sucesso -->
+        <div id="auth-alert-box" class="auth-alert-box"></div>
+
+        <!-- 1. Formulário de Início de Sessão (Exemplar Fiel à Imagem) -->
+        <div class="auth-tab-pane active" id="tab-login">
+          <form id="form-login">
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+              <input type="email" id="login-email" class="auth-input-clean" placeholder="Username ou correio electrónico" required autocomplete="email">
+            </div>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+              </div>
+              <input type="password" id="login-password" class="auth-input-clean" placeholder="••••••••••••" required autocomplete="current-password">
+            </div>
+
+            <div class="auth-actions-row">
+              <label class="auth-remember-label">
+                <input type="checkbox" id="login-remember-me" class="auth-checkbox" checked>
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="auth-forgot-link" id="link-forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="auth-btn-exemplar">LOGIN</button>
+          </form>
+
+          <!-- Acesso Demonstrativo Rápido (1-Clique para Avaliação Imediata) -->
+          <div class="demo-accounts-card dark-theme">
+            <div class="demo-accounts-title">⚡ Acesso Rápido de Demonstração (1-Clique)</div>
+            <div class="demo-buttons-grid">
+              <button type="button" class="demo-btn" data-email="regente@fe.uem.mz" data-pass="Regente@2026">
+                <strong>Docente Regente</strong>
+                <span>Prof. Doutor Manuel Sitoe</span>
+              </button>
+              <button type="button" class="demo-btn" data-email="assistente@fe.uem.mz" data-pass="Assistente@2026">
+                <strong>Docente Assistente</strong>
+                <span>Prof. Doutora Anabela Cossa</span>
+              </button>
+              <button type="button" class="demo-btn" data-email="estudante@fe.uem.mz" data-pass="Estudante@2026">
+                <strong>Estudante</strong>
+                <span>Edilson Macamo (Eng. Mecânica)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Formulário de Registo de Utilizadores -->
+        <div class="auth-tab-pane" id="tab-register">
+          <form id="form-register">
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+              <input type="text" id="reg-name" class="auth-input-clean" placeholder="Nome Completo (ex: Marta Mondlane)" required>
+            </div>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </div>
+              <input type="email" id="reg-email" class="auth-input-clean" placeholder="Correio Institucional (@fe.uem.mz)" required>
+            </div>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                </svg>
+              </div>
+              <select id="reg-role" class="auth-input-clean" required style="cursor: pointer;">
+                <option value="student" selected>🎓 Estudante (Acesso Imediato)</option>
+                <option value="teacher">👨‍🏫 Docente (Requer Autorização Regencial)</option>
+              </select>
+            </div>
+            <span class="auth-help-hint" id="reg-role-hint" style="display:block; margin:-8px 0 12px 4px; color:#94a3b8; font-size:0.75em;">
+              Contas docentes requerem validação formal do Docente Regente para atribuição de competências.
+            </span>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+              </div>
+              <input type="text" id="reg-dept" class="auth-input-clean" placeholder="Curso de Engenharia / Nº Estudante" required>
+            </div>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+              </div>
+              <input type="password" id="reg-password" class="auth-input-clean" placeholder="Palavra-passe de Acesso (min. 6 car.)" required minlength="6">
+            </div>
+
+            <button type="submit" class="auth-btn-exemplar" style="margin-top: 8px;">CRIAR CONTA ACADÉMICA</button>
+          </form>
+        </div>
+
+        <!-- 3. Recuperação Segura de Palavra-Passe -->
+        <div class="auth-tab-pane" id="tab-recovery">
+          <!-- Passo A: Solicitação -->
+          <form id="form-forgot-request">
+            <p style="font-size:0.84em; color:#cbd5e1; margin-bottom:14px; line-height:1.5;">
+              Introduza o seu correio institucional para gerar um código de verificação criptográfica de 6 dígitos.
+            </p>
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </div>
+              <input type="email" id="recovery-email" class="auth-input-clean" placeholder="exemplo@fe.uem.mz" required>
+            </div>
+            <button type="submit" class="auth-btn-exemplar">GERAR CÓDIGO DE RECUPERAÇÃO</button>
+          </form>
+
+          <!-- Passo B: Confirmação com Código -->
+          <form id="form-forgot-confirm" style="display: none; margin-top: 14px;">
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                </svg>
+              </div>
+              <input type="text" id="recovery-code" class="auth-input-clean" placeholder="Código de 6 Dígitos" required maxlength="6">
+            </div>
+
+            <div class="auth-input-composite">
+              <div class="auth-input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+              </div>
+              <input type="password" id="recovery-new-password" class="auth-input-clean" placeholder="Nova Palavra-passe" required minlength="6">
+            </div>
+
+            <button type="submit" class="auth-btn-exemplar">REDEFINIR PALAVRA-PASSE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Criação / Edição de Módulos (Exclusivo Docente Regente / Assistente) -->
+  <div id="module-editor-modal" class="auth-modal-backdrop" style="display: none;">
+    <div class="auth-modal-window" style="max-width: 680px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="auth-modal-header">
+        <button type="button" class="auth-modal-close-btn" id="module-editor-close-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <h2 class="auth-modal-title">Gestão Curricular &bull; MongoDB Atlas</h2>
+        <p class="auth-modal-subtitle">Criar ou Actualizar Módulo Curricular na Nuvem</p>
+      </div>
+      <div style="padding: 20px 24px; overflow-y: auto; flex: 1;">
+        <form id="form-module-editor">
+          <div class="auth-field-group">
+            <label for="mod-edit-title">Título Completo do Módulo</label>
+            <input type="text" id="mod-edit-title" class="auth-input" placeholder="ex: Módulo 8: Teoria dos Jogos e Decisão Multicritério" required>
+          </div>
+          <div class="auth-field-group">
+            <label for="mod-edit-topic">Nome do Tópico / Chave Curricular</label>
+            <input type="text" id="mod-edit-topic" class="auth-input" placeholder="ex: Teoria dos Jogos" required>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div class="auth-field-group" style="flex: 1;">
+              <label for="mod-edit-code">Código da Disciplina</label>
+              <input type="text" id="mod-edit-code" class="auth-input" value="ENG-IO-08" required>
+            </div>
+            <div class="auth-field-group" style="flex: 1;">
+              <label for="mod-edit-duration">Carga Horária</label>
+              <input type="text" id="mod-edit-duration" class="auth-input" value="4h lectivas" required>
+            </div>
+          </div>
+          <div class="auth-field-group">
+            <label for="mod-edit-intro">Introdução e Contexto em Engenharia</label>
+            <textarea id="mod-edit-intro" class="auth-input" rows="3" placeholder="Apresentação contextualizada e aplicabilidade prática na FE-UEM..." required></textarea>
+          </div>
+          <div class="auth-field-group">
+            <label for="mod-edit-theorems">Teoremas e Fundamentos Matemáticos (LaTeX / MathJax)</label>
+            <textarea id="mod-edit-theorems" class="auth-input" rows="3" placeholder="Formulação teórica, propriedades e teoremas \(...\)..." required></textarea>
+          </div>
+          <div class="auth-field-group">
+            <label for="mod-edit-synthesis">Síntese e Conclusões da Aula</label>
+            <textarea id="mod-edit-synthesis" class="auth-input" rows="2" placeholder="Resumo dos principais marcos pedagógicos da aula..."></textarea>
+          </div>
+          <button type="submit" class="auth-submit-btn">Persistir Módulo no MongoDB Atlas</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5.3.3 JS Bundle (Popper incluído) -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="course_modules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
