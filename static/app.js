@@ -313,13 +313,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("lesson-module-duration").textContent = mod.duration;
     document.getElementById("lesson-module-level").textContent = mod.level;
 
-    // 1. Identificação
+    // 1. Identificação (Grid Bootstrap 5)
     const idGrid = document.getElementById("lesson-id-grid");
     idGrid.innerHTML = `
-      <div class="id-card"><div class="id-card-label">Instituição</div><div class="id-card-val">${mod.identification.institution}</div></div>
-      <div class="id-card"><div class="id-card-label">Carga Horária</div><div class="id-card-val">${mod.identification.workload}</div></div>
-      <div class="id-card"><div class="id-card-label">Pré-requisitos</div><div class="id-card-val">${mod.prerequisites}</div></div>
-      <div class="id-card"><div class="id-card-label">Palavras-chave</div><div class="id-card-val">${mod.identification.keywords.join(", ")}</div></div>
+      <div class="col-12 col-sm-6 col-lg-3"><div class="card h-100 bg-light border rounded-2 p-3 id-card"><div class="text-muted text-uppercase small fw-bold id-card-label">Instituição</div><div class="fw-semibold text-dark mt-1 id-card-val">${mod.identification.institution}</div></div></div>
+      <div class="col-12 col-sm-6 col-lg-3"><div class="card h-100 bg-light border rounded-2 p-3 id-card"><div class="text-muted text-uppercase small fw-bold id-card-label">Carga Horária</div><div class="fw-semibold text-dark mt-1 id-card-val">${mod.identification.workload}</div></div></div>
+      <div class="col-12 col-sm-6 col-lg-3"><div class="card h-100 bg-light border rounded-2 p-3 id-card"><div class="text-muted text-uppercase small fw-bold id-card-label">Pré-requisitos</div><div class="fw-semibold text-dark mt-1 id-card-val">${mod.prerequisites}</div></div></div>
+      <div class="col-12 col-sm-6 col-lg-3"><div class="card h-100 bg-light border rounded-2 p-3 id-card"><div class="text-muted text-uppercase small fw-bold id-card-label">Palavras-chave</div><div class="fw-semibold text-dark mt-1 id-card-val">${mod.identification.keywords.join(", ")}</div></div></div>
     `;
 
     // 2. Introdução
@@ -328,15 +328,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Objectivos de Bloom
     const bloomList = document.getElementById("lesson-bloom-list");
     bloomList.innerHTML = mod.learningObjectives.map(obj => `
-      <div class="bloom-item">
-        <span class="bloom-tag">${obj.level}</span>
-        <span class="bloom-desc">${obj.desc}</span>
+      <div class="d-flex align-items-start gap-2 p-2 rounded-2 bg-light border bloom-item">
+        <span class="badge bg-dark text-white text-uppercase bloom-tag">${obj.level}</span>
+        <span class="text-secondary small bloom-desc">${obj.desc}</span>
       </div>
     `).join("");
 
     // 4. Competências
     document.getElementById("lesson-competencies").innerHTML = `
-      <ul>${mod.competencies.map(c => `<li>${c}</li>`).join("")}</ul>
+      <ul class="mb-0">${mod.competencies.map(c => `<li>${c}</li>`).join("")}</ul>
     `;
 
     // 5. Conceitos Fundamentais
@@ -363,19 +363,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // 12. Exercícios Propostos
     document.getElementById("lesson-proposed-exercises").innerHTML = mod.proposedExercises;
 
-    // 13. Auto-Avaliação Interactiva (Quiz com Solução Revelável)
+    // 13. Auto-Avaliação Interactiva (Quiz com Solução Revelável em Bootstrap 5)
     const quizContainer = document.getElementById("lesson-quiz-container");
     quizContainer.innerHTML = mod.learningAssessment.map((q, qIdx) => `
-      <div class="quiz-card" data-qidx="${qIdx}">
-        <div class="quiz-q-title">${q.question}</div>
-        <div class="quiz-options-list">
+      <div class="card bg-light border rounded-3 p-3 mb-3 quiz-card" data-qidx="${qIdx}">
+        <div class="fw-semibold text-dark mb-2 quiz-q-title">${q.question}</div>
+        <div class="d-flex flex-column gap-2 mb-2 quiz-options-list">
           ${q.options.map((opt, optIdx) => `
-            <button type="button" class="quiz-opt-btn" data-q="${qIdx}" data-opt="${optIdx}">
+            <button type="button" class="btn btn-light border text-start quiz-opt-btn" data-q="${qIdx}" data-opt="${optIdx}">
               ${opt}
             </button>
           `).join("")}
         </div>
-        <div class="quiz-feedback" id="quiz-feedback-${qIdx}">
+        <div class="alert alert-secondary mb-0 mt-2 quiz-feedback" id="quiz-feedback-${qIdx}">
           <strong>Explicação Científica:</strong> ${q.explanation}
         </div>
       </div>
@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!data.threads || data.threads.length === 0) {
         forumThreadsGrid.innerHTML = `
-          <div style="text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9em;">
+          <div class="alert alert-light border text-center py-4 text-muted small mb-0">
             Nenhuma discussão encontrada para os filtros actuais. Seja o primeiro a submeter uma questão ao fórum!
           </div>
         `;
@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       forumThreadsGrid.innerHTML = data.threads.map(t => {
         const valBadge = t.is_validated 
-          ? `<span class="thread-validation-tag">✓ Validada por Docente</span>` 
+          ? `<span class="badge bg-dark text-white rounded-pill thread-validation-tag">✓ Validada por Docente</span>` 
           : "";
         
         let roleBadgeClass = "student";
@@ -521,16 +521,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         return `
-          <div class="thread-item-card" data-thread-id="${t.id}">
-            <div class="thread-item-top">
-              <span class="thread-module-tag">${escapeHTML(t.module_id)}</span>
+          <div class="card border shadow-xs rounded-3 p-3 bg-white thread-item-card" data-thread-id="${t.id}">
+            <div class="d-flex align-items-center justify-content-between gap-2 thread-item-top">
+              <span class="badge bg-light text-dark border thread-module-tag">${escapeHTML(t.module_id)}</span>
               ${valBadge}
             </div>
-            <h4 class="thread-item-title">${escapeHTML(t.title)}</h4>
-            <p class="thread-item-preview">${escapeHTML(t.content)}</p>
-            <div class="thread-item-meta">
-              <span>Por <strong>${escapeHTML(t.author_name)}</strong> &bull; <span class="thread-item-author-role">${roleLabel}</span> &bull; ${t.created_at}</span>
-              <span class="thread-replies-pill">💬 ${t.reply_count} ${t.reply_count === 1 ? 'resposta' : 'respostas'}</span>
+            <h4 class="h6 fw-semibold text-dark mb-1 thread-item-title">${escapeHTML(t.title)}</h4>
+            <p class="text-secondary small mb-2 thread-item-preview">${escapeHTML(t.content)}</p>
+            <div class="d-flex align-items-center justify-content-between border-top pt-2 mt-1 small text-muted thread-item-meta">
+              <span>Por <strong>${escapeHTML(t.author_name)}</strong> &bull; <span class="fw-semibold text-secondary thread-item-author-role">${roleLabel}</span> &bull; ${t.created_at}</span>
+              <span class="badge bg-light text-dark border thread-replies-pill">💬 ${t.reply_count} ${t.reply_count === 1 ? 'resposta' : 'respostas'}</span>
             </div>
           </div>
         `;
@@ -568,28 +568,28 @@ document.addEventListener("DOMContentLoaded", () => {
       const isTeacher = (currentUser && (currentUser.role === "teacher_regent" || currentUser.role === "teacher_assistant")) || (forumCurrentRole && forumCurrentRole.value === "teacher");
 
       // Renderizar o tópico principal
-      let leadRoleBadge = `<span class="author-role-badge ${t.author_role}">${t.author_role === 'teacher' ? 'Docente FE-UEM' : 'Estudante'}</span>`;
+      let leadRoleBadge = `<span class="badge ${t.author_role === 'teacher' ? 'bg-dark text-white' : 'bg-light text-dark border'} author-role-badge ${t.author_role}">${t.author_role === 'teacher' ? 'Docente FE-UEM' : 'Estudante'}</span>`;
       let valBtn = "";
       if (isTeacher) {
         valBtn = `
-          <button type="button" class="validate-action-btn ${t.is_validated ? 'endorsed' : ''}" id="btn-toggle-thread-val">
+          <button type="button" class="btn btn-sm ${t.is_validated ? 'btn-dark endorsed' : 'btn-outline-dark'} validate-action-btn" id="btn-toggle-thread-val">
             ${t.is_validated ? '✓ Validada pelo Docente' : 'Marcar como Validada Cientificamente'}
           </button>
         `;
       } else if (t.is_validated) {
-        valBtn = `<span class="thread-validation-tag">✓ Validada Cientificamente pelo Docente</span>`;
+        valBtn = `<span class="badge bg-dark text-white rounded-pill thread-validation-tag">✓ Validada Cientificamente pelo Docente</span>`;
       }
 
       threadCardLead.innerHTML = `
-        <div class="thread-lead-top">
-          <div class="thread-author-badge-group">
-            <span class="thread-module-tag">${escapeHTML(t.module_id)}</span>
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 thread-lead-top">
+          <div class="d-flex align-items-center gap-2 flex-wrap thread-author-badge-group">
+            <span class="badge bg-light text-dark border thread-module-tag">${escapeHTML(t.module_id)}</span>
             ${leadRoleBadge}
-            <span style="font-size: 0.8em; color: var(--text-muted);">${escapeHTML(t.author_name)} &bull; ${t.created_at}</span>
+            <span class="small text-muted">${escapeHTML(t.author_name)} &bull; ${t.created_at}</span>
           </div>
           <div>${valBtn}</div>
         </div>
-        <h2 class="thread-lead-title">${escapeHTML(t.title)}</h2>
+        <h2 class="h5 fw-bold text-dark mb-3 thread-lead-title">${escapeHTML(t.title)}</h2>
         <div class="thread-lead-body">${clean_and_format_html(t.content)}</div>
       `;
 
@@ -625,7 +625,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (replies.length === 0) {
       repliesStream.innerHTML = `
-        <div style="padding: 24px; text-align: center; color: var(--text-muted); background: var(--bg-muted); border-radius: 6px; font-size: 0.88em;">
+        <div class="alert alert-light border text-center py-4 text-muted small mb-0">
           Ainda não foram publicadas respostas a esta questão. Pode ser o primeiro a responder ou solicitar o parecer do Tutor de IA acima!
         </div>
       `;
@@ -635,27 +635,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const isTeacher = (currentUser && (currentUser.role === "teacher_regent" || currentUser.role === "teacher_assistant")) || (forumCurrentRole && forumCurrentRole.value === "teacher");
 
     repliesStream.innerHTML = replies.map(r => {
-      let cardClass = "reply-card";
-      let roleBadge = `<span class="author-role-badge student">Estudante</span>`;
+      let cardClass = "card border shadow-xs rounded-3 p-3 bg-white reply-card";
+      let roleBadge = `<span class="badge bg-light text-dark border author-role-badge student">Estudante</span>`;
 
       if (r.author_role === "ai_tutor") {
         cardClass += " ai-tutor-reply";
-        roleBadge = `<span class="author-role-badge ai_tutor">🤖 Resposta do Tutor de IA</span>`;
+        roleBadge = `<span class="badge bg-secondary text-white author-role-badge ai_tutor">🤖 Resposta do Tutor de IA</span>`;
       } else if (r.author_role === "teacher") {
         cardClass += " teacher-reply";
-        roleBadge = `<span class="author-role-badge teacher">👨‍🏫 Docente FE-UEM</span>`;
+        roleBadge = `<span class="badge bg-dark text-white author-role-badge teacher">👨‍🏫 Docente FE-UEM</span>`;
       }
 
       let endorsedBadge = "";
       if (r.is_endorsed) {
-        endorsedBadge = `<span style="font-size: 0.76em; font-weight: 700; background: #18181b; color: #fff; padding: 2px 8px; border-radius: 10px;">✓ Validação Docente</span>`;
+        endorsedBadge = `<span class="badge bg-dark text-white rounded-pill">✓ Validação Docente</span>`;
       }
 
       let teacherValidateAction = "";
       if (isTeacher && r.author_role !== "teacher") {
         teacherValidateAction = `
-          <div class="reply-footer-actions">
-            <button type="button" class="validate-action-btn ${r.is_endorsed ? 'endorsed' : ''}" data-reply-id="${r.id}">
+          <div class="d-flex align-items-center justify-content-end border-top pt-2 mt-2 reply-footer-actions">
+            <button type="button" class="btn btn-sm ${r.is_endorsed ? 'btn-dark endorsed' : 'btn-outline-dark'} validate-action-btn" data-reply-id="${r.id}">
               ${r.is_endorsed ? '✓ Resposta Validada pelo Docente' : 'Validar Resposta como Docente'}
             </button>
           </div>
@@ -665,7 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let referencesHtml = "";
       if (r.references_cited && r.references_cited.length > 0) {
         referencesHtml = `
-          <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-hairline); font-size: 0.82em; color: var(--text-muted);">
+          <div class="mt-2 pt-2 border-top small text-muted">
             <strong>Fontes Verificadas:</strong> ${r.references_cited.join("; ")}
           </div>
         `;
@@ -673,11 +673,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return `
         <div class="${cardClass}" id="reply-${r.id}">
-          <div class="reply-top-meta">
-            <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2 small reply-top-meta">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
               ${roleBadge}
-              <strong>${escapeHTML(r.author_name)}</strong>
-              <span style="color: var(--text-muted); font-size: 0.9em;">&bull; ${r.created_at}</span>
+              <strong class="text-dark">${escapeHTML(r.author_name)}</strong>
+              <span class="text-muted">&bull; ${r.created_at}</span>
             </div>
             <div>${endorsedBadge}</div>
           </div>
@@ -1005,9 +1005,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     msgDiv.innerHTML = `
-      <div class="message-meta">
-        <span class="sender-name">${sender}</span>
-        <span class="message-time">${now}</span>
+      <div class="message-meta d-flex align-items-center gap-2 mb-1">
+        <span class="sender-name fw-semibold text-secondary small">${sender}</span>
+        <span class="badge bg-light text-muted border fw-normal message-time">${now}</span>
       </div>
       <div class="message-body">${escapeHTML(text)}</div>
     `;
@@ -1023,11 +1023,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     msgDiv.innerHTML = `
-      <div class="message-meta">
-        <span class="sender-name">Assistente de Investigação Operacional</span>
-        <span class="message-time">${now}</span>
+      <div class="message-meta d-flex align-items-center gap-2 mb-1">
+        <span class="sender-name fw-semibold text-secondary small">Assistente de Investigação Operacional</span>
+        <span class="badge bg-light text-muted border fw-normal message-time">${now}</span>
       </div>
-      <div class="message-body">${htmlContent}</div>
+      <div class="message-body card border shadow-xs rounded-3 p-4 bg-white">${htmlContent}</div>
     `;
 
     chatMessages.appendChild(msgDiv);
@@ -1567,11 +1567,11 @@ document.addEventListener("DOMContentLoaded", () => {
               <td><strong>${escapeHTML(s.name)}</strong></td>
               <td>${escapeHTML(s.email)}</td>
               <td>${escapeHTML(s.course || "Engenharia")}</td>
-              <td>${escapeHTML(s.student_number || "--")}</td>
-              <td><span style="color:#16a34a; font-weight:600;">✓ Activo</span></td>
-              <td>${s.last_login || s.created_at || "Hoje"}</td>
+              <td><span class="badge bg-light text-dark border">${escapeHTML(s.student_number || "--")}</span></td>
+              <td><span class="badge bg-success-subtle text-success border border-success-subtle">✓ Activo</span></td>
+              <td class="text-muted small">${s.last_login || s.created_at || "Hoje"}</td>
             </tr>
-          `).join("") || `<tr><td colspan="6" style="text-align:center; color:#71717a;">Nenhum estudante registado ainda.</td></tr>`;
+          `).join("") || `<tr><td colspan="6" class="text-center text-muted py-3">Nenhum estudante registado ainda.</td></tr>`;
         }
 
         // Preencher Candidatos Pendentes (Apenas Regente pode aprovar)
@@ -1583,17 +1583,17 @@ document.addEventListener("DOMContentLoaded", () => {
               <td><strong>${escapeHTML(p.name)}</strong></td>
               <td>${escapeHTML(p.email)}</td>
               <td>${escapeHTML(p.course || "Docência FE-UEM")}</td>
-              <td>${p.created_at || "Hoje"}</td>
+              <td class="text-muted small">${p.created_at || "Hoje"}</td>
               <td>
-                <button type="button" class="teacher-action-pill-btn" onclick="window.approveTeacher('${p.email}', 'teacher_assistant')">
+                <button type="button" class="btn btn-sm btn-outline-dark teacher-action-pill-btn" onclick="window.approveTeacher('${p.email}', 'teacher_assistant')">
                   Aprovar Assistente
                 </button>
-                <button type="button" class="teacher-action-pill-btn" onclick="window.approveTeacher('${p.email}', 'teacher_regent')">
+                <button type="button" class="btn btn-sm btn-dark teacher-action-pill-btn" onclick="window.approveTeacher('${p.email}', 'teacher_regent')">
                   Aprovar Regente
                 </button>
               </td>
             </tr>
-          `).join("") || `<tr><td colspan="5" style="text-align:center; color:#71717a;">Nenhum pedido de autorização pendente.</td></tr>`;
+          `).join("") || `<tr><td colspan="5" class="text-center text-muted py-3">Nenhum pedido de autorização pendente.</td></tr>`;
         }
 
         // Preencher Corpo Docente Activo
@@ -1604,14 +1604,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <tr>
               <td><strong>${escapeHTML(t.name)}</strong></td>
               <td>${escapeHTML(t.email)}</td>
-              <td><span class="user-badge-role ${t.role === 'teacher_regent' ? 'regent-role' : 'assistant-role'}">${t.role_title}</span></td>
-              <td style="font-size:0.8em; color:#52525b;">${t.role === 'teacher_regent' ? 'Total (Gestão Curricular, Permissões, Moderação)' : 'Apoio Pedagógico, Moderação, Resolução de Exercícios'}</td>
+              <td><span class="badge rounded-pill user-badge-role ${t.role === 'teacher_regent' ? 'regent-role' : 'assistant-role'}">${t.role_title}</span></td>
+              <td class="small text-secondary">${t.role === 'teacher_regent' ? 'Total (Gestão Curricular, Permissões, Moderação)' : 'Apoio Pedagógico, Moderação, Resolução de Exercícios'}</td>
               <td>
                 ${currentUser.role === 'teacher_regent' && t.email !== currentUser.email ? `
-                  <button type="button" class="teacher-action-pill-btn danger" onclick="window.approveTeacher('${t.email}', 'student')">
+                  <button type="button" class="btn btn-sm btn-outline-danger teacher-action-pill-btn danger" onclick="window.approveTeacher('${t.email}', 'student')">
                     Revogar Acesso
                   </button>
-                ` : `<span style="color:#71717a; font-size:0.8em;">(Titular)</span>`}
+                ` : `<span class="badge bg-light text-muted border">(Titular)</span>`}
               </td>
             </tr>
           `).join("");
@@ -1660,13 +1660,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = modules[k];
       return `
         <tr>
-          <td><span style="font-family:monospace; font-weight:600;">${m.identification?.code || 'ENG-IO'}</span></td>
+          <td><span class="badge bg-light text-dark border font-monospace">${m.identification?.code || 'ENG-IO'}</span></td>
           <td><strong>${escapeHTML(m.title || k)}</strong></td>
           <td>${m.duration || '4h lectivas'}</td>
           <td>${m.level || 'Licenciatura em Engenharia'}</td>
-          <td>MongoDB Atlas (Nuvem)</td>
+          <td><span class="badge bg-success-subtle text-success border border-success-subtle">MongoDB Atlas (Nuvem)</span></td>
           <td>
-            <button type="button" class="teacher-action-pill-btn" onclick="window.openModuleEditor('${k}')">
+            <button type="button" class="btn btn-sm btn-outline-dark teacher-action-pill-btn" onclick="window.openModuleEditor('${k}')">
               Editar na Nuvem
             </button>
           </td>

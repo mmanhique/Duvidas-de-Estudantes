@@ -28,37 +28,37 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <div class="app-layout">
-    <!-- Barra Superior / Header Minimalista Reestruturado -->
-    <header class="app-header">
-      <div class="header-left">
-        <button id="sidebar-toggle-btn" class="icon-btn" aria-label="Alternar tópicos curriculares" title="Tópicos Curriculares">
+  <div class="app-layout d-flex flex-column vh-100 w-100 overflow-hidden bg-white">
+    <!-- Barra Superior / Header Minimalista Reestruturado com Bootstrap 5 -->
+    <header class="app-header navbar navbar-expand-lg bg-white border-bottom px-3 py-0 flex-nowrap justify-content-between">
+      <div class="header-left d-flex align-items-center gap-2">
+        <button id="sidebar-toggle-btn" class="btn btn-sm btn-light border-0 icon-btn" aria-label="Alternar tópicos curriculares" title="Tópicos Curriculares">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
-        <div class="brand" id="brand-home-link" style="cursor: pointer;" title="Ir para a Página Inicial">
+        <div class="brand navbar-brand d-flex align-items-center gap-2 m-0 py-1" id="brand-home-link" style="cursor: pointer;" title="Ir para a Página Inicial">
           <img src="Logotipo sem UEM.png" alt="Logótipo Institucional FE-UEM" class="brand-logo" width="34" height="34">
-          <div class="brand-text">
-            <span class="brand-title">Investigação Operacional</span>
-            <span class="brand-subtitle">Faculdade de Engenharia &bull; UEM</span>
+          <div class="brand-text d-flex flex-column lh-sm">
+            <span class="brand-title fw-semibold text-dark">Investigação Operacional</span>
+            <span class="brand-subtitle text-muted">Faculdade de Engenharia &bull; UEM</span>
           </div>
         </div>
       </div>
 
       <!-- Barra de Navegação Central -->
-      <nav class="header-center-nav">
-        <div class="view-switch-group">
-          <button type="button" id="btn-view-home" class="view-switch-btn active" title="Página Inicial da Disciplina">
+      <nav class="header-center-nav d-none d-lg-flex align-items-center justify-content-center flex-grow-1">
+        <div class="view-switch-group nav nav-pills bg-light border rounded-pill p-1 gap-1">
+          <button type="button" id="btn-view-home" class="view-switch-btn nav-link rounded-pill d-inline-flex align-items-center gap-2 py-1 px-3 active" title="Página Inicial da Disciplina">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
             <span>Início</span>
           </button>
-          <button type="button" id="btn-view-dashboard" class="view-switch-btn" title="Painel Académico (Estudante / Docente)">
+          <button type="button" id="btn-view-dashboard" class="view-switch-btn nav-link rounded-pill d-inline-flex align-items-center gap-2 py-1 px-3" title="Painel Académico (Estudante / Docente)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="7" height="7"></rect>
               <rect x="14" y="3" width="7" height="7"></rect>
@@ -67,14 +67,14 @@
             </svg>
             <span id="dashboard-btn-label">Meu Painel</span>
           </button>
-          <button type="button" id="btn-view-lesson" class="view-switch-btn" title="Sala de Aula Digital (7 Módulos Curriculares)">
+          <button type="button" id="btn-view-lesson" class="view-switch-btn nav-link rounded-pill d-inline-flex align-items-center gap-2 py-1 px-3" title="Sala de Aula Digital (7 Módulos Curriculares)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
             </svg>
             <span>Sala de Aula</span>
           </button>
-          <button type="button" id="btn-view-forum" class="view-switch-btn" title="Fórum Académico Interactivo (Estudantes, Docentes e IA)">
+          <button type="button" id="btn-view-forum" class="view-switch-btn nav-link rounded-pill d-inline-flex align-items-center gap-2 py-1 px-3" title="Fórum Académico Interactivo (Estudantes, Docentes e IA)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
@@ -83,7 +83,7 @@
             </svg>
             <span>Fórum Académico</span>
           </button>
-          <button type="button" id="btn-view-chat" class="view-switch-btn" title="Tutor Inteligente de IA (Acompanhamento Individual)">
+          <button type="button" id="btn-view-chat" class="view-switch-btn nav-link rounded-pill d-inline-flex align-items-center gap-2 py-1 px-3" title="Tutor Inteligente de IA (Acompanhamento Individual)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
@@ -92,17 +92,17 @@
         </div>
       </nav>
 
-      <div class="header-right">
+      <div class="header-right d-flex align-items-center gap-2">
         <!-- Indicador MongoDB Atlas -->
-        <div class="status-pill" id="db-status-pill" title="Base de Dados na Nuvem (MongoDB Atlas)">
-          <span class="status-dot" style="background-color: #10b981;"></span>
+        <div class="status-pill badge bg-light text-secondary border rounded-pill d-none d-sm-inline-flex align-items-center gap-1 px-2 py-1 fw-medium" id="db-status-pill" title="Base de Dados na Nuvem (MongoDB Atlas)">
+          <span class="status-dot rounded-circle d-inline-block" style="background-color: #10b981;"></span>
           <span id="db-status-label">🍃 Atlas</span>
         </div>
 
         <!-- Selector de Modelo IA -->
-        <div class="model-selector-container">
-          <label for="model-select" class="sr-only">Modelo de Inteligência Artificial</label>
-          <select id="model-select" class="model-select">
+        <div class="model-selector-container d-flex align-items-center">
+          <label for="model-select" class="visually-hidden sr-only">Modelo de Inteligência Artificial</label>
+          <select id="model-select" class="form-select form-select-sm model-select">
             <option value="llama3.2:3b" selected>Llama 3.2 (3B)</option>
             <option value="llama3.2:1b">Llama 3.2 (1B)</option>
             <option value="academic-engine">Motor FE-UEM</option>
@@ -112,27 +112,27 @@
         </div>
 
         <!-- Menu Dropdown de Utilizador Elegante com Logout Rápido e Seguro -->
-        <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
-          <button type="button" class="user-profile-trigger" id="user-profile-trigger" aria-haspopup="true" aria-expanded="false" title="Menu da Conta">
-            <div class="user-avatar-circle" id="user-avatar-initials">EM</div>
-            <div class="user-trigger-text">
-              <span class="user-trigger-name" id="header-user-name">Edilson Macamo</span>
-              <span class="user-trigger-role-badge" id="header-user-role">🎓 Estudante</span>
+        <div class="user-profile-menu-wrapper dropdown position-relative" id="user-profile-menu-wrapper">
+          <button type="button" class="user-profile-trigger btn btn-sm btn-light border rounded-pill d-flex align-items-center gap-2 py-1 px-2" id="user-profile-trigger" aria-haspopup="true" aria-expanded="false" title="Menu da Conta">
+            <div class="user-avatar-circle rounded-circle bg-dark text-white d-flex align-items-center justify-content-center fw-bold" id="user-avatar-initials">EM</div>
+            <div class="user-trigger-text d-none d-md-flex flex-column text-start lh-1">
+              <span class="user-trigger-name fw-semibold text-dark" id="header-user-name">Edilson Macamo</span>
+              <span class="user-trigger-role-badge text-muted" id="header-user-role">🎓 Estudante</span>
             </div>
-            <svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg class="chevron-icon text-muted" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
 
           <!-- Dropdown Flutuante -->
-          <div class="user-dropdown-card" id="user-dropdown-card" style="display: none;">
-            <div class="dropdown-user-header">
-              <div class="dropdown-user-name" id="dropdown-user-name">Edilson Macamo</div>
-              <div class="dropdown-user-email" id="dropdown-user-email">estudante@fe.uem.mz</div>
-              <div class="dropdown-user-course" id="dropdown-user-course">Licenciatura em Engenharia Mecânica</div>
+          <div class="user-dropdown-card dropdown-menu dropdown-menu-end shadow-lg border rounded-3 p-2" id="user-dropdown-card" style="display: none;">
+            <div class="dropdown-user-header px-2 py-2">
+              <div class="dropdown-user-name fw-bold text-dark" id="dropdown-user-name">Edilson Macamo</div>
+              <div class="dropdown-user-email text-muted small" id="dropdown-user-email">estudante@fe.uem.mz</div>
+              <div class="dropdown-user-course text-secondary small mt-1" id="dropdown-user-course">Licenciatura em Engenharia Mecânica</div>
             </div>
-            <div class="dropdown-divider"></div>
-            <button type="button" class="dropdown-item-btn" id="dropdown-item-dashboard">
+            <hr class="dropdown-divider my-1">
+            <button type="button" class="dropdown-item-btn dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 px-2 small" id="dropdown-item-dashboard">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7"></rect>
                 <rect x="14" y="3" width="7" height="7"></rect>
@@ -141,7 +141,7 @@
               </svg>
               <span>Meu Painel Académico</span>
             </button>
-            <button type="button" class="dropdown-item-btn" id="dropdown-item-switch">
+            <button type="button" class="dropdown-item-btn dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 px-2 small" id="dropdown-item-switch">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
@@ -150,8 +150,8 @@
               </svg>
               <span>Alternar Conta / Demonstração</span>
             </button>
-            <div class="dropdown-divider"></div>
-            <button type="button" class="dropdown-item-btn logout-item-btn" id="dropdown-item-logout">
+            <hr class="dropdown-divider my-1">
+            <button type="button" class="dropdown-item-btn logout-item-btn dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 px-2 small text-danger fw-semibold" id="dropdown-item-logout">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
@@ -165,12 +165,12 @@
     </header>
 
     <!-- Estrutura Principal -->
-    <div class="main-wrapper">
-      <!-- Painel Lateral Retrátil de Tópicos (Acesso Progressivo) -->
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-          <span class="sidebar-title">Programa Curricular</span>
-          <button id="sidebar-close-btn" class="icon-btn close-btn" aria-label="Fechar painel">
+    <div class="main-wrapper d-flex flex-grow-1 overflow-hidden position-relative">
+      <!-- Painel Lateral Retrátil de Tópicos (Acesso Progressivo com Bootstrap List Group) -->
+      <aside class="sidebar bg-light border-end d-flex flex-column" id="sidebar">
+        <div class="sidebar-header d-flex align-items-center justify-content-between px-3 border-bottom bg-white">
+          <span class="sidebar-title text-uppercase fw-bold text-secondary small">Programa Curricular</span>
+          <button id="sidebar-close-btn" class="btn btn-sm btn-light border-0 icon-btn close-btn" aria-label="Fechar painel">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -178,44 +178,44 @@
           </button>
         </div>
 
-        <div class="sidebar-content">
-          <div class="topic-group">
-            <span class="topic-group-label">Módulos de Optimização</span>
-            <div class="topic-list">
-              <button class="topic-item" data-topic="Programação Linear">
-                <span class="topic-name">1. Programação Linear</span>
-                <span class="topic-desc">Modelação, variáveis de decisão e restrições</span>
+        <div class="sidebar-content flex-grow-1 overflow-y-auto p-3 d-flex flex-column gap-3">
+          <div class="topic-group d-flex flex-column gap-2">
+            <span class="topic-group-label text-uppercase fw-bold text-muted small">Módulos de Optimização</span>
+            <div class="topic-list list-group gap-1">
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Programação Linear">
+                <span class="topic-name d-block fw-semibold text-dark small">1. Programação Linear</span>
+                <span class="topic-desc d-block text-muted">Modelação, variáveis de decisão e restrições</span>
               </button>
-              <button class="topic-item" data-topic="Método Simplex Primal">
-                <span class="topic-name">2. Método Simplex Primal</span>
-                <span class="topic-desc">Tableaux, forma padrão e pivoteamento</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Método Simplex Primal">
+                <span class="topic-name d-block fw-semibold text-dark small">2. Método Simplex Primal</span>
+                <span class="topic-desc d-block text-muted">Tableaux, forma padrão e pivoteamento</span>
               </button>
-              <button class="topic-item" data-topic="Duas Fases e Grande M">
-                <span class="topic-name">3. Duas Fases &amp; Grande M</span>
-                <span class="topic-desc">Variáveis artificiais e penalizações</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Duas Fases e Grande M">
+                <span class="topic-name d-block fw-semibold text-dark small">3. Duas Fases &amp; Grande M</span>
+                <span class="topic-desc d-block text-muted">Variáveis artificiais e penalizações</span>
               </button>
-              <button class="topic-item" data-topic="Dualidade e Sensibilidade">
-                <span class="topic-name">4. Dualidade &amp; Sensibilidade</span>
-                <span class="topic-desc">Preços-sombra e folgas complementares</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Dualidade e Sensibilidade">
+                <span class="topic-name d-block fw-semibold text-dark small">4. Dualidade &amp; Sensibilidade</span>
+                <span class="topic-desc d-block text-muted">Preços-sombra e folgas complementares</span>
               </button>
-              <button class="topic-item" data-topic="Problemas de Transporte">
-                <span class="topic-name">5. Transportes &amp; Afectação</span>
-                <span class="topic-desc">Canto Noroeste, Vogel (VAM) e MODI</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Problemas de Transporte">
+                <span class="topic-name d-block fw-semibold text-dark small">5. Transportes &amp; Afectação</span>
+                <span class="topic-desc d-block text-muted">Canto Noroeste, Vogel (VAM) e MODI</span>
               </button>
-              <button class="topic-item" data-topic="Optimização em Redes">
-                <span class="topic-name">6. Redes &amp; Grafos</span>
-                <span class="topic-desc">Dijkstra, Fluxo Máximo e CPM/PERT</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Optimização em Redes">
+                <span class="topic-name d-block fw-semibold text-dark small">6. Redes &amp; Grafos</span>
+                <span class="topic-desc d-block text-muted">Dijkstra, Fluxo Máximo e CPM/PERT</span>
               </button>
-              <button class="topic-item" data-topic="Programação Inteira">
-                <span class="topic-name">7. Programação Inteira</span>
-                <span class="topic-desc">Branch &amp; Bound e Planos de Corte</span>
+              <button class="topic-item list-group-item list-group-item-action rounded-2 border p-2 text-start" data-topic="Programação Inteira">
+                <span class="topic-name d-block fw-semibold text-dark small">7. Programação Inteira</span>
+                <span class="topic-desc d-block text-muted">Branch &amp; Bound e Planos de Corte</span>
               </button>
             </div>
           </div>
 
-          <div class="criteria-card">
-            <span class="criteria-label">Critérios de Avaliação</span>
-            <ul>
+          <div class="criteria-card card border shadow-xs rounded-2 p-3 bg-white">
+            <span class="criteria-label text-uppercase fw-bold text-secondary small mb-2 d-block">Critérios de Avaliação</span>
+            <ul class="mb-0 ps-3 text-muted small">
               <li>Definição explícita das variáveis e unidades</li>
               <li>Estruturação da função objectivo e restrições</li>
               <li>Apresentação dos tableaux canónicos</li>
@@ -472,14 +472,14 @@
         <!-- Painel Académico Individual (Estudante e Docente com Bootstrap) -->
         <section id="dashboard-view" class="container-xl py-4 dashboard-view" style="display: none;">
           <!-- Cartão de Destaque / Boas-vindas Personalizadas -->
-          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-hero-card">
-            <div class="dashboard-user-meta">
-              <span class="badge bg-dark px-3 py-2 rounded-pill mb-2 fw-semibold dashboard-role-badge-large" id="dash-user-badge">🎓 Estudante</span>
-              <h2 class="h4 fw-bold text-dark mb-1 dashboard-greeting" id="dash-user-greeting">Olá, Edilson Macamo</h2>
+          <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white d-flex flex-row align-items-center justify-content-between flex-wrap gap-3 dashboard-hero-card">
+            <div class="dashboard-user-meta d-flex flex-column gap-1">
+              <span class="badge bg-dark px-3 py-2 rounded-pill mb-1 fw-semibold align-self-start dashboard-role-badge-large" id="dash-user-badge">🎓 Estudante</span>
+              <h2 class="h4 fw-bold text-dark mb-0 dashboard-greeting" id="dash-user-greeting">Olá, Edilson Macamo</h2>
               <span class="text-secondary small dashboard-subinfo" id="dash-user-subinfo">Licenciatura em Engenharia Mecânica &bull; Nº 2024-ENG-089</span>
             </div>
             <div class="dashboard-hero-actions">
-              <button type="button" class="btn btn-outline-dark btn-sm rounded-3 px-3 module-progress-action-btn" id="dash-switch-account-btn">Alternar / Gerir Conta</button>
+              <button type="button" class="btn btn-outline-dark btn-sm rounded-3 px-3 fw-semibold module-progress-action-btn" id="dash-switch-account-btn">Alternar / Gerir Conta</button>
             </div>
           </div>
 
@@ -523,7 +523,7 @@
                 <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Plano de Estudos &bull; Investigação Operacional</h3>
                 <span class="badge bg-light text-secondary border">7 Módulos Curriculares</span>
               </div>
-              <div class="student-module-progress-list" id="student-modules-list-container">
+              <div class="student-module-progress-list d-flex flex-column gap-2" id="student-modules-list-container">
                 <!-- Preenchido dinamicamente via app.js -->
               </div>
             </div>
@@ -531,12 +531,12 @@
 
           <!-- B. Vista Específica para Docentes (Regente e Assistente) -->
           <div id="teacher-dashboard-content" class="dashboard-role-content" style="display: none;">
-            <!-- Abas Internas de Gestão Pedagógica -->
-            <nav class="docente-nav-subtabs mb-4">
-              <button type="button" class="docente-subtab-btn active" data-subtab="subtab-analytics">1. Indicadores da Cadeira</button>
-              <button type="button" class="docente-subtab-btn" data-subtab="subtab-team" id="teacher-subtab-team-btn">2. Equipa Docente &amp; Permissões</button>
-              <button type="button" class="docente-subtab-btn" data-subtab="subtab-modules">3. Gestão Curricular na Nuvem</button>
-              <button type="button" class="docente-subtab-btn" data-subtab="subtab-moderation">4. Moderação &amp; Fórum</button>
+            <!-- Abas Internas de Gestão Pedagógica com Nav Pills Bootstrap -->
+            <nav class="docente-nav-subtabs nav nav-pills gap-2 pb-3 mb-4 border-bottom flex-wrap">
+              <button type="button" class="docente-subtab-btn nav-link rounded-2 px-3 py-2 active" data-subtab="subtab-analytics">1. Indicadores da Cadeira</button>
+              <button type="button" class="docente-subtab-btn nav-link rounded-2 px-3 py-2" data-subtab="subtab-team" id="teacher-subtab-team-btn">2. Equipa Docente &amp; Permissões</button>
+              <button type="button" class="docente-subtab-btn nav-link rounded-2 px-3 py-2" data-subtab="subtab-modules">3. Gestão Curricular na Nuvem</button>
+              <button type="button" class="docente-subtab-btn nav-link rounded-2 px-3 py-2" data-subtab="subtab-moderation">4. Moderação &amp; Fórum</button>
             </nav>
 
             <!-- Painel 1: Indicadores e Métricas Globais da Cadeira -->
@@ -563,20 +563,22 @@
                     <span class="text-secondary small kpi-card-desc">Discussões Científicas</span>
                   </div>
                 </div>
-                <div class="kpi-card">
-                  <span class="kpi-card-title">Validadas por Docente</span>
-                  <span class="kpi-card-value" id="dash-teacher-validated-count">0</span>
-                  <span class="kpi-card-desc">Com Selo de Aprovação</span>
+                <div class="col-6 col-lg-3">
+                  <div class="card border shadow-sm p-3 rounded-3 h-100 kpi-card bg-white">
+                    <span class="text-muted text-uppercase small fw-bold kpi-card-title">Validadas por Docente</span>
+                    <span class="display-6 fw-bold text-dark my-1 kpi-card-value" id="dash-teacher-validated-count">0</span>
+                    <span class="text-secondary small kpi-card-desc">Com Selo de Aprovação</span>
+                  </div>
                 </div>
               </div>
 
-              <div class="dashboard-section-card">
-                <div class="dashboard-section-header">
-                  <h3 class="dashboard-section-title">Estudantes Inscritos e Acompanhamento Individual</h3>
+              <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom dashboard-section-header">
+                  <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Estudantes Inscritos e Acompanhamento Individual</h3>
                 </div>
-                <div class="academic-table-wrapper">
-                  <table class="academic-table">
-                    <thead>
+                <div class="table-responsive academic-table-wrapper">
+                  <table class="table table-hover align-middle mb-0 academic-table">
+                    <thead class="table-light">
                       <tr>
                         <th>Nome Completo</th>
                         <th>Email Institucional</th>
@@ -597,16 +599,16 @@
             <!-- Painel 2: Equipa Docente e Permissões (Exclusivo Regente) -->
             <div class="docente-subtab-pane" id="subtab-team" style="display: none;">
               <!-- Alerta para Candidatos a Docente Pendentes -->
-              <div class="dashboard-section-card" id="pending-teachers-card">
-                <div class="dashboard-section-header">
-                  <h3 class="dashboard-section-title">Pedidos de Autorização de Docentes (Aprovação Obrigatória da Regência)</h3>
+              <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card" id="pending-teachers-card">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom dashboard-section-header">
+                  <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Pedidos de Autorização de Docentes (Aprovação Obrigatória da Regência)</h3>
                 </div>
-                <p style="font-size: 0.88em; color: #52525b; margin-bottom: 12px;">
+                <p class="text-secondary small mb-3">
                   Conforme a política institucional da FE-UEM, novos utilizadores que se registam como docentes ficam pendentes até que o Docente Regente aprove formalmente o perfil e defina a categoria (Regente ou Assistente).
                 </p>
-                <div class="academic-table-wrapper">
-                  <table class="academic-table">
-                    <thead>
+                <div class="table-responsive academic-table-wrapper">
+                  <table class="table table-hover align-middle mb-0 academic-table">
+                    <thead class="table-light">
                       <tr>
                         <th>Nome</th>
                         <th>Email</th>
@@ -623,13 +625,13 @@
               </div>
 
               <!-- Tabela da Equipa Docente Activa -->
-              <div class="dashboard-section-card">
-                <div class="dashboard-section-header">
-                  <h3 class="dashboard-section-title">Corpo Docente Activo da Disciplina</h3>
+              <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom dashboard-section-header">
+                  <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Corpo Docente Activo da Disciplina</h3>
                 </div>
-                <div class="academic-table-wrapper">
-                  <table class="academic-table">
-                    <thead>
+                <div class="table-responsive academic-table-wrapper">
+                  <table class="table table-hover align-middle mb-0 academic-table">
+                    <thead class="table-light">
                       <tr>
                         <th>Nome do Docente</th>
                         <th>Email</th>
@@ -648,19 +650,19 @@
 
             <!-- Painel 3: Gestão Curricular na Nuvem (MongoDB Atlas) -->
             <div class="docente-subtab-pane" id="subtab-modules" style="display: none;">
-              <div class="dashboard-section-card">
-                <div class="dashboard-section-header">
-                  <h3 class="dashboard-section-title">Módulos Curriculares Persistidos no MongoDB Atlas</h3>
-                  <button type="button" class="forum-primary-btn" id="btn-create-new-module" style="padding: 6px 12px; font-size: 0.85em;">
+              <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom flex-wrap gap-2 dashboard-section-header">
+                  <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Módulos Curriculares Persistidos no MongoDB Atlas</h3>
+                  <button type="button" class="btn btn-dark btn-sm rounded-2 px-3 fw-semibold forum-primary-btn" id="btn-create-new-module">
                     + Novo Módulo / Actualizar Aula
                   </button>
                 </div>
-                <p style="font-size: 0.88em; color: #71717a; margin-bottom: 14px;">
+                <p class="text-muted small mb-3">
                   Os conteúdos pedagógicos abaixo estão armazenados na nuvem. Alterações efectuadas pelo corpo docente reflectem-se instantaneamente para todos os estudantes.
                 </p>
-                <div class="academic-table-wrapper">
-                  <table class="academic-table">
-                    <thead>
+                <div class="table-responsive academic-table-wrapper">
+                  <table class="table table-hover align-middle mb-0 academic-table">
+                    <thead class="table-light">
                       <tr>
                         <th>Código</th>
                         <th>Título do Módulo</th>
@@ -680,12 +682,12 @@
 
             <!-- Painel 4: Moderação do Fórum & Supervisão de IA -->
             <div class="docente-subtab-pane" id="subtab-moderation" style="display: none;">
-              <div class="dashboard-section-card">
-                <div class="dashboard-section-header">
-                  <h3 class="dashboard-section-title">Discussões e Pareceres do Tutor IA a Supervisionar</h3>
-                  <button type="button" class="module-progress-action-btn" id="dash-go-forum-btn">Ir para o Fórum Completo</button>
+              <div class="card border shadow-sm rounded-4 p-4 mb-4 bg-white dashboard-section-card">
+                <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom flex-wrap gap-2 dashboard-section-header">
+                  <h3 class="h5 fw-bold text-dark mb-0 dashboard-section-title">Discussões e Pareceres do Tutor IA a Supervisionar</h3>
+                  <button type="button" class="btn btn-outline-dark btn-sm rounded-2 px-3 fw-semibold module-progress-action-btn" id="dash-go-forum-btn">Ir para o Fórum Completo</button>
                 </div>
-                <div id="teacher-forum-moderation-list" style="display: flex; flex-direction: column; gap: 10px;">
+                <div id="teacher-forum-moderation-list" class="d-flex flex-column gap-2">
                   <!-- Preenchido dinamicamente -->
                 </div>
               </div>
@@ -693,24 +695,24 @@
           </div>
         </section>
 
-        <!-- Visualizador de Aulas Universitárias (Completo, Rigoroso e com 15 Secções) -->
-        <section id="lesson-view" class="lesson-view" style="display: none;">
-          <div class="lesson-header-card">
-            <div class="lesson-header-top">
-              <div class="lesson-badge-group">
-                <span class="lesson-code-badge" id="lesson-module-code">ENG-IO-01</span>
-                <span class="lesson-meta-pill" id="lesson-module-duration">4h lectivas</span>
-                <span class="lesson-meta-pill" id="lesson-module-level">Licenciatura em Engenharia</span>
+        <!-- Visualizador de Aulas Universitárias (Completo, Rigoroso e com 15 Secções com Bootstrap 5) -->
+        <section id="lesson-view" class="lesson-view flex-column flex-grow-1 h-100 bg-white overflow-y-auto" style="display: none;">
+          <div class="lesson-header-card bg-white border-bottom px-4 pt-4 pb-3 sticky-top">
+            <div class="lesson-header-top d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+              <div class="lesson-badge-group d-flex align-items-center gap-2 flex-wrap">
+                <span class="badge bg-dark text-white rounded-2 px-2 py-1 lesson-code-badge" id="lesson-module-code">ENG-IO-01</span>
+                <span class="badge bg-light text-secondary border rounded-pill px-2 py-1 fw-medium lesson-meta-pill" id="lesson-module-duration">4h lectivas</span>
+                <span class="badge bg-light text-secondary border rounded-pill px-2 py-1 fw-medium lesson-meta-pill" id="lesson-module-level">Licenciatura em Engenharia</span>
               </div>
-              <div class="lesson-actions-group">
-                <button type="button" id="lesson-forum-btn" class="lesson-action-btn forum-btn" title="Ir para o debate deste módulo no Fórum Académico">
+              <div class="lesson-actions-group d-flex align-items-center gap-2">
+                <button type="button" id="lesson-forum-btn" class="btn btn-outline-dark btn-sm rounded-2 d-inline-flex align-items-center gap-1 fw-semibold lesson-action-btn forum-btn" title="Ir para o debate deste módulo no Fórum Académico">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>
                   </svg>
                   <span>Debater no Fórum</span>
                 </button>
-                <button type="button" id="lesson-ask-ai-btn" class="lesson-action-btn" title="Fazer perguntas ao Tutor IA sobre este módulo">
+                <button type="button" id="lesson-ask-ai-btn" class="btn btn-dark btn-sm rounded-2 d-inline-flex align-items-center gap-1 fw-semibold lesson-action-btn" title="Fazer perguntas ao Tutor IA sobre este módulo">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                   </svg>
@@ -718,126 +720,126 @@
                 </button>
               </div>
             </div>
-            <h1 class="lesson-main-title" id="lesson-title">Módulo 1: Programação Linear e Modelação Matemática</h1>
-            <p class="lesson-main-subtitle" id="lesson-subtitle">Concepção de Modelos de Decisão Óptima em Sistemas de Engenharia</p>
+            <h1 class="h4 fw-bold text-dark mb-1 lesson-main-title" id="lesson-title">Módulo 1: Programação Linear e Modelação Matemática</h1>
+            <p class="text-muted small mb-3 lesson-main-subtitle" id="lesson-subtitle">Concepção de Modelos de Decisão Óptima em Sistemas de Engenharia</p>
 
             <!-- Barra de Navegação Progressiva por Secções Pedagógicas -->
-            <nav class="lesson-nav-tabs" aria-label="Secções da Aula">
-              <button class="lesson-tab-btn active" data-tab="tab-overview">1. Visão Geral &amp; Bloom</button>
-              <button class="lesson-tab-btn" data-tab="tab-theory">2. Fundamentos &amp; Teoremas</button>
-              <button class="lesson-tab-btn" data-tab="tab-algorithm">3. Algoritmo &amp; Fluxograma</button>
-              <button class="lesson-tab-btn" data-tab="tab-solved">4. Exercício Resolvido</button>
-              <button class="lesson-tab-btn" data-tab="tab-practice">5. Engenharia &amp; Propostos</button>
-              <button class="lesson-tab-btn" data-tab="tab-assessment">6. Auto-Avaliação &amp; Fontes</button>
+            <nav class="lesson-nav-tabs nav nav-pills flex-nowrap overflow-x-auto gap-2 pb-1" aria-label="Secções da Aula">
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1 active" data-tab="tab-overview">1. Visão Geral &amp; Bloom</button>
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1" data-tab="tab-theory">2. Fundamentos &amp; Teoremas</button>
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1" data-tab="tab-algorithm">3. Algoritmo &amp; Fluxograma</button>
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1" data-tab="tab-solved">4. Exercício Resolvido</button>
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1" data-tab="tab-practice">5. Engenharia &amp; Propostos</button>
+              <button class="lesson-tab-btn nav-link btn-sm rounded-2 px-3 py-1" data-tab="tab-assessment">6. Auto-Avaliação &amp; Fontes</button>
             </nav>
           </div>
 
-          <div class="lesson-content-area" id="lesson-content-area">
+          <div class="lesson-content-area container-lg py-4" id="lesson-content-area">
             <!-- Painel 1: Identificação, Contexto, Objectivos de Bloom e Competências -->
             <div class="lesson-panel active" id="tab-overview">
-              <section class="lesson-section">
-                <h3 class="section-title">1. Identificação da Aula Universitária</h3>
-                <div class="id-grid" id="lesson-id-grid"></div>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">1. Identificação da Aula Universitária</h3>
+                <div class="row g-3 id-grid" id="lesson-id-grid"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">2. Introdução e Contextualização na Engenharia</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">2. Introdução e Contextualização na Engenharia</h3>
                 <div class="academic-text" id="lesson-introduction"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">3. Objectivos de Aprendizagem (Taxonomia de Bloom Revista)</h3>
-                <div class="bloom-list" id="lesson-bloom-list"></div>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">3. Objectivos de Aprendizagem (Taxonomia de Bloom Revista)</h3>
+                <div class="bloom-list d-flex flex-column gap-2" id="lesson-bloom-list"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">4. Competências a Desenvolver</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">4. Competências a Desenvolver</h3>
                 <div class="competencies-box" id="lesson-competencies"></div>
               </section>
             </div>
 
             <!-- Painel 2: Conceitos, Teoremas e Formulação Matemática -->
             <div class="lesson-panel" id="tab-theory">
-              <section class="lesson-section">
-                <h3 class="section-title">5. Conceitos e Definições Fundamentais</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">5. Conceitos e Definições Fundamentais</h3>
                 <div class="academic-text" id="lesson-concepts"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">6. Fundamentos Teóricos e Teoremas Aplicáveis</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">6. Fundamentos Teóricos e Teoremas Aplicáveis</h3>
                 <div class="academic-text" id="lesson-theorems"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">7. Formulação Matemática Formal (Notação Escalar e Matricial)</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">7. Formulação Matemática Formal (Notação Escalar e Matricial)</h3>
                 <div class="academic-text" id="lesson-formulation"></div>
               </section>
             </div>
 
             <!-- Painel 3: Algoritmos, Condições de Paragem e Fluxograma em SVG -->
             <div class="lesson-panel" id="tab-algorithm">
-              <section class="lesson-section">
-                <h3 class="section-title">8. Algoritmos e Procedimentos de Resolução</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">8. Algoritmos e Procedimentos de Resolução</h3>
                 <div class="academic-text" id="lesson-algorithm"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">9. Fluxograma Rigoroso do Algoritmo</h3>
-                <p class="section-desc">Representação gráfica vetorial evidenciando inicialização, critérios de decisão, iterações e convergência.</p>
-                <div class="flowchart-container" id="lesson-flowchart"></div>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">9. Fluxograma Rigoroso do Algoritmo</h3>
+                <p class="text-muted small mb-3 section-desc">Representação gráfica vetorial evidenciando inicialização, critérios de decisão, iterações e convergência.</p>
+                <div class="flowchart-container card bg-light border rounded-3 p-3 d-flex align-items-center justify-content-center overflow-x-auto" id="lesson-flowchart"></div>
               </section>
             </div>
 
             <!-- Painel 4: Exercício Integralmente Resolvido Passo a Passo -->
             <div class="lesson-panel" id="tab-solved">
-              <section class="lesson-section">
-                <h3 class="section-title">10. Exercício Integralmente Resolvido Passo a Passo</h3>
-                <p class="section-desc">Deduções matemáticas integrais, construção de tableaux canónicos e interpretação física dos resultados.</p>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">10. Exercício Integralmente Resolvido Passo a Passo</h3>
+                <p class="text-muted small mb-3 section-desc">Deduções matemáticas integrais, construção de tableaux canónicos e interpretação física dos resultados.</p>
                 <div class="solved-exercise-box" id="lesson-solved-exercise"></div>
               </section>
             </div>
 
             <!-- Painel 5: Aplicações na Engenharia e Exercícios Propostos -->
             <div class="lesson-panel" id="tab-practice">
-              <section class="lesson-section">
-                <h3 class="section-title">11. Aplicações Práticas em Engenharia e Sistemas Reais</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">11. Aplicações Práticas em Engenharia e Sistemas Reais</h3>
                 <div class="applications-container" id="lesson-applications"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">12. Exercícios Propostos por Níveis de Dificuldade</h3>
-                <p class="section-desc">Estruturados em Nível 1 (Básico), Nível 2 (Intermédio) e Nível 3 (Avançado) com verificação de soluções.</p>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">12. Exercícios Propostos por Níveis de Dificuldade</h3>
+                <p class="text-muted small mb-3 section-desc">Estruturados em Nível 1 (Básico), Nível 2 (Intermédio) e Nível 3 (Avançado) com verificação de soluções.</p>
                 <div class="proposed-exercises-container" id="lesson-proposed-exercises"></div>
               </section>
             </div>
 
             <!-- Painel 6: Auto-Avaliação Interactiva, Síntese e Bibliografia -->
             <div class="lesson-panel" id="tab-assessment">
-              <section class="lesson-section">
-                <h3 class="section-title">13. Avaliação da Aprendizagem (Quiz Conceitual Interactivo)</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">13. Avaliação da Aprendizagem (Quiz Conceitual Interactivo)</h3>
                 <div class="quiz-container" id="lesson-quiz-container"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">14. Síntese e Conclusões da Aula</h3>
-                <div class="synthesis-card" id="lesson-synthesis"></div>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">14. Síntese e Conclusões da Aula</h3>
+                <div class="synthesis-card card bg-light border rounded-2 p-3" id="lesson-synthesis"></div>
               </section>
-              <section class="lesson-section">
-                <h3 class="section-title">15. Referências Bibliográficas Científicas Verificáveis</h3>
+              <section class="card border shadow-xs rounded-3 p-4 mb-4 bg-white lesson-section">
+                <h3 class="h6 fw-bold text-dark border-bottom pb-2 mb-3 section-title">15. Referências Bibliográficas Científicas Verificáveis</h3>
                 <div class="references-list" id="lesson-references"></div>
               </section>
             </div>
           </div>
         </section>
 
-        <!-- B. Fórum Académico Interactivo (Colaboração entre Estudantes, Docentes e Tutor de IA) -->
-        <section id="forum-view" class="forum-view" style="display: none;">
-          <div class="forum-header-bar">
+        <!-- B. Fórum Académico Interactivo (Colaboração entre Estudantes, Docentes e Tutor de IA com Bootstrap 5) -->
+        <section id="forum-view" class="forum-view flex-column flex-grow-1 h-100 bg-white overflow-y-auto" style="display: none;">
+          <div class="forum-header-bar bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between gap-3 flex-wrap">
             <div class="forum-header-info">
-              <h2 class="forum-main-title">Fórum Académico &bull; Investigação Operacional</h2>
-              <p class="forum-main-desc">Comunicação e colaboração científica: coloque dúvidas, debata modelos matemáticos, partilhe resoluções e consulte a validação dos Docentes e do Tutor de IA.</p>
+              <h2 class="h4 fw-bold text-dark mb-1 forum-main-title">Fórum Académico &bull; Investigação Operacional</h2>
+              <p class="text-muted small mb-0 forum-main-desc">Comunicação e colaboração científica: coloque dúvidas, debata modelos matemáticos, partilhe resoluções e consulte a validação dos Docentes e do Tutor de IA.</p>
             </div>
-            <div class="forum-header-controls">
-              <div class="forum-user-role-card">
-                <span class="role-caption">Perfil Activo:</span>
-                <select id="forum-current-role" class="forum-role-selector" title="Alternar perfil de intervenção no fórum">
+            <div class="forum-header-controls d-flex align-items-center gap-2 flex-wrap">
+              <div class="forum-user-role-card d-flex align-items-center gap-2 bg-light border rounded-2 px-2 py-1">
+                <span class="role-caption text-muted small fw-semibold">Perfil Activo:</span>
+                <select id="forum-current-role" class="form-select form-select-sm border-0 bg-transparent fw-semibold py-0 ps-1 pe-4 forum-role-selector" title="Alternar perfil de intervenção no fórum" style="width: auto;">
                   <option value="student">🎓 Estudante (FE-UEM)</option>
                   <option value="teacher">👨‍🏫 Docente (Investigação Operacional)</option>
                 </select>
               </div>
-              <button type="button" id="btn-open-new-thread" class="forum-primary-btn" title="Criar uma nova discussão ou submeter um problema">
+              <button type="button" id="btn-open-new-thread" class="btn btn-dark btn-sm rounded-2 px-3 py-2 d-inline-flex align-items-center gap-2 fw-semibold forum-primary-btn" title="Criar uma nova discussão ou submeter um problema">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -848,9 +850,9 @@
           </div>
 
           <!-- Barra de Filtros, Módulos e Pesquisa Académica -->
-          <div class="forum-nav-toolbar">
+          <div class="forum-nav-toolbar bg-light border-bottom px-4 py-2 d-flex align-items-center justify-content-between gap-3 flex-wrap">
             <div class="forum-module-filter-box">
-              <select id="forum-module-filter" class="forum-select">
+              <select id="forum-module-filter" class="form-select form-select-sm forum-select">
                 <option value="Todos">Todos os Módulos Curriculares</option>
                 <option value="Programação Linear">1. Programação Linear</option>
                 <option value="Método Simplex Primal">2. Método Simplex Primal</option>
@@ -862,16 +864,16 @@
               </select>
             </div>
 
-            <div class="forum-filter-pills">
-              <button type="button" class="forum-filter-pill active" data-filter="all">Todas</button>
-              <button type="button" class="forum-filter-pill" data-filter="validated">✓ Validadas por Docente</button>
-              <button type="button" class="forum-filter-pill" data-filter="frequent">★ Dúvidas Frequentes</button>
-              <button type="button" class="forum-filter-pill" data-filter="unanswered">⏳ Aguarda Resposta</button>
+            <div class="forum-filter-pills nav nav-pills gap-1 flex-wrap">
+              <button type="button" class="forum-filter-pill btn btn-sm rounded-pill px-3 py-1 active" data-filter="all">Todas</button>
+              <button type="button" class="forum-filter-pill btn btn-sm rounded-pill px-3 py-1" data-filter="validated">✓ Validadas por Docente</button>
+              <button type="button" class="forum-filter-pill btn btn-sm rounded-pill px-3 py-1" data-filter="frequent">★ Dúvidas Frequentes</button>
+              <button type="button" class="forum-filter-pill btn btn-sm rounded-pill px-3 py-1" data-filter="unanswered">⏳ Aguarda Resposta</button>
             </div>
 
-            <div class="forum-search-wrapper">
-              <input type="text" id="forum-search-box" placeholder="Pesquisar por conceito, algoritmo, fórmula..." class="forum-search-input">
-              <button type="button" id="forum-do-search" class="icon-btn" title="Executar pesquisa">
+            <div class="forum-search-wrapper input-group input-group-sm" style="max-width: 280px;">
+              <input type="text" id="forum-search-box" placeholder="Pesquisar por conceito, algoritmo, fórmula..." class="form-control forum-search-input">
+              <button type="button" id="forum-do-search" class="btn btn-outline-secondary icon-btn" title="Executar pesquisa">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -881,18 +883,18 @@
           </div>
 
           <!-- Conteúdo do Fórum: Lista de Threads ou Detalhes da Discussão -->
-          <div class="forum-body-workspace">
+          <div class="forum-body-workspace container-lg py-4">
             <!-- Modal de Abertura de Nova Discussão -->
             <div id="forum-modal-container" class="forum-modal-backdrop" style="display: none;">
-              <div class="forum-modal-window">
-                <div class="forum-modal-top">
-                  <h3>Submeter Nova Questão / Tópico de Debate</h3>
-                  <button type="button" id="btn-close-thread-modal" class="icon-btn">&times;</button>
+              <div class="forum-modal-window card border shadow-lg rounded-3 p-4 bg-white">
+                <div class="forum-modal-top d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+                  <h3 class="h5 fw-bold text-dark mb-0">Submeter Nova Questão / Tópico de Debate</h3>
+                  <button type="button" id="btn-close-thread-modal" class="btn-close" aria-label="Fechar"></button>
                 </div>
                 <form id="forum-create-thread-form">
-                  <div class="form-row">
-                    <label>Módulo Curricular:</label>
-                    <select id="modal-thread-module" required class="forum-select">
+                  <div class="mb-3 form-row">
+                    <label class="form-label small fw-semibold text-secondary">Módulo Curricular:</label>
+                    <select id="modal-thread-module" required class="form-select form-select-sm forum-select">
                       <option value="Programação Linear">1. Programação Linear</option>
                       <option value="Método Simplex Primal">2. Método Simplex Primal</option>
                       <option value="Duas Fases e Grande M">3. Duas Fases &amp; Grande M</option>
@@ -902,21 +904,21 @@
                       <option value="Programação Inteira">7. Programação Inteira</option>
                     </select>
                   </div>
-                  <div class="form-row">
-                    <label>Título da Pergunta / Dúvida:</label>
-                    <input type="text" id="modal-thread-title" placeholder="Ex.: Dúvida no cálculo das folgas complementares..." required class="forum-text-input">
+                  <div class="mb-3 form-row">
+                    <label class="form-label small fw-semibold text-secondary">Título da Pergunta / Dúvida:</label>
+                    <input type="text" id="modal-thread-title" placeholder="Ex.: Dúvida no cálculo das folgas complementares..." required class="form-control form-control-sm forum-text-input">
                   </div>
-                  <div class="form-row">
-                    <label>Fundamentação / Formulação da Dúvida (suporta LaTeX com MathJax):</label>
-                    <textarea id="modal-thread-content" rows="4" placeholder="Apresente a sua dúvida, proponha o seu raciocínio matemático ou contraponha uma hipótese de resolução..." required class="forum-textarea-input"></textarea>
+                  <div class="mb-3 form-row">
+                    <label class="form-label small fw-semibold text-secondary">Fundamentação / Formulação da Dúvida (suporta LaTeX com MathJax):</label>
+                    <textarea id="modal-thread-content" rows="4" placeholder="Apresente a sua dúvida, proponha o seu raciocínio matemático ou contraponha uma hipótese de resolução..." required class="form-control form-control-sm forum-textarea-input"></textarea>
                   </div>
-                  <div class="form-row">
-                    <label>Identificação do Participante:</label>
-                    <input type="text" id="modal-thread-author" value="Estudante FE-UEM" required class="forum-text-input">
+                  <div class="mb-3 form-row">
+                    <label class="form-label small fw-semibold text-secondary">Identificação do Participante:</label>
+                    <input type="text" id="modal-thread-author" value="Estudante FE-UEM" required class="form-control form-control-sm forum-text-input">
                   </div>
-                  <div class="modal-buttons-row">
-                    <button type="button" id="btn-cancel-thread" class="text-btn">Cancelar</button>
-                    <button type="submit" class="forum-primary-btn">Publicar no Fórum</button>
+                  <div class="modal-buttons-row d-flex align-items-center justify-content-end gap-2 mt-3">
+                    <button type="button" id="btn-cancel-thread" class="btn btn-light btn-sm border text-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-dark btn-sm px-3 fw-semibold forum-primary-btn">Publicar no Fórum</button>
                   </div>
                 </form>
               </div>
@@ -924,14 +926,14 @@
 
             <!-- 1. Grelha de Discussões Existentes -->
             <div id="forum-threads-container" class="forum-threads-container">
-              <div class="forum-loading-state" id="forum-threads-loading">A carregar discussões do fórum...</div>
-              <div class="forum-threads-grid" id="forum-threads-grid"></div>
+              <div class="forum-loading-state text-center py-4 text-muted small" id="forum-threads-loading">A carregar discussões do fórum...</div>
+              <div class="forum-threads-grid d-flex flex-column gap-3" id="forum-threads-grid"></div>
             </div>
 
             <!-- 2. Visualizador Detalhado de Discussão com Respostas Encadeadas -->
-            <div id="forum-thread-view" class="forum-thread-view" style="display: none;">
-              <div class="thread-navigation-top">
-                <button type="button" id="btn-back-to-list" class="forum-text-action-btn">
+            <div id="forum-thread-view" class="forum-thread-view flex-column gap-3" style="display: none;">
+              <div class="thread-navigation-top d-flex align-items-center justify-content-between">
+                <button type="button" id="btn-back-to-list" class="btn btn-sm btn-light border d-inline-flex align-items-center gap-1 fw-semibold forum-text-action-btn">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
@@ -941,13 +943,13 @@
               </div>
 
               <!-- Cartão do Tópico Original -->
-              <article class="thread-card-lead" id="thread-card-lead"></article>
+              <article class="card border shadow-xs rounded-3 p-4 bg-white thread-card-lead" id="thread-card-lead"></article>
 
               <!-- Painel de Respostas Encadeadas -->
-              <div class="thread-replies-wrapper">
-                <div class="thread-replies-heading">
-                  <h3 id="thread-replies-counter">Respostas e Debate Científico</h3>
-                  <button type="button" id="btn-summon-ai-tutor" class="summon-tutor-btn" title="Solicitar parecer e fundamentação científica ao Tutor Académico de IA">
+              <div class="thread-replies-wrapper d-flex flex-column gap-3 mt-2">
+                <div class="thread-replies-heading d-flex align-items-center justify-content-between border-bottom pb-2 flex-wrap gap-2">
+                  <h3 class="h6 fw-bold text-dark mb-0" id="thread-replies-counter">Respostas e Debate Científico</h3>
+                  <button type="button" id="btn-summon-ai-tutor" class="btn btn-outline-dark btn-sm rounded-2 d-inline-flex align-items-center gap-1 fw-semibold summon-tutor-btn" title="Solicitar parecer e fundamentação científica ao Tutor Académico de IA">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
@@ -955,16 +957,16 @@
                   </button>
                 </div>
 
-                <div class="replies-stream" id="replies-stream"></div>
+                <div class="replies-stream d-flex flex-column gap-3" id="replies-stream"></div>
 
                 <!-- Caixa de Envio de Nova Resposta / Contribuição -->
-                <div class="thread-reply-input-box">
-                  <h4>Participar no Debate</h4>
+                <div class="card bg-light border rounded-3 p-3 mt-2 thread-reply-input-box">
+                  <h4 class="h6 fw-bold text-dark mb-2">Participar no Debate</h4>
                   <form id="forum-reply-form">
-                    <textarea id="reply-form-content" rows="3" placeholder="Apresente a sua demonstração, contraproposta matemática ou validação técnica (suporta fórmulas LaTeX \(...\))..." required class="forum-textarea-input"></textarea>
-                    <div class="reply-submit-toolbar">
-                      <span class="reply-active-author-pill" id="reply-active-author-pill">Intervindo como: <strong>Estudante</strong></span>
-                      <button type="submit" class="forum-primary-btn">Submeter Contribuição</button>
+                    <textarea id="reply-form-content" rows="3" placeholder="Apresente a sua demonstração, contraproposta matemática ou validação técnica (suporta fórmulas LaTeX \(...\))..." required class="form-control mb-2 forum-textarea-input"></textarea>
+                    <div class="reply-submit-toolbar d-flex align-items-center justify-content-between flex-wrap gap-2">
+                      <span class="badge bg-white text-secondary border fw-normal reply-active-author-pill" id="reply-active-author-pill">Intervindo como: <strong>Estudante</strong></span>
+                      <button type="submit" class="btn btn-dark btn-sm px-3 fw-semibold forum-primary-btn">Submeter Contribuição</button>
                     </div>
                   </form>
                 </div>
@@ -973,35 +975,35 @@
           </div>
         </section>
 
-        <!-- C. Tutor Inteligente IA (Acompanhamento Individual / Chat RAG) -->
-        <section id="chat-view" class="chat-view-container">
-          <div class="chat-messages" id="chat-messages">
+        <!-- C. Tutor Inteligente IA (Acompanhamento Individual / Chat RAG com Bootstrap 5) -->
+        <section id="chat-view" class="chat-view-container d-flex flex-column flex-grow-1 h-100 overflow-hidden">
+          <div class="chat-messages flex-grow-1 overflow-y-auto px-4 py-4 d-flex flex-column gap-3" id="chat-messages">
             <!-- Mensagem Inicial Minimalista -->
             <div class="message assistant-message initial-message">
-              <div class="message-meta">
-                <span class="sender-name">Assistente Académico</span>
-                <span class="message-time">FE-UEM</span>
+              <div class="message-meta d-flex align-items-center gap-2 mb-1">
+                <span class="sender-name fw-semibold text-secondary small">Assistente Académico</span>
+                <span class="badge bg-light text-muted border fw-normal message-time">FE-UEM</span>
               </div>
-              <div class="message-body">
+              <div class="message-body card border shadow-xs rounded-3 p-4 bg-white">
                 <article>
-                  <h3>Investigação Operacional &bull; Apoio Académico</h3>
-                  <p>
+                  <h3 class="h5 fw-bold text-dark border-bottom pb-2 mb-3">Investigação Operacional &bull; Apoio Académico</h3>
+                  <p class="text-secondary mb-3">
                     Canal de apoio aos estudantes de Engenharia da Universidade Eduardo Mondlane para esclarecimento conceptual, formulações matemáticas e resolução de problemas de optimização.
                   </p>
                   
-                  <div class="quick-suggestions">
-                    <span class="suggestions-caption">Consultas frequentes:</span>
-                    <div class="suggestion-pills">
-                      <button type="button" class="suggestion-pill" data-prompt="Explique a resolução de um modelo pelo Método Simplex Primal com os respectivos tableaux.">
+                  <div class="quick-suggestions pt-3 border-top">
+                    <span class="suggestions-caption text-uppercase fw-bold text-muted small d-block mb-2">Consultas frequentes:</span>
+                    <div class="suggestion-pills d-flex flex-wrap gap-2">
+                      <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 suggestion-pill" data-prompt="Explique a resolução de um modelo pelo Método Simplex Primal com os respectivos tableaux.">
                         Tableau Simplex
                       </button>
-                      <button type="button" class="suggestion-pill" data-prompt="Como se interpretam os preços-sombra e o Teorema das Folgas Complementares no problema dual?">
+                      <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 suggestion-pill" data-prompt="Como se interpretam os preços-sombra e o Teorema das Folgas Complementares no problema dual?">
                         Preços-Sombra &amp; Dualidade
                       </button>
-                      <button type="button" class="suggestion-pill" data-prompt="Qual a diferença entre o Método das Duas Fases e o Grande M no tratamento de variáveis artificiais?">
+                      <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 suggestion-pill" data-prompt="Qual a diferença entre o Método das Duas Fases e o Grande M no tratamento de variáveis artificiais?">
                         Duas Fases vs. Grande M
                       </button>
-                      <button type="button" class="suggestion-pill" data-prompt="Como formular matematicamente um problema de transporte com restrições de oferta e procura?">
+                      <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 suggestion-pill" data-prompt="Como formular matematicamente um problema de transporte com restrições de oferta e procura?">
                         Modelo de Transportes
                       </button>
                     </div>
@@ -1012,24 +1014,25 @@
           </div>
 
           <!-- Barra de Progresso / Loading Minimalista -->
-          <div class="loading-bar" id="loading-bar" style="display: none;">
-            <div class="spinner"></div>
+          <div class="loading-bar align-items-center gap-2 px-4 py-2 bg-light border-top small text-secondary" id="loading-bar" style="display: none;">
+            <div class="spinner-border spinner-border-sm text-dark spinner" role="status" aria-hidden="true"></div>
             <span id="loading-text">A processar formulação e deduções matemáticas...</span>
           </div>
 
           <!-- Caixa de Entrada Minimalista -->
-          <footer class="chat-input-area">
+          <footer class="chat-input-area bg-white border-top px-4 py-3">
             <form id="chat-form" class="chat-form">
-              <div class="input-box-wrapper">
+              <div class="input-box-wrapper card border rounded-3 p-2 bg-white shadow-xs">
                 <textarea 
                   id="user-input" 
+                  class="form-control border-0 shadow-none p-1"
                   placeholder="Introduza uma pergunta ou problema de Investigação Operacional..." 
                   rows="1"
                   required
                 ></textarea>
-                <div class="input-toolbar">
-                  <button type="button" id="clear-btn" class="text-btn" title="Limpar histórico">Limpar sessão</button>
-                  <button type="submit" id="send-btn" class="send-btn">
+                <div class="input-toolbar d-flex align-items-center justify-content-between pt-1">
+                  <button type="button" id="clear-btn" class="btn btn-sm btn-link text-muted text-decoration-none p-1 text-btn" title="Limpar histórico">Limpar sessão</button>
+                  <button type="submit" id="send-btn" class="btn btn-dark btn-sm rounded-2 px-3 d-inline-flex align-items-center gap-2 fw-medium send-btn">
                     <span>Submeter</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -1038,7 +1041,7 @@
                   </button>
                 </div>
               </div>
-              <div class="input-hint">
+              <div class="input-hint text-center text-muted small mt-1">
                 <span>Respostas com rigor científico, equações em LaTeX (MathJax) e citações numéricas BibTeX [1].</span>
               </div>
             </form>
@@ -1072,7 +1075,7 @@
           <img src="Logotipo sem UEM.png" alt="Logótipo FE-UEM" class="auth-brand-logo">
           <h2 class="auth-modal-title">Faculdade de Engenharia</h2>
         </div>
-        <p class="auth-modal-subtitle">Investigação Operacional &bull; UEM</p>
+        <p class="auth-modal-subtitle mb-0">Investigação Operacional &bull; UEM</p>
       </div>
 
       <!-- Abas de Navegação -->
@@ -1084,38 +1087,38 @@
 
       <div class="auth-body-container">
         <!-- Caixa de Alertas e Notificações de Erro/Sucesso -->
-        <div id="auth-alert-box" class="auth-alert-box"></div>
+        <div id="auth-alert-box" class="auth-alert-box" role="alert"></div>
 
         <!-- 1. Formulário de Início de Sessão (Exemplar Fiel à Imagem) -->
         <div class="auth-tab-pane active" id="tab-login">
           <form id="form-login">
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
               </div>
-              <input type="email" id="login-email" class="auth-input-clean" placeholder="Username ou correio electrónico" required autocomplete="email">
+              <input type="email" id="login-email" class="form-control border-0 shadow-none auth-input-clean" placeholder="Username ou correio electrónico" required autocomplete="email">
             </div>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
                 </svg>
               </div>
-              <input type="password" id="login-password" class="auth-input-clean" placeholder="••••••••••••" required autocomplete="current-password">
+              <input type="password" id="login-password" class="form-control border-0 shadow-none auth-input-clean" placeholder="••••••••••••" required autocomplete="current-password">
             </div>
 
             <div class="auth-actions-row">
-              <label class="auth-remember-label">
-                <input type="checkbox" id="login-remember-me" class="auth-checkbox" checked>
+              <label class="auth-remember-label form-check-label">
+                <input type="checkbox" id="login-remember-me" class="form-check-input mt-0 auth-checkbox" checked>
                 <span>Remember me</span>
               </label>
               <a href="#" class="auth-forgot-link" id="link-forgot-password">Forgot Password?</a>
             </div>
 
-            <button type="submit" class="auth-btn-exemplar">LOGIN</button>
+            <button type="submit" class="btn w-100 auth-btn-exemplar">LOGIN</button>
           </form>
 
           <!-- Acesso Demonstrativo Rápido (1-Clique para Avaliação Imediata) -->
@@ -1141,31 +1144,31 @@
         <!-- 2. Formulário de Registo de Utilizadores -->
         <div class="auth-tab-pane" id="tab-register">
           <form id="form-register">
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
               </div>
-              <input type="text" id="reg-name" class="auth-input-clean" placeholder="Nome Completo (ex: Marta Mondlane)" required>
+              <input type="text" id="reg-name" class="form-control border-0 shadow-none auth-input-clean" placeholder="Nome Completo (ex: Marta Mondlane)" required>
             </div>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
               </div>
-              <input type="email" id="reg-email" class="auth-input-clean" placeholder="Correio Institucional (@fe.uem.mz)" required>
+              <input type="email" id="reg-email" class="form-control border-0 shadow-none auth-input-clean" placeholder="Correio Institucional (@fe.uem.mz)" required>
             </div>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
                 </svg>
               </div>
-              <select id="reg-role" class="auth-input-clean" required style="cursor: pointer;">
+              <select id="reg-role" class="form-select border-0 shadow-none auth-input-clean" required style="cursor: pointer;">
                 <option value="student" selected>🎓 Estudante (Acesso Imediato)</option>
                 <option value="teacher">👨‍🏫 Docente (Requer Autorização Regencial)</option>
               </select>
@@ -1174,25 +1177,25 @@
               Contas docentes requerem validação formal do Docente Regente para atribuição de competências.
             </span>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                 </svg>
               </div>
-              <input type="text" id="reg-dept" class="auth-input-clean" placeholder="Curso de Engenharia / Nº Estudante" required>
+              <input type="text" id="reg-dept" class="form-control border-0 shadow-none auth-input-clean" placeholder="Curso de Engenharia / Nº Estudante" required>
             </div>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
                 </svg>
               </div>
-              <input type="password" id="reg-password" class="auth-input-clean" placeholder="Palavra-passe de Acesso (min. 6 car.)" required minlength="6">
+              <input type="password" id="reg-password" class="form-control border-0 shadow-none auth-input-clean" placeholder="Palavra-passe de Acesso (min. 6 car.)" required minlength="6">
             </div>
 
-            <button type="submit" class="auth-btn-exemplar" style="margin-top: 8px;">CRIAR CONTA ACADÉMICA</button>
+            <button type="submit" class="btn w-100 auth-btn-exemplar" style="margin-top: 8px;">CRIAR CONTA ACADÉMICA</button>
           </form>
         </div>
 
@@ -1203,90 +1206,90 @@
             <p style="font-size:0.84em; color:#cbd5e1; margin-bottom:14px; line-height:1.5;">
               Introduza o seu correio institucional para gerar um código de verificação criptográfica de 6 dígitos.
             </p>
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
               </div>
-              <input type="email" id="recovery-email" class="auth-input-clean" placeholder="exemplo@fe.uem.mz" required>
+              <input type="email" id="recovery-email" class="form-control border-0 shadow-none auth-input-clean" placeholder="exemplo@fe.uem.mz" required>
             </div>
-            <button type="submit" class="auth-btn-exemplar">GERAR CÓDIGO DE RECUPERAÇÃO</button>
+            <button type="submit" class="btn w-100 auth-btn-exemplar">GERAR CÓDIGO DE RECUPERAÇÃO</button>
           </form>
 
           <!-- Passo B: Confirmação com Código -->
           <form id="form-forgot-confirm" style="display: none; margin-top: 14px;">
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
                 </svg>
               </div>
-              <input type="text" id="recovery-code" class="auth-input-clean" placeholder="Código de 6 Dígitos" required maxlength="6">
+              <input type="text" id="recovery-code" class="form-control border-0 shadow-none auth-input-clean" placeholder="Código de 6 Dígitos" required maxlength="6">
             </div>
 
-            <div class="auth-input-composite">
-              <div class="auth-input-icon">
+            <div class="auth-input-composite input-group">
+              <div class="auth-input-icon input-group-text border-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
                 </svg>
               </div>
-              <input type="password" id="recovery-new-password" class="auth-input-clean" placeholder="Nova Palavra-passe" required minlength="6">
+              <input type="password" id="recovery-new-password" class="form-control border-0 shadow-none auth-input-clean" placeholder="Nova Palavra-passe" required minlength="6">
             </div>
 
-            <button type="submit" class="auth-btn-exemplar">REDEFINIR PALAVRA-PASSE</button>
+            <button type="submit" class="btn w-100 auth-btn-exemplar">REDEFINIR PALAVRA-PASSE</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Criação / Edição de Módulos (Exclusivo Docente Regente / Assistente) -->
+  <!-- Modal de Criação / Edição de Módulos (Exclusivo Docente Regente / Assistente com Bootstrap 5) -->
   <div id="module-editor-modal" class="auth-modal-backdrop" style="display: none;">
     <div class="auth-modal-window" style="max-width: 680px; max-height: 90vh; display: flex; flex-direction: column;">
-      <div class="auth-modal-header">
-        <button type="button" class="auth-modal-close-btn" id="module-editor-close-btn">
+      <div class="auth-modal-header pt-3 pb-3">
+        <button type="button" class="auth-modal-close-btn" id="module-editor-close-btn" style="top: 12px; right: 14px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
         <h2 class="auth-modal-title">Gestão Curricular &bull; MongoDB Atlas</h2>
-        <p class="auth-modal-subtitle">Criar ou Actualizar Módulo Curricular na Nuvem</p>
+        <p class="auth-modal-subtitle mb-0">Criar ou Actualizar Módulo Curricular na Nuvem</p>
       </div>
-      <div style="padding: 20px 24px; overflow-y: auto; flex: 1;">
+      <div class="p-4 overflow-y-auto flex-grow-1">
         <form id="form-module-editor">
-          <div class="auth-field-group">
-            <label for="mod-edit-title">Título Completo do Módulo</label>
-            <input type="text" id="mod-edit-title" class="auth-input" placeholder="ex: Módulo 8: Teoria dos Jogos e Decisão Multicritério" required>
+          <div class="mb-3 auth-field-group">
+            <label for="mod-edit-title" class="form-label text-light small fw-semibold">Título Completo do Módulo</label>
+            <input type="text" id="mod-edit-title" class="form-control auth-input" placeholder="ex: Módulo 8: Teoria dos Jogos e Decisão Multicritério" required>
           </div>
-          <div class="auth-field-group">
-            <label for="mod-edit-topic">Nome do Tópico / Chave Curricular</label>
-            <input type="text" id="mod-edit-topic" class="auth-input" placeholder="ex: Teoria dos Jogos" required>
+          <div class="mb-3 auth-field-group">
+            <label for="mod-edit-topic" class="form-label text-light small fw-semibold">Nome do Tópico / Chave Curricular</label>
+            <input type="text" id="mod-edit-topic" class="form-control auth-input" placeholder="ex: Teoria dos Jogos" required>
           </div>
-          <div style="display: flex; gap: 12px;">
-            <div class="auth-field-group" style="flex: 1;">
-              <label for="mod-edit-code">Código da Disciplina</label>
-              <input type="text" id="mod-edit-code" class="auth-input" value="ENG-IO-08" required>
+          <div class="row g-3 mb-3">
+            <div class="col-12 col-sm-6 auth-field-group">
+              <label for="mod-edit-code" class="form-label text-light small fw-semibold">Código da Disciplina</label>
+              <input type="text" id="mod-edit-code" class="form-control auth-input" value="ENG-IO-08" required>
             </div>
-            <div class="auth-field-group" style="flex: 1;">
-              <label for="mod-edit-duration">Carga Horária</label>
-              <input type="text" id="mod-edit-duration" class="auth-input" value="4h lectivas" required>
+            <div class="col-12 col-sm-6 auth-field-group">
+              <label for="mod-edit-duration" class="form-label text-light small fw-semibold">Carga Horária</label>
+              <input type="text" id="mod-edit-duration" class="form-control auth-input" value="4h lectivas" required>
             </div>
           </div>
-          <div class="auth-field-group">
-            <label for="mod-edit-intro">Introdução e Contexto em Engenharia</label>
-            <textarea id="mod-edit-intro" class="auth-input" rows="3" placeholder="Apresentação contextualizada e aplicabilidade prática na FE-UEM..." required></textarea>
+          <div class="mb-3 auth-field-group">
+            <label for="mod-edit-intro" class="form-label text-light small fw-semibold">Introdução e Contexto em Engenharia</label>
+            <textarea id="mod-edit-intro" class="form-control auth-input" rows="3" placeholder="Apresentação contextualizada e aplicabilidade prática na FE-UEM..." required></textarea>
           </div>
-          <div class="auth-field-group">
-            <label for="mod-edit-theorems">Teoremas e Fundamentos Matemáticos (LaTeX / MathJax)</label>
-            <textarea id="mod-edit-theorems" class="auth-input" rows="3" placeholder="Formulação teórica, propriedades e teoremas \(...\)..." required></textarea>
+          <div class="mb-3 auth-field-group">
+            <label for="mod-edit-theorems" class="form-label text-light small fw-semibold">Teoremas e Fundamentos Matemáticos (LaTeX / MathJax)</label>
+            <textarea id="mod-edit-theorems" class="form-control auth-input" rows="3" placeholder="Formulação teórica, propriedades e teoremas \(...\)..." required></textarea>
           </div>
-          <div class="auth-field-group">
-            <label for="mod-edit-synthesis">Síntese e Conclusões da Aula</label>
-            <textarea id="mod-edit-synthesis" class="auth-input" rows="2" placeholder="Resumo dos principais marcos pedagógicos da aula..."></textarea>
+          <div class="mb-3 auth-field-group">
+            <label for="mod-edit-synthesis" class="form-label text-light small fw-semibold">Síntese e Conclusões da Aula</label>
+            <textarea id="mod-edit-synthesis" class="form-control auth-input" rows="2" placeholder="Resumo dos principais marcos pedagógicos da aula..."></textarea>
           </div>
-          <button type="submit" class="auth-submit-btn">Persistir Módulo no MongoDB Atlas</button>
+          <button type="submit" class="btn w-100 auth-btn-exemplar auth-submit-btn mt-2">Persistir Módulo no MongoDB Atlas</button>
         </form>
       </div>
     </div>
