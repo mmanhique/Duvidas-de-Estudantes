@@ -591,7 +591,7 @@ def ensure_initialized():
             print(f"[INIT WARNING] {e}")
         _server_initialized = True
 
-class IOAssistantHandler(SimpleHTTPRequestHandler):
+class handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(STATIC_DIR), **kwargs)
 
@@ -1146,8 +1146,8 @@ class IOAssistantHandler(SimpleHTTPRequestHandler):
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
-# Ponto de entrada para Vercel Serverless (@vercel/python)
-handler = IOAssistantHandler
+# Alias de compatibilidade local e Vercel Serverless (@vercel/python)
+IOAssistantHandler = handler
 
 def run_server():
     ensure_initialized()
